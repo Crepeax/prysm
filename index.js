@@ -14,7 +14,7 @@ function random(low, high) {
 
 let testingMode = false; // When set to true, the bot will use the testing account instead.
 
-if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN') testingMode = true; // Automatically use the test account when ran locally.
+if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN') testingMode = true; // Automatically use the test account when running locally.
 
 if (testingMode) prefix = '-';
 if (testingMode) console.log('[Info] Testing mode enabled!');
