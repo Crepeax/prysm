@@ -109,6 +109,7 @@ client.once('ready', () => {
 	
 	try {
 		if (!testingMode) require('./clock-module.js');
+		require('./wit/index'); // Start chatbot
 	} catch(e) {
 		client.guilds.get(config.errorServer).channels.get(config.errorChannel).send(`**Time channel script just crashed**\nError: ${e}\nWhen: ${new Date()}\n@everyone`)
 	}
@@ -196,7 +197,7 @@ client.on('message', message => {
 
 	if (!message.author.bot && message.content.startsWith(`<@!${client.user.id}>`)) {	// Check if message starts with mention
 		const exec = client.misc.get('mention');										// Check if message starts with mention
-		exec.execute(message);															// Check if message starts with mention
+		//exec.execute(message);															// Check if message starts with mention
 		return;																			// Check if message starts with mention
 	}
 	if (!message.content.startsWith(prefix) || message.author.bot || message.webhookID) {if (message.isMentioned(client.user)) {message.react(client.emojis.get('671389061331812362')); return;} else return;}

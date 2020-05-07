@@ -1,0 +1,27 @@
+{
+    "intent": {
+        "help": [
+            "If you need help, just type `+help`!",
+            "You need help? Type `+help`."
+        ],
+        "greet": [
+            "Hi, %username%!",
+            "Hey!",
+            "Hi, %username%! How are you?",
+            "What's up?",
+            "Hey, %username%!"
+        ],
+        "owner": [
+            "My owner is %owner%.",
+            "I was made by %owner%.",
+            "I was developed by %owner%. Type \"+dev list\" to see a list of all developers.",
+            "Hi %username%, I was made by %owner%."
+        ],
+        "thanks": [
+            "You're welcome!",
+            "You're welcome, %username%!",
+            "No need to thank me."
+        ],
+        "remind": {"action": "execute", "path": "actions/remind.js"}
+    }
+}
