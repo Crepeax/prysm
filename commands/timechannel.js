@@ -25,7 +25,7 @@ let replies = {}
 
     replies.invPerms = new Discord.RichEmbed()
     .setTitle('Hey!')
-    .setDescription('Only Administrators are able to use this command.')
+    .setDescription('You need `MANAGE_CHANNEL` permission to use this command.')
     .setColor('ff0000');
 
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
     cooldown: 2000,
     execute(message, args) {
 
-        if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(replies.invPerms);
+        if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send(replies.invPerms);
 
         let file = JSON.parse(fs.readFileSync("./clock-channels.json", "utf8"));
 

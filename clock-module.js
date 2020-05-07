@@ -13,8 +13,13 @@ bot.once('ready', () => {
 
     console.log('[Info] Time script is running.');
 
-function update() {                                                     // The Function which updates the Channel
-    console.log('d');
+    setInterval(function() {
+        update();
+    }, 5000);
+    console.log(`[Clock] Logged in as ${bot.user.username}`);
+    });
+
+function update() {
         
     let timeRaw = new Date();        
         
@@ -132,7 +137,7 @@ if (time_hour > 12) {
                 let guild = bot.guilds.get(guildID);
             if (guild.channels.get(channelID)) {
                 let channel = guild.channels.get(channelID);
-                if (guild.members.get(bot.user.id).hasPermissions(new Discord.Permission('MANAGE_CHANNELS'))) {
+                if (guild.members.get(bot.user.id).permissions.has('MANAGE_CHANNELS')) {
                     channel.setName(`${week_day} ⇼ ${time}`);
                 }
 
@@ -145,18 +150,10 @@ if (time_hour > 12) {
             let guild = bot.guilds.get(guildID);
             if (guild.channels.get(channelID)) {
             let channel = guild.channels.get(channelID);
-                if (guild.members.get(bot.user.id).hasPermissions(new Discord.Permission('MANAGE_CHANNELS'))) {
+                if (guild.members.get(bot.user.id).permissions.has('MANAGE_CHANNELS')) {
                     channel.setName(`${month_name}, ${date}`);
                 }
             }
         }
-
-    timeChannel.setName(date + '  ⇼  ' + time);
-    day_Channel.setName(week_day + ' ⇼ ' + month_name);
-
+    }
 }
-
-update();
-setInterval(update(), 5000);
-console.log(`[Clock] Logged in as ${bot.user.username}`);
-}})

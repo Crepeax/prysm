@@ -19,11 +19,15 @@ if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN') testingMode = true; // Automat
 if (testingMode) prefix = '-';
 if (testingMode) console.log('[Info] Testing mode enabled!');
 
-var http = require('http');
-setInterval(() => {
-    http.get('http://botbot-bot.herokuapp.com/');
-}, 1000*60*15);
+// var http = require('http');
+// setInterval(() => {
+//     http.get('http://botbot-bot.herokuapp.com/');
+// }, 1000*60*15);
 
+if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0}');
+if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./stats.json", '{}');
+if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
+if (!fs.existsSync("./clock-channels.json")) fs.writeFileSync("./clock-channels.json", '{}');
 let statsFile = JSON.parse(fs.readFileSync("./stats.json", "utf8"));
 
 let preCount = statsFile.messages_total;
@@ -103,7 +107,11 @@ client.once('ready', () => {
 	console.log('\n[Setup] Ready');
 	console.log('[Setup] Running as ' + client.user.username + ' on ' + client.guilds.size + ' servers.');
 	
-	if (!testingMode) require('./clock-module.js');
+	try {
+		if (!testingMode) require('./clock-module.js');
+	} catch(e) {
+		client.guilds.get(config.errorServer).channels.get(config.errorChannel).send(`**Time channel script just crashed**\nError: ${e}\nWhen: ${new Date()}\n@everyone`)
+	}
 
 	setActivity('WATCHING', 'you | Online!');
 
