@@ -1,0 +1,36 @@
+ul {
+    position: -webkit-sticky;
+    position: sticky;
+    border: 1px solid #666666;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #555555;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+li {
+    float: left;
+}
+li a {
+  display: block;
+  color: #ffffff;
+  padding: 14px 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  text-align: center;
+}
+li a:hover {
+    background-color: #888888;
+    color: white;
+}
+li a.active {
+    background-color: #888888;
+    color: white;
+}
+li a:hover:not(.active) {
+  background-color: #888888;
+  color: white;
+}

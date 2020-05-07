@@ -1,0 +1,143 @@
+<html>
+    <head>
+
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+
+        <title id='titleTxt'>CARROT CLICKER</title>
+        <style>
+            body {
+                background-color: rgb(50, 50, 50);
+            }
+            h0 {
+                color:white;
+                font-family: Arial, Helvetica, sans-serif;
+                left: 0;
+                line-height: 200px;
+                margin-top: 0px;
+                position: absolute;
+                text-align: center;
+                top: 5%;
+                width: 100%;
+                font-size: 100;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                           supported by Chrome and Opera */
+            }
+            h1 {
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+                left: 0;
+                line-height: 200px;
+                margin-top: -250px;
+                position: absolute;
+                text-align: center;
+                top: 5%;
+                width: 100%;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                           supported by Chrome and Opera */
+            }
+            h2 {
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+                left: 0;
+                line-height: 200px;
+                margin-top: -300px;
+                position: absolute;
+                text-align: center;
+                top: 5%;
+                width: 100%;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                           supported by Chrome and Opera */
+            }
+            b1 {
+                color: white;
+                left: 0;
+                line-height: 200px;
+                margin-top: 200px;
+                position: absolute;
+                text-align: center;
+                top: 30%;
+                width: 100%;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                           supported by Chrome and Opera */
+            }
+        </style>
+    </head>
+    <body>
+
+        <script>
+            function getCookie(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                  var c = ca[i];
+                  while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                  }
+                  if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                  }
+                }
+            return '';
+        }
+        </script>
+
+        <script id='cookies'>
+            /* Cookie shit */
+        if (getCookie('cookieConsent') == '') {
+            alert('ThIs WeBsItE uSeS cOoKiEs ClIcK oK tO aCcEpT cOoKiEs AnD cOnTiNuE');
+            document.cookie = "cookieConsent=true; expires=28 Dec 2038 23:59:59 GMT; path=/";
+        } else document.cookie = "cookieConsent=true; expires=28 Dec 2038 23:59:59 GMT; path=/";
+
+        </script>
+
+        <script id='script'>
+            var i = 0;
+            if (!isNaN(getCookie('clicks'))) {
+                i = Number(getCookie('clicks'));
+                setTimeout(function() {
+                document.getElementById('clicks').innerHTML = i;
+                }, 10)
+            } else {
+                document.getElementById('help').innerHTML = 'Click the carrot!';
+            }
+            var snd = new Audio('/carrot/click.wav');
+            function onClick() {
+                snd.play();
+                snd.currentTime = 0;
+                i += 1;
+                    if (i == 69) newNumber = 'Nice';
+                else if (i < 0) newNumber = 'Not stonks';
+                else newNumber = i; 
+                document.getElementById('clicks').innerHTML = newNumber;
+                document.getElementById('help').innerHTML = '';
+                document.cookie = `clicks=${i}; expires=28 Dec 2038 23:59:59 GMT; path=/`;
+            }
+        </script>
+        <h0>CARROT CLICKER</h0>
+        <b1 id='carrot' draggable='false' type="button" onmousedown="onClick()"><img src='https://cdn.pixabay.com/photo/2015/09/29/19/17/isolated-964393_640.png'></img></button>
+            <h1 id='help'></h1>
+        <h2 id='title'>Carrots: <a id='clicks'>0</a></h1>
+    </body>
+</html>
