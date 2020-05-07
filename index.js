@@ -25,7 +25,7 @@ if (testingMode) console.log('[Info] Testing mode enabled!');
 // }, 1000*60*15);
 
 if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0}');
-if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./stats.json", '{}');
+if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./reminders.json", '{}');
 if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
 if (!fs.existsSync("./clock-channels.json")) fs.writeFileSync("./clock-channels.json", '{}');
 let statsFile = JSON.parse(fs.readFileSync("./stats.json", "utf8"));
