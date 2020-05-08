@@ -47,7 +47,7 @@ client.on('message', message => {
             if (!res.entities.intent) return;
 
         if (!actions["intent"][res.entities.intent[0].value]) {
-            return message.channel.send('Hm, no action is specified for this command.');
+            return message.channel.send('Hm, no action is specified for this intent.');
         } else if (actions["intent"][res.entities.intent[0].value]['action'] == 'execute') {
             require('./' + actions["intent"][res.entities.intent[0].value]['path']).execute(message, res);
         } else if (typeof actions["intent"][res.entities.intent[0].value] == 'object') {

@@ -22,6 +22,7 @@
             "You're welcome, %username%!",
             "No need to thank me."
         ],
-        "remind": {"action": "execute", "path": "actions/remind.js"}
+        "remind": {"action": "execute", "path": "actions/remind.js"},
+        "join": {"action": "execute", "path": "actions/join.js"}
     }
 }
