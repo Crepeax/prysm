@@ -145,7 +145,7 @@ client.once('ready', () => {
 				let attachment = new Discord.Attachment('./images/online.png', 'image.png');
 				let embed = new Discord.RichEmbed()
 				.setTitle('Online!')
-				.setDescription(`[${time.getDate()}.${time.getMonth() + 1}.  ${time.getHours()}:${time.getMinutes()}] Seems like I just restarted.`)
+				.setDescription(`Woops, seems like I just restarted.`)
 				.setTimestamp()
 				.setThumbnail(client.user.avatarURL)
 				.setColor('2f3136');
