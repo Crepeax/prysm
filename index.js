@@ -269,7 +269,7 @@ client.on('message', message => {
 
 			let titleText = titleTexts[random(0, titleTexts.length - 1)];
 			let descText = descTexts[random(0, descTexts.length - 1)];
-			let footText = `Hey, the command you tried to execute (${command.name}) has a ${command.cooldown / 1000} second cooldown.`;
+			let footText = `The command you tried to execute (${command.name}) has a ${command.cooldown / 1000} second cooldown.`;
 
 			let cooldownEmbed = new Discord.RichEmbed()
 			.setTitle(titleText)
@@ -333,7 +333,8 @@ client.on('message', message => {
 			bot = client;
 			pre = prefix;
 			conf = config;
-			command.execute(message, args, username, fs, prefix, pre, user, client, commandName);
+			let re = command.execute(message, args, username, fs, prefix, pre, user, client, commandName);
+			if (command.confirmCooldown && !re) return console.log('Not setting cooldown.');
 			let now = Date.now();
 			userCooldowns[message.author.id][command.name] = command.cooldown + now;
 			guildCooldowns[guildId][command.name] = (command.cooldown) + now;
