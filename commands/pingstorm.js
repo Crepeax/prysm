@@ -9,17 +9,23 @@ module.exports = {
     syntax: 'pingstorm [Amount of pings] [@Member]',
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'MENTION_EVERYONE'],
     disabled: false,
+    confirmCooldown: true,
     cooldown: 120000,
     execute(message, args) {
 
-        if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send('u need administrator bruh');
+        if (!message.member.permissions.has('ADMINISTRATOR')) {
+            message.channel.send('u need administrator bruh');
+            return;
+        }
 
         if (message.mentions.members.first() == undefined || isNaN(args[0])) {
-            return message.channel.send(`Invalid syntax.\nUsage: ${config.prefix}pingstorm [How many pings] [@Mention]`);
+            message.channel.send(`Invalid syntax.\nUsage: ${config.prefix}pingstorm [How many pings] [@Mention]`);
+            return;
         }
 
         if (args[0] > 30 || args[0] < 1) {
-            return message.channel.send('Hey, you can\'t ping someone more than 30 times at once.');
+            message.channel.send('Hey, you can\'t ping someone more than 30 times at once.');
+            return;
         }
 
         message.delete();
@@ -33,6 +39,6 @@ module.exports = {
             o.send(`<@${message.mentions.members.first().user.id}>`)
             .then(m => m.delete());
         }
-
+        return true;
     }
 }

@@ -34,12 +34,12 @@ module.exports = {
 
         if (msgArr.length < 6) foundMsgs = msgArr;
         else {
-            foundMsgs.push(msgArr[msgArr.length - 1]);
-            foundMsgs.push(msgArr[msgArr.length - 2]);
-            foundMsgs.push(msgArr[msgArr.length - 3]);
-            foundMsgs.push(msgArr[msgArr.length - 4]);
-            foundMsgs.push(msgArr[msgArr.length - 5]);
             foundMsgs.push(msgArr[msgArr.length - 6]);
+            foundMsgs.push(msgArr[msgArr.length - 5]);
+            foundMsgs.push(msgArr[msgArr.length - 4]);
+            foundMsgs.push(msgArr[msgArr.length - 3]);
+            foundMsgs.push(msgArr[msgArr.length - 2]);
+            foundMsgs.push(msgArr[msgArr.length - 1]);
         }
 
         let embed = new Discord.RichEmbed()
