@@ -58,8 +58,7 @@ module.exports = {
                             return message.channel.send('This is not possible here.');
                         }
                         const leaveEmbed = new Discord.RichEmbed()
-                        .setTitle('Ok')
-                        .setDescription(`I left this Server.`)
+                        .setTitle('Leaving.')
                         .setColor('ff0000');
                         message.channel.send(leaveEmbed); 
                         message.guild.leave();

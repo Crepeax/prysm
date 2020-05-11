@@ -43,7 +43,7 @@ module.exports = {
                 const timer = file[u][o].time - now;
                 timeouts.push(setTimeout(function() {
                     let mesg = new Discord.RichEmbed()
-                    .setTitle('Here\'s your reminder!')
+                    .setTitle('Here\'s your reminder')
                     .setDescription(file[u][o].msg)
                     .setFooter(`You received this message because\nyou used the ${config.prefix}remindme command.`)
                     .setTimestamp()

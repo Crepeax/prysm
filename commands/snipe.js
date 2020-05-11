@@ -4,7 +4,6 @@ const client = require('../index').client;
 let deletedMessages = {}
 
 client.on('messageDelete', m => {
-    if (m.author.bot) return;
     let guildId;
     if (m.guild == undefined || m.guild == null) guildId = m.author.dmChannel.id; else guildId = m.guild.id;
 
@@ -32,25 +31,35 @@ module.exports = {
 
         if (msgArr.length == 0) return message.channel.send('No recently deleted messages found.');
 
-        if (msgArr.length < 6) foundMsgs = msgArr;
-        else {
-            foundMsgs.push(msgArr[msgArr.length - 6]);
-            foundMsgs.push(msgArr[msgArr.length - 5]);
-            foundMsgs.push(msgArr[msgArr.length - 4]);
-            foundMsgs.push(msgArr[msgArr.length - 3]);
-            foundMsgs.push(msgArr[msgArr.length - 2]);
-            foundMsgs.push(msgArr[msgArr.length - 1]);
-        }
+        foundMsgs = msgArr;
+
+        let e = 0;
+
+        foundMsgs.forEach(i => {
+            if (!i) return;
+            if (i.content.length > 1024) foundMsgs[e].content = i.substring(0, 1024);
+            e += 1;
+        })
 
         let embed = new Discord.RichEmbed()
-        .setDescription(`Last ${foundMsgs.length} deleted messages`)
         .setColor('2f3136');
 
+        let o = 0;
+
+        foundMsgs = foundMsgs.reverse();
+
         foundMsgs.forEach(msg => {
+            if (!msg || o > 14) return;
+            o += 1;
             let b = '';
+            let ol = o;
             if (msg.author.bot) b = client.emojis.get('707194782832656446');
-            embed.addField(`${msg.author.username}#${msg.author.discriminator} ${b}`, `${msg.content}`, true)
+            //if (o == 1) ol = '(Newest)'; else if (o == foundMsgs.length) ol = '(Oldest)';
+            embed.addField(`${ol} ${msg.author.username}#${msg.author.discriminator} ${b}`, `${msg.content}`, true);
         })
+        embed.setDescription(`Last ${o} deleted messages`);
         message.channel.send(embed);
+
+        foundMsgs = foundMsgs.reverse();
     }
 }
