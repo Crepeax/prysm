@@ -55,9 +55,9 @@ module.exports = {
             let ol = o;
             if (msg.author.bot) b = client.emojis.get('707194782832656446');
             //if (o == 1) ol = '(Newest)'; else if (o == foundMsgs.length) ol = '(Oldest)';
-            embed.addField(`${ol} ${msg.author.username}#${msg.author.discriminator} ${b}`, `${msg.content}`, true)
+            embed.addField(`${ol} ${msg.author.username}#${msg.author.discriminator} ${b}`, `${msg.content}`, true);
         })
-        embed.setDescription(`Last ${o} deleted messages`)
+        embed.setDescription(`Last ${o} deleted messages`);
         message.channel.send(embed);
 
         foundMsgs = foundMsgs.reverse();
