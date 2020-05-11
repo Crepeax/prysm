@@ -191,8 +191,16 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 	let userCooldowns = {}
 	let cooldownCooldowns = {}
 	
+client.on('messageUpdate', (old, message) => {
+	if (!old || !message) return;
+	messageReceived(message);
+})
+
 client.on('message', message => {
-	
+	messageReceived(message);
+})
+
+function messageReceived(message) {
 	if (!message.guild && !message.author.bot) console.log(`DM MESSAGE: [${message.author.username}#${message.author.discriminator} (${message.author.id})]: ${message.content}`);
 
 	if (!message.author.bot && message.content.startsWith(`<@!${client.user.id}>`)) {	// Check if message starts with mention
@@ -354,7 +362,8 @@ client.on('message', message => {
 			}
 		}
 
-})
+}
+
 if (config.meaning_of_life != 42) {console.log(`Invalid Configuration: The meaning of Life is not ${config.meaning_of_life}, it is 42!`); return;} else {
 	if (testingMode) client.login(config.testtoken); else client.login(config.token);
 }

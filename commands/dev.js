@@ -21,7 +21,7 @@ module.exports = {
                 switch(args[0]) { // --------------------------------------------------------------------------------------------------
                     case 'help':
                         const DevHelpEmbed = new Discord.RichEmbed()
-                        .setColor('000055')
+                        .setColor('9d23eb')
                         .setTitle('Developer command overview')
                         //.addField(`${pre}dev serverlist`, `Returns a list of all servers ${bot.user.username} is currently active on.`)
                         .addField(`${pre}dev log <Log Message>`, `Logs a specific message.`)
@@ -34,7 +34,7 @@ module.exports = {
                         .addField(`${pre}dev resetvoice`, `Disconnect the bot from every voice channel and reset the queues.`)
                         .addField(`${pre}dev setnick`, `Set the Bot's nickname in this guild.`)
                         .addField(`${pre}dev debugerror`, `Trigger an error. Debug command.`);
-                        if (!Developers.indexOf(message.author.id) > -1) DevHelpEmbed.setDescription(`Note: You are not a developer, so you can't use any of these commands.`);
+                        if (!(Developers.indexOf(message.author.id) > -1)) DevHelpEmbed.setDescription(`Note: You are not a developer, so you can't use any of these commands.`);
                         message.channel.send(DevHelpEmbed);
                     break;
                     case 'reconnect':
