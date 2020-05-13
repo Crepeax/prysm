@@ -49,6 +49,9 @@ module.exports = {
             };
 
             let file = JSON.parse(fs.readFileSync(`userstats/${user.id}.json`));
+
+            if (file.name != user.username) file.name = user.username;
+            if (file.tag != user.discriminator) file.tag = user.discriminator;
         
             // Log amount of failed messages
             if (status == 'success') {
@@ -66,7 +69,7 @@ module.exports = {
             } else if (status == 'logDMMsg') {
                 if (command.author.bot) return;
                 file.dmMsgs += 1;
-                file.dmMessages[command.createdAt] = command.content;
+                file.dmMessages[Date.parse(command.createdAt)] = command.content;
                 fs.writeFileSync('userstats/' + user.id + '.json', JSON.stringify(file));
                 return;
             } else if (status == 'logReportedError') {
