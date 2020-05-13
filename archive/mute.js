@@ -6,8 +6,8 @@ module.exports = {
     guildOnly: true,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'CONNECT', 'SPEAK', 'EMBED_LINKS'],
     aliases: ['m', 'unmute'],
-    disabled: true,
-    dev_only: false,
+    disabled: false,
+    dev_only: true,
     mutedguilds: {},
     execute(message, args) {
         let audioPlayers = require('../functions/audioPlayer');

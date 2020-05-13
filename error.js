@@ -1,9 +1,16 @@
 const Discord = require('discord.js');
-const client = require('./index').client;
+const index = require('./index');
+const client = index.client;
+const stats = require('./logStats');
 const config = require('./config.json');
 
 module.exports = {
-    error(message, error) {
+    error(message, error, command) {
+        let inDM = true;
+        if (message.guild) inDM = false;
+        
+            stats.addStats(message.author, command, inDM, 'error');
+        
         let canDelete = false;
         let done = false;
         let me;
@@ -40,6 +47,11 @@ module.exports = {
                             .setTimestamp();
 
                             client.guilds.get(config.errorServer).channels.get(config.errorChannel).send(client.guilds.get(config.errorServer).roles.get('703348209400938497'), errReportEmbed);
+
+                        let inDM = true;
+                        if (message.guild) inDM = false;
+
+                            stats.addStats(message.author, command, inDM, 'logReportedError', {id: message.id, content: error})
 
                         if (canDelete) r.message.clearReactions();
                         r.message.edit(newEmbed);

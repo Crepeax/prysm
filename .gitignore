@@ -121,3 +121,6 @@ clock-channels.json
 reminders.json
 newsletter.json
 guildAnalysisFiles/
+
+joinmsg/msgs.json
+userstats/

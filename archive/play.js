@@ -16,8 +16,8 @@ module.exports = {
     description: 'Play music from YouTube.',
     guildOnly: true,
     aliases: ['p'],
-    disabled: true,
-    dev_only: false,
+    disabled: false,
+    dev_only: true,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'CONNECT', 'SPEAK', 'EMBED_LINKS'],
     disconnected: {},
     currentQueue: {},
@@ -149,8 +149,7 @@ this.disconnected[message.guild.id] = false;
                     });
                 } else {
 
-                    let apiKey      = 'AIzaSyB3wWQoh-H1X9I7g_GjhmGLIwLll5OddQY';
-                    let fallbackKey = 'AIzaSyAlMmbl75-sl9-OWhMaemVfMpO-5u3NA_Y';
+                    let apiKey = 'AIzaSyB3wWQoh-H1X9I7g_GjhmGLIwLll5OddQY';
                 
                     request.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=${apiKey}&maxResults=1&q=${sanitizeHtml(args.slice(0).join(' '))}`, {json: true}, (err, res, body) => {
                         console.log('Requested');

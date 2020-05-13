@@ -26,7 +26,7 @@ module.exports = {
     guildOnly: true,
     perms: ['ADMINISTRATOR'],
     aliases: ['vt', 'virusscan'],
-    disabled: false,
+    disabled: true,
     cooldown: 20000,
     execute(message, args) {
 
