@@ -49,8 +49,8 @@ module.exports = {
     description: 'Show the current music queue.',
     guildOnly: true,
     aliases: ['q'],
-    dev_only: false,
-    disabled: true,
+    dev_only: true,
+    disabled: false,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'CONNECT', 'SPEAK', 'EMBED_LINKS'],
     execute(message, args) {
 
