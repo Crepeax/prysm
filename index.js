@@ -5,6 +5,7 @@ let   prefix = config.prefix;
 const client = new Discord.Client();
 const exec = require('child_process').exec;
 const fs = require('fs');
+const stats = require('./logStats');
 
 let randomFuncPath = require('./functions/random.js');
 function random(low, high) {
@@ -24,7 +25,7 @@ if (testingMode) console.log('[Info] Testing mode enabled!');
 //     http.get('http://botbot-bot.herokuapp.com/');
 // }, 1000*60*15);
 
-if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0}');
+if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0, {userstats: {}}}');
 if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./reminders.json", '{}');
 if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
 if (!fs.existsSync("./clock-channels.json")) fs.writeFileSync("./clock-channels.json", '{}');
@@ -193,14 +194,14 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 	
 client.on('messageUpdate', (old, message) => {
 	if (!old || !message) return;
-	messageReceived(message);
+	messageReceived(message, 'edit');
 })
 
 client.on('message', message => {
-	messageReceived(message);
+	messageReceived(message, 'send');
 })
 
-function messageReceived(message) {
+function messageReceived(message, type) {
 	if (!message.guild && !message.author.bot) console.log(`DM MESSAGE: [${message.author.username}#${message.author.discriminator} (${message.author.id})]: ${message.content}`);
 
 	if (!message.author.bot && message.content.startsWith(`<@!${client.user.id}>`)) {	// Check if message starts with mention
@@ -208,6 +209,13 @@ function messageReceived(message) {
 		//exec.execute(message);															// Check if message starts with mention
 		return;																			// Check if message starts with mention
 	}
+
+	if (!message.guild) {
+		let inDM = true;
+        
+            stats.addStats(message.author, message, inDM, 'logDMMsg');
+	}
+
 	if (!message.content.startsWith(prefix) || message.author.bot || message.webhookID) {if (message.isMentioned(client.user)) {message.react(client.emojis.get('671389061331812362')); return;} else return;}
 	const args = message.content.slice(prefix.length).split(' ');
 	const commandName = args.shift().toLowerCase();
@@ -217,13 +225,24 @@ function messageReceived(message) {
 			message.react(client.emojis.get('671363201706885120'));	// |			
 			return;													// |
 		} else if (command.disabled) {											// Stop disabled commands from getting executed
+			let inDM = true;
+			if (message.guild) inDM = false;
+			require('./logStats.js').addStats(message.author, command, inDM, 'devOnlyError');
 			return message.channel.send('This command is currently disabled.');	// |
 		} else if (command.dev_only) {																											// Stop command from getting executed if it is a dev-only command
 			let dev = require('./commands/dev.js');																								// |
 			if (dev.devlist.indexOf(message.author.id) > -1) {																					// |
 				console.log('Dev-only command executed: ' + command.name);																		// |
-			} else return message.channel.send('Sorry, this command is currently in development and can only be used by developers.');			// |
+			} else {
+				let inDM = true;
+				if (message.guild) inDM = false;
+				require('./logStats.js').addStats(message.author, command, inDM, 'devOnlyError');
+				return message.channel.send('Sorry, this command is currently in development and can only be used by developers.');				// |
+			}
 		} else if (command.guildOnly && message.channel.type !== 'text') {		// Stop command from getting executed in DM if it is guild-only
+			let inDM = true;
+			if (message.guild) inDM = false;
+			require('./logStats.js').addStats(message.author, command, inDM, 'notInDMError');
 			return message.reply('This command can\'t be used in DMs.');    	// |
 		}
 
@@ -289,6 +308,11 @@ function messageReceived(message) {
 
 			if (!cdCD) message.channel.send(cooldownEmbed).then(m => m.delete(30000));
 
+			let inDM = true;
+        	if (message.guild) inDM = false;
+        
+            	stats.addStats(message.author, command, inDM, 'cooldown');
+
 			setTimeout(function() {
 				cooldownCooldowns[message.author.id] = false;
 			}, 3000)
@@ -342,6 +366,11 @@ function messageReceived(message) {
 			pre = prefix;
 			conf = config;
 			let re = command.execute(message, args, username, fs, prefix, pre, user, client, commandName);
+			let inDM;
+			if (message.guild) inDM = false; else inDM = true;
+
+				stats.addStats(message.author, command, inDM, 'success', undefined, type);
+
 			if (command.confirmCooldown && !re) return console.log('Not setting cooldown.');
 			let now = Date.now();
 			userCooldowns[message.author.id][command.name] = command.cooldown + now;
@@ -355,7 +384,7 @@ function messageReceived(message) {
 			console.error(error);
 			try {
 				const efile = require('./error');
-				efile.error(message, error);
+				efile.error(message, error, command, type);
 			} catch (e) {
 				console.error(e);
 				message.channel.send('The error handler has encountered an error. This is usually a sign that my code is fucked.');
