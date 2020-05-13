@@ -3,7 +3,6 @@ const fs = require('fs');
 module.exports = {
     addStats(user, command, dm, status, error, execType) {
         try {
-        
             if (!fs.existsSync('userstats/')) fs.mkdirSync('userstats/');
             
             // Create new file, if there is none
