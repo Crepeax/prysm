@@ -5,7 +5,7 @@ let deletedMessages = {}
 
 client.on('messageDelete', m => {
     let guildId;
-    if (!message.author.bot) {if (m.guild == undefined || m.guild == null) guildId = m.author.dmChannel.id; else guildId = m.guild.id;} else guildId = 0;
+    if (!m.author.bot) {if (m.guild == undefined || m.guild == null) guildId = m.author.dmChannel.id; else guildId = m.guild.id;} else guildId = 0;
 
     if (deletedMessages[guildId] == undefined) deletedMessages[guildId] = {};
     if (deletedMessages[guildId][m.channel.id] == undefined) deletedMessages[guildId][m.channel.id] = [];
