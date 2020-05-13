@@ -44,7 +44,7 @@ module.exports = {
         	const embed = new Discord.RichEmbed()
 			.setColor(embedColor)
 			.setTitle('❔ Prysm Help')
-			.setDescription(`Please select the category you want to see:\n⚒️ → Moderation\n💬 → Chat\n🧿 → Passive Skills\n🌀 → Miscellaneous\n🖼️ → Images\n🔱 → Annoying stuff\n🎵 → Music\n🤖 → Bot related stuff\n❔ → Show this page\n❌ → Delete this message\n\n⚙️ To see the details of a specific\ncommand, type ${config.prefix}help commands.`)
+			.setDescription(`Please select the category you want to see:\n⚒️ → Moderation\n💬 → Chat\n🧿 → Passive Skills\n🌀 → Miscellaneous\n🖼️ → Images\n🔱 → Annoying stuff` + /*\n🎵 → Music*/ `\n🤖 → Bot related stuff\n❔ → Show this page\n❌ → Delete this message\n\n⚙️ To see the details of a specific\ncommand, type ${config.prefix}help commands.`)
 			.setFooter(`Use the reactions below, ${message.author.username}.`)
 			.setTimestamp();
 
@@ -158,7 +158,7 @@ module.exports = {
 
 				if (message.guild) activeHelpWindows[message.channel.id][message.author.id] = m.id;
 				try {
-					m.react('⚒️').then(() => m.react('💬').then(() => m.react('🧿').then(() => m.react('🌀').then(() => m.react('🖼️').then(() => m.react('🔱').then(() => m.react('🎵').then(() => m.react('🤖').then(() => m.react('❔').then(() => m.react('❌'))))))))));
+					m.react('⚒️').then(() => m.react('💬').then(() => m.react('🧿').then(() => m.react('🌀').then(() => m.react('🖼️').then(() => m.react('🔱').then(/*() => m.react('🎵').then(*/() => m.react('🤖').then(() => m.react('❔').then(() => m.react('❌')))))))))/*)*/;
 				} catch {}
 
 			const filter = (reaction) => reaction != undefined;
@@ -200,11 +200,11 @@ module.exports = {
 									edited = true;
 									setCooldown();
 								break;
-								case '🎵':
-									if (!cooldown) m.edit(embeds.music);
-									edited = true;
-									setCooldown();
-								break;
+								//case '🎵':
+								//	if (!cooldown) m.edit(embeds.music);
+								//	edited = true;
+								//	setCooldown();
+								//break;
 								case '🤖':
 									if (!cooldown) m.edit(embeds.botrelated);
 									edited = true;
