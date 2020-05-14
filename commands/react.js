@@ -120,8 +120,8 @@ module.exports = {
                             message.channel.send('That file type is not supported.\nYou can only use images, GIFs and videos.')
                         } else {
                             fs.renameSync(path + '/files/' + targetName, path + '/files/' + savedAs);
-                            message.channel.send(`File saved as \`${message.id}-${targetName}\`\nAccess it via \`+r ${targetName}\``);
-                            file[args[1]] = savedAs;
+                            message.channel.send(`File saved as \`${message.id}-${targetName}\`\nAccess it via \`+r ${args[1].toLowerCase()}\``);
+                            file[args[1].toLowerCase()] = savedAs;
                             fs.writeFileSync(path + '/cfg.json', JSON.stringify(file));
                         }
                     })
