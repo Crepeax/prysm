@@ -93,7 +93,8 @@ module.exports = {
                     '.mp4',
                     '.flv',
                     '.mov',
-                    '.webp'
+                    '.webp',
+                    '.webm'
                  ];
 
                  if (devlist.indexOf(message.author.id) > -1) fileLimit = Number.POSITIVE_INFINITY;
