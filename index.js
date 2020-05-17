@@ -29,6 +29,7 @@ if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages
 if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./reminders.json", '{}');
 if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
 if (!fs.existsSync("./clock-channels.json")) fs.writeFileSync("./clock-channels.json", '{}');
+if (!fs.existsSync('guilddata.json')) fs.writeFileSync('guilddata.json', '{}');
 let statsFile = JSON.parse(fs.readFileSync("./stats.json", "utf8"));
 
 let preCount = statsFile.messages_total;
@@ -192,6 +193,20 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 	let userCooldowns = {}
 	let cooldownCooldowns = {}
 	
+
+	client.on('channelCreate', c => {
+		let file = JSON.parse(fs.readFileSync('guilddata.json'));
+		if (!file[c.guild.id])			 return;
+		if (!file[c.guild.id].mutedRole) return;
+		if (!c.manageable) 				 return;
+		console.log('New channel created. Denying permissions for muted role');
+		c.overwritePermissions(file[c.guild.id].mutedRole, {
+			SEND_MESSAGES: false,
+			CONNECT: false
+		}, 'Denied permissions for muted role.').catch(e => console.error(e));
+	})
+
+
 client.on('messageUpdate', (old, message) => {
 	if (!old || !message) return;
 	messageReceived(message, 'edit');
