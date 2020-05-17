@@ -65,7 +65,11 @@ module.exports = {
 				.addField(`${prefix}\`joinrole\`, \`autorole\`, \`jr\``, `Configure the roles that are automatically given to new users.`, true)
 				.addField(`${prefix}\`permissions\`, \`perms\``, `Shows roles and permissions hat a specific user has. Needs \`MANAGE_ROLES\` permission.`, true)
 				.addBlankField(true)
-				.addField(`${prefix}\`analyze\``, `Get some data about a specific channel like active members, and create a complete chatlog. **The finished file will be sent in the channel you sent the command from!**`, false)
+				.addField(`${prefix}\`updatemute\``, `Configure the role used for ${prefix}mute.`, true)
+				.addField(`${prefix}\`unmute\``, `Unmute a user.`, true)
+				.addBlankField(true)
+				.addField(`${prefix}\`mute\``, `Prevent an user from sending messages and connecting to voice channels.`, true)
+				.addField(`${prefix}\`analyze\`, \`chatlog\``, `Get some data about a specific channel like active members, and create a complete chatlog. **The finished file will be sent in the channel you sent the command from!**`, false)
 				.setFooter(footerText, message.author.avatarURL)
 				.setColor(embedColor);
 
