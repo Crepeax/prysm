@@ -10,9 +10,12 @@ module.exports = {
     guildOnly: true,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES', 'MANAGE_CHANNELS'],
     cooldown: 1500,
-    dev_only: true,
+    dev_only: false,
     disabled: false,
     execute(message, args) {
+
+        if (!message.member.permission.has('MANAGE_ROLES')) return message.channel.send('You need to have "Manage Roles" permission for this.');
+
         if (!fs.existsSync('guilddata.json')) fs.writeFileSync('guilddata.json', '{}');
         let file = JSON.parse(fs.readFileSync('guilddata.json'));
 
