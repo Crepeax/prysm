@@ -58,6 +58,7 @@ module.exports = {
                         else {
                             c.overwritePermissions(r, {
                                 SEND_MESSAGES: false,
+                                ADD_REACTIONS: false,
                                 CONNECT: false
                             }, 'Set permissions for muted role').catch(e => {
                                 failed.push(c);

@@ -202,6 +202,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 		console.log('New channel created. Denying permissions for muted role');
 		c.overwritePermissions(file[c.guild.id].mutedRole, {
 			SEND_MESSAGES: false,
+			ADD_REACTIONS: false,
 			CONNECT: false
 		}, 'Denied permissions for muted role.').catch(e => console.error(e));
 	})
