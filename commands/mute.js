@@ -92,6 +92,15 @@ module.exports = {
         }
 
 
+        // Prevent users from muting themselves
+        if (target.user.id == message.author.id) return message.channel.send(new Discord.RichEmbed()
+        .setTitle('Failed to mute')
+        .setDescription(`You can't mute yourself!`)
+        .setTimestamp()
+        .setFooter(`Invoked by ${message.author.username}`, target.user.avatarURL)
+        );
+
+
         // Check if the target is already muted
         if (target.roles.get(file[gid].mutedRole)) return message.channel.send(new Discord.RichEmbed()
         .setTitle('Failed to mute')
