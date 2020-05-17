@@ -14,7 +14,7 @@ module.exports = {
     disabled: false,
     execute(message, args) {
 
-        if (!message.member.permission.has('MANAGE_ROLES')) return message.channel.send('You need to have "Manage Roles" permission for this.');
+        if (!message.member.permissions.has('MANAGE_ROLES')) return message.channel.send('You need to have "Manage Roles" permission for this.');
 
         if (!fs.existsSync('guilddata.json')) fs.writeFileSync('guilddata.json', '{}');
         let file = JSON.parse(fs.readFileSync('guilddata.json'));
