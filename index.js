@@ -248,77 +248,77 @@ function messageReceived(message, type) {
 
 		// ---------------------------------------------------------------------------------------------------------- Cooldown stuff
 
-		let guildId;
-		if (message.guild == null) guildId = message.author.dmChannel.id; else guildId = message.guild.id;
+			let guildId;
+			if (message.guild == null) guildId = message.author.dmChannel.id; else guildId = message.guild.id;
 
-		if (cooldownCooldowns[message.author.id] == undefined) cooldownCooldowns[message.author.id] = false;
-		if (!isNaN(cooldownCooldowns[message.author.id])) if (cooldownCooldowns[message.author.id] < 0) cooldownCooldowns[message.author.id] = false;
-		let cdCD = cooldownCooldowns[message.author.id];
+			if (cooldownCooldowns[message.author.id] == undefined) cooldownCooldowns[message.author.id] = false;
+			if (!isNaN(cooldownCooldowns[message.author.id])) if (cooldownCooldowns[message.author.id] < 0) cooldownCooldowns[message.author.id] = false;
+			let cdCD = cooldownCooldowns[message.author.id];
 
-		if (userCooldowns[message.author.id] == undefined) userCooldowns[message.author.id] = [];
-		if (guildCooldowns[guildId] == undefined) guildCooldowns[guildId] = [];
-		if (userCooldowns[message.author.id][command.name] == undefined) userCooldowns[message.author.id][command.name] = false;
-		if (guildCooldowns[guildId][command.name] == undefined) guildCooldowns[guildId][command.name] = false;
-		if (!isNaN(userCooldowns[message.author.id][command.name])) if (userCooldowns[message.author.id][command.name] < 0) userCooldowns[message.author.id][command.name] = false;
-		if (!isNaN(guildCooldowns[guildId][command.name])) if (guildCooldowns[guildId][command.name] < 0) guildCooldowns[guildId][command.name] = false;
-		let uCD = userCooldowns[message.author.id][command.name];
-		let gCD = guildCooldowns[guildId][command.name];
+			if (userCooldowns[message.author.id] == undefined) userCooldowns[message.author.id] = [];
+			if (guildCooldowns[guildId] == undefined) guildCooldowns[guildId] = [];
+			if (userCooldowns[message.author.id][command.name] == undefined) userCooldowns[message.author.id][command.name] = false;
+			if (guildCooldowns[guildId][command.name] == undefined) guildCooldowns[guildId][command.name] = false;
+			if (!isNaN(userCooldowns[message.author.id][command.name])) if (userCooldowns[message.author.id][command.name] < 0) userCooldowns[message.author.id][command.name] = false;
+			if (!isNaN(guildCooldowns[guildId][command.name])) if (guildCooldowns[guildId][command.name] < 0) guildCooldowns[guildId][command.name] = false;
+			let uCD = userCooldowns[message.author.id][command.name];
+			let gCD = guildCooldowns[guildId][command.name];
 
-		if (command.cooldown == undefined) command.cooldown = config.defaultCooldown;
+			if (command.cooldown == undefined) command.cooldown = config.defaultCooldown;
 
-		if (gCD != false || uCD != false) {
-
-			let cdMsg = 0;
-
-			if (!isNaN(gCD) && isNaN(uCD)) {
-				if (gCD > uCD) cdMsg = gCD; else cdMsg = uCD;
-			} else {
-				if (!isNaN(gCD)) cdMsg = gCD; else cdMsg = uCD;
+			if ((gCD != false || uCD != false) && (!(require('./commands/dev').devlist.indexOf(message.author.id) > -1))) {
+			
+				let cdMsg = 0;
+			
+				if (!isNaN(gCD) && isNaN(uCD)) {
+					if (gCD > uCD) cdMsg = gCD; else cdMsg = uCD;
+				} else {
+					if (!isNaN(gCD)) cdMsg = gCD; else cdMsg = uCD;
+				}
+			
+				let now = Date.now();
+				cdMsg = cdMsg - now;
+			
+				cdMsg = Math.ceil(cdMsg / 100) / 10;
+			
+				let titleTexts = [
+					'Hey, slow it down!',
+					'You\'re too fast!',
+					'Please wait a moment before doing that.',
+					'Cooldown'
+				];
+			
+				let descTexts = [
+					`Please wait ${cdMsg} seconds before doing that.`,
+					`Hey! Please wait ${cdMsg} seconds before running that command again.`,
+					`You are running commands too fast! Please wait ${cdMsg} seconds.`
+				];
+			
+				let titleText = titleTexts[random(0, titleTexts.length - 1)];
+				let descText = descTexts[random(0, descTexts.length - 1)];
+				let footText = `The command you tried to execute (${command.name}) has a ${command.cooldown / 1000} second cooldown.`;
+			
+				let cooldownEmbed = new Discord.RichEmbed()
+				.setTitle(titleText)
+				.setDescription(descText)
+				.setFooter(footText, 'https://cdn4.iconfinder.com/data/icons/online-menu/64/attencion_exclamation_mark_circle_danger-512.png')
+				.setColor('ff0000');
+			
+				cooldownCooldowns[message.author.id] = true;
+			
+				if (!cdCD) message.channel.send(cooldownEmbed).then(m => m.delete(30000));
+			
+				let inDM = true;
+        		if (message.guild) inDM = false;
+			
+        	    	stats.addStats(message.author, command, inDM, 'cooldown');
+			
+				setTimeout(function() {
+					cooldownCooldowns[message.author.id] = false;
+				}, 3000)
+			
+				return;
 			}
-
-			let now = Date.now();
-			cdMsg = cdMsg - now;
-
-			cdMsg = Math.ceil(cdMsg / 100) / 10;
-
-			let titleTexts = [
-				'Hey, slow it down!',
-				'You\'re too fast!',
-				'Please wait a moment before doing that.',
-				'Cooldown'
-			];
-
-			let descTexts = [
-				`Please wait ${cdMsg} seconds before doing that.`,
-				`Hey! Please wait ${cdMsg} seconds before running that command again.`,
-				`You are running commands too fast! Please wait ${cdMsg} seconds.`
-			];
-
-			let titleText = titleTexts[random(0, titleTexts.length - 1)];
-			let descText = descTexts[random(0, descTexts.length - 1)];
-			let footText = `The command you tried to execute (${command.name}) has a ${command.cooldown / 1000} second cooldown.`;
-
-			let cooldownEmbed = new Discord.RichEmbed()
-			.setTitle(titleText)
-			.setDescription(descText)
-			.setFooter(footText, 'https://cdn4.iconfinder.com/data/icons/online-menu/64/attencion_exclamation_mark_circle_danger-512.png')
-			.setColor('ff0000');
-
-			cooldownCooldowns[message.author.id] = true;
-
-			if (!cdCD) message.channel.send(cooldownEmbed).then(m => m.delete(30000));
-
-			let inDM = true;
-        	if (message.guild) inDM = false;
-        
-            	stats.addStats(message.author, command, inDM, 'cooldown');
-
-			setTimeout(function() {
-				cooldownCooldowns[message.author.id] = false;
-			}, 3000)
-
-			return;
-		}
 		// ---------------------------------------------------------------------------------------------------------- Cooldown stuff
 
 		try { 
