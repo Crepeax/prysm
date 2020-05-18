@@ -196,6 +196,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 
 	client.on('channelCreate', c => {
 		let file = JSON.parse(fs.readFileSync('guilddata.json'));
+		if (!c.guild) return;
 		if (!file[c.guild.id])			 return;
 		if (!file[c.guild.id].mutedRole) return;
 		if (!c.manageable) 				 return;
