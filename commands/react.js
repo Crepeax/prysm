@@ -44,8 +44,8 @@ module.exports = {
         switch(args[0].toLowerCase()) {
             case 'add':
             case 'save':
-                if (args[1] == undefined) return message.channel.send('Missing args[1]');
-                if (args[2] == undefined && message.attachments.first() == undefined) return message.channel.send('Missing args[2] or attachment');
+                if (args[1] == undefined) return message.channel.send('Syntax error. Check +r help.');
+                if (args[2] == undefined && message.attachments.first() == undefined) return message.channel.send('You need to either attach an image or add a link to the image you are trying to save.');
 
                 args[1] = args[1].toLowerCase();
 
@@ -71,7 +71,7 @@ module.exports = {
 
                 if (checkurl.isWebUri(args[2])) {
 
-                    if (!args[2].startsWith('https://cdn.discordapp.com/attachments/')) return message.channel.send('Sorry, you can only use Discord links.');
+                    if (!(args[2].startsWith('https://cdn.discordapp.com/attachments/') || args[2].startsWith('https://media.discordapp.net/attachments/'))) return message.channel.send('Sorry, you can only use Discord links.');
 
                     targetURL = args[2];
                     targetName = p.basename(url.parse(targetURL).pathname);
