@@ -58,6 +58,24 @@
             .widget:hover {
                 height: 500px;
             }
+            .wdiv {
+                top: 20px; 
+                right: 20px; 
+                position: fixed;
+            }
+            @media (max-width: 1200px) {
+                .wdiv {
+                    position: relative;
+                    margin-left: calc(100% - 332px);
+                }
+            }
+            @media (max-width: 500px) {
+                .wdiv {
+                    position: relative;
+                    margin-left: 20px;
+                    width: 100%;
+                }
+            }
         </style>
     </head>
 
@@ -89,7 +107,7 @@
             };
             </script>
         </div>
-        <div style="top: 20px; right: 20px; position: fixed;" id="wdiv">
+        <div class="wdiv" id="wdiv">
             <iframe src="https://discordapp.com/widget?id=702551414219473056&theme=dark" allowtransparency="true" width=350 height=500 frameborder="0" id="widget" class="widget">https://discord.gg/aTRHKUY</iframe>
             <script>
                 function widgetScr() {
