@@ -99,8 +99,8 @@ module.exports = {
             let newstr = str.toString().splice(ind, ind + repwith.length, repwith);
             str = newstr.substr(0, ind + 16) + str.substr(ind + 16);
             let buf = Buffer.from(str, 'hex');
-            fs.writeFileSync(`conversions/${message.id}/newvid.webm`, buf, {encoding: 'utf-8'});
-            message.channel.sendFile(`conversions/${message.id}/newvid.webm`);
+            fs.writeFileSync(`conversions/${message.id}/result.webm`, buf, {encoding: 'utf-8'});
+            message.channel.sendFile(`conversions/${message.id}/result.webm`);
             });
     }
 }
