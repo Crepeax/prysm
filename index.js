@@ -5,6 +5,7 @@ let   prefix = config.prefix;
 const client = new Discord.Client();
 const exec = require('child_process').exec;
 const fs = require('fs');
+const fse = require('fs-extra');
 const stats = require('./logStats');
 
 let randomFuncPath = require('./functions/random.js');
@@ -30,6 +31,7 @@ if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./reminders.json", '{}
 if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
 if (!fs.existsSync("./clock-channels.json")) fs.writeFileSync("./clock-channels.json", '{}');
 if (!fs.existsSync('guilddata.json')) fs.writeFileSync('guilddata.json', '{}');
+if (fs.existsSync('conversions/')) {fse.emptyDirSync('conversions/'); fs.rmdirSync('conversions/')}
 let statsFile = JSON.parse(fs.readFileSync("./stats.json", "utf8"));
 
 let preCount = statsFile.messages_total;

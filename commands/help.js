@@ -115,6 +115,8 @@ module.exports = {
 				.setTitle('🖼️ Prysm Help - Images')
 				.addField(`${prefix}\`giphy\`, \`gif\`, \`g\``, `Searchs GIPHY for your search term or a random GIF if you type \`random\`.`, true)
 				.addField(`${prefix}\`react\`, \`re\`, \`r\`, \`img\``, `Save an image and then send it using this command. Check \`${prefix}r help\` for more info.`, true)
+				.addBlankField(true)
+				.addField(`${prefix}\`cursevid\``, `Modify a video file to have an "impossible length". Check \`${config.prefix}cursevid help\`.`, true)
 				.setFooter(footerText, message.author.avatarURL)
 				.setColor(embedColor);
 
