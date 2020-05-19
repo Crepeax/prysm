@@ -20,6 +20,7 @@ module.exports = {
     cooldown: 10000,
     dev_only: false,
     disabled: false,
+    aliases: ['cursedvid'],
     execute(message, args) {
         if (!fs.existsSync('conversions/')) fs.mkdirSync('conversions');
 
