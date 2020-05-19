@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            @keyframes test {
+                from {
+                    font-size: 2;
+                }
+                to {
+                    font-size: 200px;
+                }  
+            }
+
+            h1 {
+                animation-name: test;
+                animation-duration: 5s;
+                animation-fill-mode: both;
+                animation-play-state: paused;
+            }
+        </style>
+        <script>
+            function aaa() {
+                console.log('asdfgh');
+                document.getElementById("aa").style['animation-play-state'] = 'running';
+            }
+        </script>
+        <body>
+            <h1 onclick="aaa()" id="aa">asdf</h1>
+        </body>
+    </head>
+</html>

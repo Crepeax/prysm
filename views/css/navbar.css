@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 ul {
     position: -webkit-sticky;
     position: sticky;
@@ -14,6 +16,13 @@ ul {
     max-height: 46px;
     -ms-overflow-style: none;
   }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 16px);
+  }
+
   ul::-webkit-scrollbar {
     display: none;
   }
@@ -24,7 +33,7 @@ li a {
   display: inline-block;
   color: #ffffff;
   padding: 14px 16px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-decoration: none;
   text-align: center;
   overflow: hidden;

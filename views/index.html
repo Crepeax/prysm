@@ -11,8 +11,19 @@
     <head>
         <style>
             @import url("css/navbar.css");
+            @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+            @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+            html * {
+                font-family: 'Roboto', sans-serif;
+                color: white
+            }
+
             body {
                 background-color:rgb(50, 50, 50);
+            }
+            ::-webkit-scrollbar {
+                display: none;
             }
             h1 {
                 text-align: center;
@@ -20,7 +31,7 @@
                 font-size: 70px;
                 margin: 0.5vw;
                 padding: 0vw;
-                font-family: Arial, Helvetica, sans-serif;
+                font-family: 'Roboto', sans-serif;
                 color: white;
             }
             h2 {
@@ -29,12 +40,23 @@
                 font-size: 35px;
                 margin: 0.5vw;
                 padding: 0vw;
-                font-family: Arial, Helvetica, sans-serif;
+                font-family: 'Roboto', sans-serif;
                 color: white;
             }
             a {
                 display: block;
                 padding: 8px;
+            }
+            .widget {
+                margin-left: 0px;
+                height: 0px;
+                height: 73px;
+                transition: 1s;
+                transition-timing-function: ease-in-out;
+                transition-delay: 0s;
+            }
+            .widget:hover {
+                height: 500px;
             }
         </style>
     </head>
@@ -46,18 +68,95 @@
             <h2>The all-in-one Discord bot</h2>
         </div>
 
-        <div class="top">
+        <div class="top" id="navbar">
             <ul>
                 <li><a href="/index.html" class="active">Home</a></li>
+                <li><a href="/commands.html">Commands</a></li>
                 <li><a href="/ytdl/index.html">YT Converter</a></li>
                 <li><a href="/curse-video/index.html">Cursed video generator</a></li>
             </ul>
+            <script>
+            var navbar = document.getElementById("navbar");
+            var sticky = navbar.offsetTop;
+
+            window.onscroll = function() {
+                widgetScr();
+                if (window.pageYOffset >= sticky) {
+                    navbar.classList.add("sticky")
+                } else {
+                    navbar.classList.remove("sticky");
+                }
+            };
+            </script>
         </div>
-
-        <h2 style="font-size: 50px;">This website is work in progress.</h2>
-
-        <iframe src="https://discordapp.com/widget?id=702551414219473056&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" style="margin-top: 1vw;">https://discord.gg/aTRHKUY</iframe>
-        
+        <div style="top: 20px; right: 20px; position: fixed;" id="wdiv">
+            <iframe src="https://discordapp.com/widget?id=702551414219473056&theme=dark" allowtransparency="true" width=350 height=500 frameborder="0" id="widget" class="widget">https://discord.gg/aTRHKUY</iframe>
+            <script>
+                function widgetScr() {
+                    const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                    const height = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
+                    if (width < 1200) return;
+                    if (window.pageYOffset > 200) return;
+                    let target = document.getElementById("wdiv");
+                    target.style.top = (window.pageYOffset * 0.25 + 20) + 'px';
+                }
+            </script>
+        </div>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
+        <a>a</a>
     </body>
-
 </html>
