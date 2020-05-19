@@ -16,7 +16,7 @@ module.exports = {
     description: 'ee',
     syntax: 'cursevid',
     guildOnly: true,
-    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS'],
+    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'],
     cooldown: 10000,
     dev_only: false,
     disabled: false,
