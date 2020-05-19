@@ -5,8 +5,8 @@ const config = require('../config.json');
 
 module.exports = {
     name: 'mute',
-    description: '',
-    syntax: '',
+    //description: '',
+    //syntax: '',
     guildOnly: true,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES', 'MANAGE_CHANNELS'],
     cooldown: 1500,
