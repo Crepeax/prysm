@@ -53,7 +53,6 @@ module.exports = {
             targetName = message.attachments.first().filename;
         }
         fs.mkdirSync('conversions/' + message.id);
-        console.log(targetName);
         
         let writeStream = fs.createWriteStream('conversions/' + message.id + '/' + targetName);
 
@@ -91,6 +90,9 @@ module.exports = {
 
         writeStream.on('close', s => {
             if (p.extname(`conversions/${message.id}/${targetName}`) != '.webm') return message.channel.send('Invalid file format: Only .webm files are supported.');
+
+            const size = fs.statSync('conversions/' + message.id + '/' + targetName).size / 1000000.0;
+            if (size > 8) return message.channel.send('This video is too large.');
 
             // This is where the magic happens
             let file = fs.readFileSync(`conversions/${message.id}/${targetName}`);
