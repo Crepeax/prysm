@@ -6,21 +6,28 @@ ul {
     margin: 0;
     padding: 0;
     background-color: #555555;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
     top: 0;
     left: 0;
     width: 100%;
-}
+    max-height: 46px;
+    -ms-overflow-style: none;
+  }
+  ul::-webkit-scrollbar {
+    display: none;
+  }
 li {
     float: left;
 }
 li a {
-  display: block;
+  display: inline-block;
   color: #ffffff;
   padding: 14px 16px;
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
   text-align: center;
+  overflow: hidden;
 }
 li a:hover {
     background-color: #888888;
@@ -33,4 +40,26 @@ li a.active {
 li a:hover:not(.active) {
   background-color: #888888;
   color: white;
+}
+
+.top {
+  max-width: 100%; 
+  overflow: auto;
+  overflow-x: hidden; 
+  overflow-y: hidden; 
+  white-space: nowrap; 
+  -ms-overflow-style: none;
+}
+
+.top::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 420px) {
+  ul {
+    width: 401px;
+  }
+  .top {
+    overflow-x: auto;
+  }
 }

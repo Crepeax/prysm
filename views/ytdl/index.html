@@ -3,6 +3,7 @@
     <head>
         <title>YouTube Downloader</title>
         <style>
+            @import url("/css/navbar.css");
             body {
                 background-color: rgb(50, 50, 50);
             }
@@ -10,11 +11,8 @@
                 color: white;
                 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 left: 0;
-                line-height: 200px;
-                margin-top: -100px;
-                position: absolute;
+                margin-top: 35px;
                 text-align: center;
-                top: 5%;
                 width: 100%;
                 font-size: 50px;
             }
@@ -22,11 +20,10 @@
                 color: white;
                 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 left: 0;
-                line-height: 20px;
-                margin-top: -100px;
+                line-height: 25px;
+                margin-top: -20px;
                 position: absolute;
                 text-align: center;
-                top: 20%;
                 width: 100%;
                 font-size: 20px;
             }
@@ -35,10 +32,7 @@
                 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 left: 0;
                 line-height: 20px;
-                margin-top: -100px;
-                position: absolute;
                 text-align: center;
-                top: 23%;
                 width: 100%;
                 font-size: 20px;
             }
@@ -51,22 +45,38 @@
                 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 left: 0;
                 line-height: 20px;
-                margin-top: 1%;
-                position: absolute;
-                text-align: center;
+                margin-top: 30px;
                 top: 22%;
                 width: 100%;
                 font-size: 20px;
+            }
+            ul {
+                margin-top: 10px;
             }
             
             .center-block {
               margin: auto;
               display:block;
+              margin-top: 95px; 
+              border-radius: 5px; 
+              border-color: rgb(206, 206, 206);
             }
+            @media (max-width: 450px) {
+                .center-block {
+                    margin-top: calc(95px + 10%);
+                }
+            }
+
         </style>
     </head>
-
     <body>
+        <div class="top" style="margin-top: 0px;">
+            <ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/ytdl/index.html"class="active">YT Converter</a></li>
+                <li><a href="/curse-video/index.html" >Cursed video generator</a></li>
+            </ul>
+        </div>
 
         <script>
             function press() {
@@ -74,20 +84,22 @@
             }
         </script>
 
-        <h1>YT Downloader</h1>
-        <h2><a id="helpText">Please enter the video URL and click "Convert!"</a></h2>
-        <h3><a id="helpText2">The converted file will be stored on this server for 30 minutes.</a></h3>
+            <h1>YT Downloader</h1>
+            <h2><a id="helpText">Please enter the video URL and click "Convert!"</a><br/><a id="helpText2">The converted file will be stored on this server for 30 minutes.</a></h2>
+        
         <form action="download">
-            <input type="text" class="center-block" autofocus=true style="margin-top: 10%; border-radius: 5px; border-color: rgb(206, 206, 206);" name=url>
+            <input type="text" class="center-block" autofocus=true; name=url>
 
+            <div style=" margin-left: 0%; text-align: center;">
                 <h4>Choose the download format:</h4>
-                <input type="radio" id="mp4" name="format" value="mp4" style="margin-left: 45.5%; margin-top: 3%; color: white;" checked>
+                <input type="radio" id="mp4" name="format" value="mp4" style="margin-top: 1px; color: white;" checked>
                 <label for="auto" style="color: white; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"> MP4</label>
                 <input type="radio" id="flv" name="format" value="flv" style="color: white;">
                 <label for="auto" style="color: white; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"> FLV</label>
                 <input type="radio" id="mp3" name="format" value="mp3" style="color: white;">
                 <label for="auto" style="color: white; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"> MP3</label>
-            <input type="submit" onclick="press()" value="Convert!" class="center-block" style="margin-top: 16px;">
+            </div>
+            <input type="submit" onclick="press()" value="Convert!" class="center-block" style="margin-top: 25px;">
         </form>
     </body>
 

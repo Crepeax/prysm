@@ -11,11 +11,6 @@ const bodyParser = require('body-parser');
 let vote = require('./vote');
 app.set('view engine', 'html');
 
-const coinimp = {
-  "public": "7f424d2f790d4c8cecd44e00b85334bf185bc6ece98193b24fbe5ccf8593a8a1",
-  "private": "f4c87e328ea2f2ab98827fe8413b976a6ad7d3fb49968ce505fd51e58e9e50c6"
-}
-
 function checkFileExistsSync(filepath){
   let flag = true;
   try{
