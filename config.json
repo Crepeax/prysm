@@ -10,6 +10,8 @@
     "meaning_of_life": 42,
     "defaultCooldown": 1500,
 
+    "BfDAuthToken": "g9JcxmzC9DTU3sknYWjQd6QUitMzyevZtYif52uzQGiH3cn5WkNyBhyRsiHt",
+
     "sendStatusToWebhook": true,
     "webhookGuild": "702551414219473056",
     "webhookChannel": "703373546910646352",
