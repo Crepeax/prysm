@@ -124,7 +124,7 @@ if (time_hour > 12) {
     ampm = ' AM';
 }
 
-    let time = hourPrefix + time_hour + seperator + time_min + ampm;    // Save Time String to Variable
+    let time = hourPrefix + time_hour + seperator + time_min/* + ampm*/;    // Save Time String to Variable
     let date = time_day + '. ' + time_month + '. ' + time_year;         // Save Date String to Variable
 
     let file = JSON.parse(fs.readFileSync("./clock-channels.json", "utf8"));
