@@ -14,6 +14,32 @@
             @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
             @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
+            @keyframes logo {
+                from {
+                    margin-left: calc(50% - -129px);
+                    opacity: 100%;
+                }
+                66% {
+                    opacity: 100%;
+                    margin-left: calc(50% - 189px);
+                }
+                100% {
+                    opacity: 0%;
+                    margin-left: calc(50% - 189px);
+                }
+            }
+            @keyframes txt {
+                from {
+                    margin-left: calc(50% - 175px);
+                    clip-path: inset(0% 0% 0% 100%);
+                    
+                }
+                to {
+                    margin-left: calc(50% - 175px);
+                    clip-path: inset(0% 0% 0% 0%);
+                }
+            }
+
             html * {
                 font-family: 'Roboto', sans-serif;
                 color: white
@@ -76,13 +102,29 @@
                     width: 100%;
                 }
             }
+            .logo {
+                animation-name: logo;
+                animation-duration: 1.5s;
+                animation-delay: 1s;
+                animation-timing-function: ease-in-out;
+                animation-fill-mode: both;
+            }
+            .htext {
+                margin-left: calc(50% - 175px);
+                animation-name: txt;
+                animation-duration: 1s;
+                animation-delay: 1s;
+                animation-fill-mode: both;
+                animation-timing-function: ease-in-out;
+            }
         </style>
     </head>
 
     <body>
 
         <div class="header">
-            <img src="/assets/prysm-logo-x200.png" style="height: 120px; margin-top: 30px; margin-bottom: 30px; margin-left: calc(50% - 60px)">
+            <img src="/assets/placeholder.png" style="height: 120px; margin-top: 30px; margin-bottom: 30px; position: absolute; z-index: -99" class="htext">
+            <img src="/assets/prysm-logo-x200.png" style="height: 120px; margin-top: 30px; margin-bottom: 30px; margin-left: calc(50% - 60px);" class="logo">
         </div>
 
         <div class="top" id="navbar">
