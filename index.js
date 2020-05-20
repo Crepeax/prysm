@@ -16,7 +16,7 @@ function random(low, high) {
 
 let testingMode = false; // When set to true, the bot will use the testing account instead.
 
-if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN') testingMode = true; // Automatically use the test account when running locally.
+if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') testingMode = true; // Automatically use the test account when running locally.
 
 if (testingMode) prefix = '-';
 if (testingMode) console.log('[Info] Testing mode enabled!');
@@ -26,7 +26,7 @@ if (testingMode) console.log('[Info] Testing mode enabled!');
 //     http.get('http://botbot-bot.herokuapp.com/');
 // }, 1000*60*15);
 
-if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0, {userstats: {}}}');
+if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0, "userstats": {}}');
 if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./reminders.json", '{}');
 if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
 if (!fs.existsSync("./clock-channels.json")) fs.writeFileSync("./clock-channels.json", '{}');
