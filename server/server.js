@@ -29,14 +29,14 @@ const server = app.listen(port, () => {
     console.log(`Express running → PORT ${server.address().port}`);
 });
 
-fsExtra.emptyDirSync('./downloads/'); // Delete all previously downloaded files
+fsExtra.emptyDirSync('./server/downloads/'); // Delete all previously downloaded files
 
 app.post('/vote/botsfordiscord', function(req, res) { // BfD vote
   
   console.log(req.body);
 
   if (req.body.user == undefined || req.headers.authorization == undefined) return res.sendStatus(400);
-  if (req.headers.authorization != 'g9JcxmzC9DTU3sknYWjQd6QUitMzyevZtYif52uzQGiH3cn5WkNyBhyRsiHt') return res.status(403).send('Invalid token');
+  if (req.headers.authorization != config.BfDAuthToken) return res.status(403).send('Invalid token');
   if (req.body.bot != '656593790177640448') return res.status(404).send('Invalid bot');
 
   vote.vote(req.body);
@@ -48,7 +48,7 @@ app.get(/^(.+)$/, function(req, res){
   console.log(`[${req.ip}] File request : ` + req.params[0]);
 
   if (req.params[0] == '/ytdl/download') {
-    
+        require('./modules/ytdl').execute(req, res);
       } else
   if (checkFileExistsSync( __dirname + '/views' + req.params[0])) {
     res.sendFile( __dirname + '/views' + req.params[0]);
