@@ -3,8 +3,8 @@ const client = new Discord.Client();
 const config = require('./config.json');
 let timeout = 10000;
 let token = config.token;
-if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN') timeout = 0;
-if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN') token = config.testtoken;
+if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') timeout = 0;
+if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') token = config.testtoken;
 client.login(token);
 
 console.log('Manager is starting.');
