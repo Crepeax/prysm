@@ -37,7 +37,7 @@ module.exports = {
 
         foundMsgs.forEach(i => {
             if (!i) return;
-            if (i.content.length > 1024) foundMsgs[e].content = i.substring(0, 1024);
+            //if (i.content.length > 1024) foundMsgs[e].content = i.substring(0, 1024);
             e += 1;
         })
 
