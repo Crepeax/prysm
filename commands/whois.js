@@ -33,10 +33,6 @@ module.exports = {
         let target = message.mentions.members.first();
 
         if (target == undefined) {
-            target = client.members.get(args[0]);
-        }
-
-        if (target == undefined) {
 
             const attachment = new Discord.Attachment('./images/thonks.png', 'thonks.png');
             let invUserEmbed = new Discord.RichEmbed()
