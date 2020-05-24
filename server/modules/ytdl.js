@@ -20,24 +20,52 @@ module.exports = {
           ytdl.getInfo(req.query.url)
           .then(info => {
 
+            let toMP4 = false;
             let fileType = req.query.format;
+            if (!fileType || fileType == 'mp4') throw 'No/invalid file format provided';
 
             if (checkFileExistsSync('./server/downloads/' + info.video_id + '.' + fileType)) {
               res.download('./server/downloads/' + info.video_id + '.' + fileType);
             } else {
-              console.log('Starting download.');
+            if (fileType == 'mp4') {
+              fileType = 'webm';
+              toMP4 = true;
+            }
+            console.log('Starting download.');
               new ffmpeg(ytdl(req.query.url)).toFormat(fileType).on('error', err => {
                 res.sendFile(__dirname + '/responses/error_during_conversion.html');
-                console.log('An error occurred: ' + err);
-                fs.unlinkSync('./server/downloads/' + info.video_id + '.' + fileType);
+                console.log('An error occurred');
+                console.error(err);
+                if (checkFileExistsSync('./server/downloads/' + info.video_id + '.' + fileType)) fs.unlinkSync('./server/downloads/' + info.video_id + '.' + fileType);
               })
               .pipe(fs.createWriteStream('./server/downloads/' + info.video_id + '.' + fileType))
 
               .on('close', () => {
-                setTimeout(function() {res.download('./server/downloads/' + info.video_id + '.' + fileType);}, 1000);
-                setTimeout(function() {
-                  fs.unlinkSync('./server/downloads/' + info.video_id + '.' + fileType);
-                }, 1800000);
+                console.log('Done');
+                if (toMP4) {
+                  console.log('Converting to mp4...');
+                  new ffmpeg('../downloads/' + info.video_id + '.' + fileType).toFormat('mp4').on('error', err => {
+                    res.sendFile(__dirname + '/responses/error_during_conversion.html');
+                    console.log('An error occurred');
+                    console.error(err);
+                    if (checkFileExistsSync('./server/downloads/' + info.video_id + '.' + fileType)) fs.unlinkSync('./server/downloads/' + info.video_id + '.' + fileType);
+                    if (checkFileExistsSync('./server/downloads/' + info.video_id + '.' + 'mp4')) fs.unlinkSync('./server/downloads/' + info.video_id + '.' + 'mp4');
+                  })
+                  .pipe(fs.createWriteStream('./server/downloads/' + info.video_id + '.' + 'mp4'))
+                  .on('close', () => {
+                    console.log('Done');
+                  fileType = 'mp4';
+                  setTimeout(function() {res.download('./server/downloads/' + info.video_id + '.' + fileType);}, 1000);
+                  setTimeout(function() {
+                    fs.unlinkSync('./server/downloads/' + info.video_id + '.' + fileType);
+                  }, 1800000);
+                });
+                } else {
+                  setTimeout(function() {res.download('./server/downloads/' + info.video_id + '.' + fileType);}, 1000);
+                  setTimeout(function() {
+                    fs.unlinkSync('./server/downloads/' + info.video_id + '.' + fileType);
+                  }, 1800000);
+                }
               })
             }
           })
