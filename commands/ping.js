@@ -5,7 +5,6 @@ module.exports = {
     description: 'See the bot\'s ping and some other statistics.',
     guildOnly: false,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS'],
-    aliases: ['latency', 'stats', 'uptime'],
     execute(message, args) {
 
         let botPing = Math.floor(new Date().getTime() - message.createdTimestamp);
