@@ -7,11 +7,7 @@ module.exports = {
     execute(oldMember, newMember) {
 
         if (!bot.guilds.get(newMember.guild.id).members.get(bot.user.id).permissions.has('ADMINISTRATOR')) {
-                if (oldMember.voiceChannel == undefined) {
-                    newMember.setVoiceChannel(null);
-                } else {
-                    newMember.setVoiceChannel(oldMember.voiceChannel);
-                }
+                if (newMember.user.bot) return;
                 return newMember.send(`Hey, I am missing permissions to create/delete temporary channels. Please inform an Administrator that to ensure voice channels get created and deleted correctly, I require \`Administrator\` permissions.\nSorry for the inconvenience.`);
             }
 
