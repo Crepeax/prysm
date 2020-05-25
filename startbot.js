@@ -25,6 +25,7 @@ function start() {
         require('./index');
     } catch (e) {
         console.log('CRASHED');
+        console.error(e);
         client.guilds.get(config.errorServer).channels.get(config.errorChannel).send(`**PRYSM CRASHED**\nError: ${e}\nWhen: ${new Date()}\n@everyone`);
         client.user.setStatus('dnd');
         client.user.setActivity('Crashed');
