@@ -126,3 +126,6 @@ joinmsg/msgs.json
 userstats/
 guilddata.json
 conversions/
+
+music/volumes.json
+music/announce.json

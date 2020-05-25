@@ -26,11 +26,14 @@ if (testingMode) console.log('[Info] Testing mode enabled!');
 //     http.get('http://botbot-bot.herokuapp.com/');
 // }, 1000*60*15);
 
+// Creating missing files
 if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0, "userstats": {}}');
 if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./reminders.json", '{}');
 if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
 if (!fs.existsSync("./clock-channels.json")) fs.writeFileSync("./clock-channels.json", '{}');
 if (!fs.existsSync('guilddata.json')) fs.writeFileSync('guilddata.json', '{}');
+if (!fs.existsSync('music/volumes.json')) fs.writeFileSync('music/volumes.json', '{}');
+if (!fs.existsSync('music/announce.json')) fs.writeFileSync('music/announce.json', '{}');
 if (fs.existsSync('conversions/')) {fse.emptyDirSync('conversions/'); fs.rmdirSync('conversions/')}
 let statsFile = JSON.parse(fs.readFileSync("./stats.json", "utf8"));
 
@@ -111,6 +114,12 @@ client.once('ready', () => {
 	console.log('\n[Setup] Ready');
 	console.log('[Setup] Running as ' + client.user.username + ' on ' + client.guilds.size + ' servers.');
 	
+	console.log('[Voice] Disconnecting all voice connections.');
+	client.voiceConnections.forEach(c => {
+		console.log('[Voice] Disconnect: ' + c.channel.name);
+		c.disconnect();
+	})
+
 	try {
 		if (!testingMode) require('./clock-module.js');
 		require('./wit/index'); // Start chatbot
@@ -189,7 +198,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 	c = client;
 	const exec = client.misc.get('channelManager');
 	exec.execute(oldMember, newMember);
-	})
+});
 
 	let guildCooldowns = {}
 	let userCooldowns = {}
@@ -214,11 +223,11 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 client.on('messageUpdate', (old, message) => {
 	if (!old || !message) return;
 	messageReceived(message, 'edit');
-})
+});
 
 client.on('message', message => {
 	messageReceived(message, 'send');
-})
+});
 
 function messageReceived(message, type) {
 	if (!message.guild && !message.author.bot) console.log(`DM MESSAGE: [${message.author.username}#${message.author.discriminator} (${message.author.id})]: ${message.content}`);

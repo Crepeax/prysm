@@ -44,7 +44,7 @@ module.exports = {
         	const embed = new Discord.RichEmbed()
 			.setColor(embedColor)
 			.setTitle('❔ Prysm Help')
-			.setDescription(`Please select the category you want to see:\n⚒️ → Moderation\n💬 → Chat\n🧿 → Passive Skills\n🌀 → Miscellaneous\n🖼️ → Images\n🔱 → Annoying stuff` + /*\n🎵 → Music*/ `\n🤖 → Bot related stuff\n❔ → Show this page\n❌ → Delete this message\n\n⚙️ To see the details of a specific\ncommand, type ${config.prefix}help commands.`)
+			.setDescription(`Please select the category you want to see:\n⚒️ → Moderation\n💬 → Chat\n🧿 → Passive Skills\n🌀 → Miscellaneous\n🖼️ → Images\n🔱 → Annoying stuff\n🎵 → Music\n🤖 → Bot related stuff\n❔ → Show this page\n❌ → Delete this message\n\n⚙️ To see the details of a specific\ncommand, type ${config.prefix}help commands.`)
 			.setFooter(`Use the reactions below, ${message.author.username}.`)
 			.setTimestamp();
 
@@ -132,14 +132,17 @@ module.exports = {
 
 			embeds.music = new Discord.RichEmbed()
 				.setTitle('🎵 Prysm Help - Music')
-				.setDescription(`The music module is highly unstable and there is a high chance that you will crash the bot if you use it. If anything goes wrong, please use \`+feedback\`.\n**THE MUSIC MODULE IS CURRENTLY DISABLED DUE TO CHANGES TO THE DISCORD API.**`)
-				.addField(`${prefix}\`play\`, \`p\``, `Play music from YouTube! Usage: \`${prefix}play [URL or search term]\``, true)
+				.setDescription(`**The music module is currently work in progress and you are likely to encounter errors when using it.**`)
+				.addField(`${prefix}\`play\`, \`p\``, `Play a song from YouTube.`, true)
+				.addField(`${prefix}\`skip\`, \`s\``, `Skip the current song.`, true)
+				.addBlankField(true)
 				.addField(`${prefix}\`leave\`, \`disconnect\`, \`dc\``, `Disconnect the bot from your voice channel.`, true)
+				.addField(`${prefix}\`volume\`, \`v\``, `Set the playback volume.`, true)
 				.addBlankField(true)
-				.addField(`${prefix}\`mute\`, \`m\``, `mute/unmute the bot's audio. Playback will continue but no sounds will be sent.`, false)
-				.addField(`${prefix}\`repeat\`, \`loop\`, \`l\``, `Loop the queue. Use again to disable looping.`, true)
-				.addField(`${prefix}\`queue\`, \`q\``, `Shows the current queue. Does not work for some reason.`, true)
+				.addField(`${prefix}\`repeat\`, \`loop\`, \`l\``, `Toggle looping the queue.`, true)
+				.addField(`${prefix}\`queue\`, \`q\``, `Shows the current queue.`, true)
 				.addBlankField(true)
+				.addField(`${prefix}\`announce\``, `Enable/disable announcing of tracks.`, true)
 				.setFooter(footerText, message.author.avatarURL)
 				.setColor(embedColor);
 
@@ -164,7 +167,7 @@ module.exports = {
 
 				if (message.guild) activeHelpWindows[message.channel.id][message.author.id] = m.id;
 				try {
-					m.react('⚒️').then(() => m.react('💬').then(() => m.react('🧿').then(() => m.react('🌀').then(() => m.react('🖼️').then(() => m.react('🔱').then(/*() => m.react('🎵').then(*/() => m.react('🤖').then(() => m.react('❔').then(() => m.react('❌')))))))))/*)*/;
+					m.react('⚒️').then(() => m.react('💬').then(() => m.react('🧿').then(() => m.react('🌀').then(() => m.react('🖼️').then(() => m.react('🔱').then(() => m.react('🎵').then(() => m.react('🤖').then(() => m.react('❔').then(() => m.react('❌'))))))))));
 				} catch {}
 
 			const filter = (reaction) => reaction != undefined;
@@ -206,11 +209,11 @@ module.exports = {
 									edited = true;
 									setCooldown();
 								break;
-								//case '🎵':
-								//	if (!cooldown) m.edit(embeds.music);
-								//	edited = true;
-								//	setCooldown();
-								//break;
+								case '🎵':
+									if (!cooldown) m.edit(embeds.music);
+									edited = true;
+									setCooldown();
+								break;
 								case '🤖':
 									if (!cooldown) m.edit(embeds.botrelated);
 									edited = true;
