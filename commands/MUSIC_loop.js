@@ -6,7 +6,7 @@ module.exports = {
     description: 'Skip music.',
     syntax: '',
     guildOnly: true,
-    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS'],
+    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'VIEW_CHANNEL', 'SPEAK'],
     cooldown: 1500,
     aliases: ['l', 'repeat'],
     dev_only: false,

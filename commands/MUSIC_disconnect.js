@@ -6,7 +6,7 @@ module.exports = {
     description: '',
     syntax: '',
     guildOnly: true,
-    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS'],
+    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'VIEW_CHANNEL', 'SPEAK'],
     cooldown: 1500,
     aliases: ['dc', 'dis', 'die', 'bye', 'leave'],
     dev_only: false,

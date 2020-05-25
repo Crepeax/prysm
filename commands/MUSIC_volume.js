@@ -8,7 +8,7 @@ module.exports = {
     syntax: '',
     aliases: ['v', 'vol'],
     guildOnly: true,
-    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS'],
+    perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'VIEW_CHANNEL', 'SPEAK'],
     cooldown: 1500,
     dev_only: false,
     disabled: false,
