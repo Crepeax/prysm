@@ -12,6 +12,8 @@
 
     "BfDAuthToken": "g9JcxmzC9DTU3sknYWjQd6QUitMzyevZtYif52uzQGiH3cn5WkNyBhyRsiHt",
 
+    "googleApiKey": "AIzaSyB3wWQoh-H1X9I7g_GjhmGLIwLll5OddQY",
+
     "sendStatusToWebhook": true,
     "webhookGuild": "702551414219473056",
     "webhookChannel": "703373546910646352",
