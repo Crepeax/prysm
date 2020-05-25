@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
-let timeout = 10000;
+let timeout = 0;
 let token = config.token;
 if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') timeout = 0;
 if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') token = config.testtoken;
@@ -32,6 +32,6 @@ function start() {
         require.cache = {};
         setTimeout(function() {
             start();
-        }, 20000);
+        }, 10000);
     }
 }
