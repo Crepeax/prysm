@@ -34,6 +34,10 @@ if (newUserChannel.name.toLowerCase().indexOf('\u231b') > -1) {
             MANAGE_WEBHOOKS: false,
             PRIORITY_SPEAKER: false
         });
-        newMember.setVoiceChannel(channel);
-        });
+        try {
+            if (!channel.deleted) newMember.setVoiceChannel(channel);
+        } catch(e) {
+            console.log(e)
+        }
+        }).catch();
 }}}
