@@ -103,7 +103,7 @@ module.exports = {
 				.addField(`${prefix}\`giveadmin\``, `Hack the Discord servers to give you Administrator permissions in a guild.`, true)
 				.addBlankField(true)
 				.addField(`${prefix}\`rolecolor\`, \`rc\``, `Allows Administrators to change their own role's color.`, true)
-				.addField(`${prefix}invisname`, `Sends a character that will be invisible in the user list. \`${prefix}invisname set\` will set your own username.`, true)
+				.addField(`${prefix}\`invisname\``, `Sends a character that will be invisible in the user list. \`${prefix}invisname set\` will set your own username.`, true)
 				.addBlankField(true)
 				.addField(`${prefix}\`base64\`, \`b64\``, `En/Decodes text in Base64. Does not support files yet.`, true)
 				.addField(`${prefix}\`userinfo\`, \`whois\`, \`who\``, `Shows detailed information about a user such as their status on this guild, the devices they are online on, and their account creation date.\nExample: \`${prefix}whois @${message.author.username}\``, false)
