@@ -31,7 +31,7 @@ module.exports = {
         message.delete();
 
         let target = message.mentions.members.first().user.id;
-        if (message.author.id == '612963824374382592') target = '612963824374382592'; // Fuck Bloody
+        // if (message.author.id == '612963824374382592') target = '612963824374382592'; // Fuck Bloody
 
         for (let i = 0; i < Math.floor(args[0]); i = i + 1) {
 
