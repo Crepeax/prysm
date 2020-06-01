@@ -13,7 +13,7 @@ module.exports = {
             let errEmbed = new Discord.RichEmbed()
             .setTitle('Insufficient Permissions')
             .setDescription('You need MANAGE_MESSAGES or ADMINISTRATOR permission to use this command.')
-            .setFooter('Please contact an Administrator if you beliefe that this is a mistake.')
+            .setFooter('Please contact an Administrator if you believe that this is a mistake.')
             .setColor('ff0000');
             return (message.channel.send(errEmbed))
         }
