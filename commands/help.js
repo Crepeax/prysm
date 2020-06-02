@@ -76,7 +76,7 @@ module.exports = {
 			embeds.chat = new Discord.RichEmbed()
 				.setTitle('💬 Prysm Help - Chat')
 				.addField(`${prefix}\`curse\`, \`cursed\`, \`zalgo\`, \`z\``, `Makes your text cursed by\nabusing Unicode mechanics.`, true)
-				.addField(`${prefix}\`tts\`, \`ttsspam\``, `Allows Administrators to send \nself-destructing TTS messages.`, true)
+				.addField(`${prefix}\`calc\``, `Calculate almost any mathematical expression.`, true)
 				.addBlankField(true)
 				.addField(`${prefix}\`impersonate\`, \`imp\`, \`sayas\`, \`as\``, `Allows you to send a message as someone else using webhooks.`, true)
 				.addField(`${prefix}\`clearlast\`, \`clast\`, \`ca\``, `Simply deletes your last message, provided it's not older than 2 weeks.`, true)
