@@ -89,6 +89,7 @@ let targetName;
         switch(args[0]) {
             case 'time':
             case 'clock':
+                return message.channel.send('Sorry, but time channels are currently disabled. You can still use date channels.');
                 target = file.time;
                 targetName = 'Clock';
             break;

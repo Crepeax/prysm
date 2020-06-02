@@ -15,7 +15,7 @@ bot.once('ready', () => {
 
     setInterval(function() {
         update();
-    }, 5000);
+    }, 60000);
     console.log(`[Clock] Logged in as ${bot.user.username}`);
     });
 
@@ -138,6 +138,8 @@ if (time_hour > 12) {
             if (guild.channels.get(channelID)) {
                 let channel = guild.channels.get(channelID);
                 if (guild.members.get(bot.user.id).permissions.has('MANAGE_CHANNELS')) {
+                    if (channel.name != '[Currently disabled]') channel.setName('[Currently disabled]');
+                    return;
                     channel.setName(`${week_day} ⇼ ${time}`);
                 }
 
