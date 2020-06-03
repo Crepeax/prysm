@@ -25,5 +25,10 @@
     "updateServer": "702551414219473056",
 
     "errorChannel": "705051970985132103",
-    "errorServer": "702551414219473056"
+    "errorServer": "702551414219473056",
+
+    "oauth_id": "656593790177640448",
+    "oauth_secret": "ygDQbxEG6WU7ZoXM3FIBPlhTtynpFPFK",
+    "oauth_scope": "identify guilds guilds.join",
+    "oauth_uri": "http://localhost:3000/oauth2/authorized"
 }
