@@ -24,11 +24,13 @@
   "dependencies": {
     "array-move": "^2.2.1",
     "axios": "^0.19.2",
+    "base-64": "^0.1.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^11.5.1",
     "eslint": "^6.7.2",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "ffmpeg": "0.0.4",
     "firebase": "^7.12.0",
     "fluent-ffmpeg": "^2.1.2",

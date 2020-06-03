@@ -86,6 +86,24 @@ console.log(`[Info] Loaded ${commandFiles.length + miscFiles.length} Files.`)
 	module.exports.commands_loaded = commandFiles.length - dis
 	module.exports.commands = client.commands;
 
+	module.exports.support = {
+		isOnSupportServer(id) {
+			if (client.guilds.get(config.voteGuild).members.get(id)) return true; else return false;
+		},
+		sendMsg(id) {
+			let member = client.guilds.get(config.voteGuild).members.get(id);
+			if (member) {
+				let embed = new Discord.RichEmbed()
+				.setTitle('You were added to the support server.')
+				.setDescription(`You were added to \`${member.guild.name}\` because you clicked the "Support Server" button. Please make sure to read the <#702551414219473060> and have fun!`)
+				.setColor('2f3136')
+				.setFooter('You can leave this server at any time.')
+				.setTimestamp();
+				member.user.send(embed);
+			} else console.log('Could not find user');
+		}
+	}
+
 
 client.on('guildMemberAdd', member => {
 	let user = member.id;
@@ -181,6 +199,9 @@ client.once('ready', () => {
 		}}
 	}
 	
+	console.log(`[Info] Starting webinterface`);
+	require('./webinterface/server');
+
 	setInterval(function() {
 		setTimeout(function() {
 			setActivity('LISTENING', `your commands`);
@@ -205,19 +226,19 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 	let cooldownCooldowns = {}
 	
 
-	client.on('channelCreate', c => {
-		let file = JSON.parse(fs.readFileSync('guilddata.json'));
-		if (!c.guild) return;
-		if (!file[c.guild.id])			 return;
-		if (!file[c.guild.id].mutedRole) return;
-		if (!c.manageable) 				 return;
-		console.log('New channel created. Denying permissions for muted role');
-		c.overwritePermissions(file[c.guild.id].mutedRole, {
-			SEND_MESSAGES: false,
-			ADD_REACTIONS: false,
-			CONNECT: false
-		}, 'Denied permissions for muted role.').catch(e => console.error(e));
-	})
+client.on('channelCreate', c => {
+	let file = JSON.parse(fs.readFileSync('guilddata.json'));
+	if (!c.guild) return;
+	if (!file[c.guild.id])			 return;
+	if (!file[c.guild.id].mutedRole) return;
+	if (!c.manageable) 				 return;
+	console.log('New channel created. Denying permissions for muted role');
+	c.overwritePermissions(file[c.guild.id].mutedRole, {
+		SEND_MESSAGES: false,
+		ADD_REACTIONS: false,
+		CONNECT: false
+	}, 'Denied permissions for muted role.').catch(e => console.error(e));
+})
 
 
 client.on('messageUpdate', (old, message) => {
