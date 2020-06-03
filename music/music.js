@@ -91,6 +91,9 @@ module.exports = { // Müll
     },
 
     async disconnect(guild) {
+        if (typeof guild == 'string') {
+            guild = client.guilds.get(guild);
+        }
         if (!guild.members.get(client.user.id).voiceChannel) return 'no_connection';
         events.emit(`dc_${guild.id}`);
         return 0;
