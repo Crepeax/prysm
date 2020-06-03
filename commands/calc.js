@@ -32,7 +32,7 @@ module.exports = {
                 .setDescription('An error has occurred.')
                 .addField('Expression', `\`\`\`js\n${args.join(' ')}\`\`\``)
                 .addField('Error', `\`\`\`js\n${e}\`\`\``)
-                .setFooter(`Completed in ${endingTime - startingTime} ms`)
+                .setFooter(`Calculation completed in ${endingTime - startingTime} ms`)
                 .setColor('2f3136');
 
             return message.channel.send(embed);
@@ -44,7 +44,7 @@ module.exports = {
             .setTitle('Calculation')
             .addField('Expression', `\`\`\`js\n${args.join(' ')}\`\`\``)
             .addField('Result', `\`\`\`js\n${res}\`\`\``)
-            .setFooter(`Completed in ${endingTime - startingTime} ms`)
+            .setFooter(`Calculation completed in ${endingTime - startingTime} ms`)
             .setColor('2f3136')
 
         message.channel.send(embed);
