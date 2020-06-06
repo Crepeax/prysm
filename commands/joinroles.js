@@ -9,10 +9,10 @@ module.exports = {
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'MANAGE_ROLES', 'EMBED_LINKS', 'MENTION_EVERYONE'],
     aliases: ['joinrole', 'autorole', 'jr', 'autorole'],
     execute(message, args) {
-        if (!(message.member.hasPermission('MANAGE_ROLES') && message.member.hasPermission('ADMINISTRATOR'))) {
+        if (!(message.member.hasPermission('MANAGE_ROLES' || message.member.hasPermission('ADMINISTRATOR')))) {
             let invPermEmbed = new Discord.RichEmbed()
             .setTitle('Insufficient Permissions.')
-            .setDescription('You need the \'Manage Roles\' ore \'Administrator\' permission to use this command.')
+            .setDescription('You need the \'Manage Roles\' or \'Administrator\' permission to use this command.')
             .setColor('ff0000')
             .setFooter('This command allows Server Owners to configure the the roles that automatically get assigned to new members.');
             return message.channel.send(invPermEmbed);
