@@ -140,7 +140,8 @@ app.get(/^(.+)$/, function(req, res) {
         avatarURL: avatarURL,
         username: username,
         discriminator: discriminator,
-        supportEntry: supportEntry
+        supportEntry: supportEntry,
+        inviteURL: 'https://discordapp.com/oauth2/authorize?client_id=656593790177640448&scope=bot&permissions=758578262'
       });
       else res.sendFile( __dirname + '/views' + req.params[0]);
     } else {

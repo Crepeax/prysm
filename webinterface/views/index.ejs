@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prysm Webinterface [Test]</title>
+    <title>Prysm</title>
     <head>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
             @keyframes lginfadeout {
                 from {
@@ -78,10 +79,120 @@
                 color: white;
                 line-height: 0px;
             }
+            .logo {
+                width: 700px;
+                height: 250px;
+                left: calc(50% - 360px);
+                top: 200px;
+                position: absolute;
+                background-color: #23272a;
+                border-radius: 20px;
+                padding-bottom: 40px;
+                padding-right: 20px;
+                transition: transform 0.5s;
+            }
+
+            .logo a {
+                font-size: 140px;
+                color: white;
+                font-family: 'Open Sans', sans-serif;
+                position: absolute;
+                top: 10px;
+                left: calc(0% + 200px + 40px);
+            }
+
+            .logo b {
+                font-size: 45px;
+                color: white;
+                font-family: 'Open Sans', sans-serif;
+                position: absolute;
+                bottom: 30px;
+                left: 16px;
+                text-align: center;
+                width: 100%;
+                max-width: 700px;
+            }
+            .logo img {
+                height: 150px;
+                position: absolute;
+                top: 30px;
+                left: 40px;
+            }
+            .logo:hover {
+                transform: scale(1.05);
+            }
+
+            .addbot {
+                width: 280px;
+                height: 50px;
+                left: calc(50% - 360px);
+                top: 550px;
+                position: absolute;
+                background-color: #23272a;
+                border-radius: 20px;
+                padding-bottom: 40px;
+                padding-right: 20px;
+                cursor: pointer;
+                transition: opacity 0.3s, left 0.3s, transform 0.5s;
+            }
+
+            .addbot a {
+                font-size: 32px;
+                color: white;
+                font-family: 'Open Sans', sans-serif;
+                position: absolute;
+                top: 23px;
+                left: 75px;
+            }
+            .addbot img {
+                height: 35px;
+                position: absolute;
+                top: 29px;
+                left: 20px;
+            }
+            .addbot:hover {
+                transform: scale(1.05);
+            }
+
+            .dashboard {
+                width: 280px;
+                height: 50px;
+                left: calc(50% + 60px);
+                top: 550px;
+                position: absolute;
+                background-color: #23272a;
+                border-radius: 20px;
+                padding-bottom: 40px;
+                padding-right: 20px;
+                cursor: pointer;
+                transition: opacity 0.3s, left 0.3s, transform 0.5s;
+            }
+
+            .dashboard a {
+                font-size: 32px;
+                color: white;
+                font-family: 'Open Sans', sans-serif;
+                position: absolute;
+                top: 23px;
+                left: 100px;
+            }
+            .dashboard img {
+                height: 35px;
+                position: absolute;
+                top: 29px;
+                left: 30px;
+            }
+            .dashboard:hover {
+                transform: scale(1.05);
+            }
+
+            .content {
+                position: absolute;
+            }
         </style>
         <body>
 
-            <!-- I don't care if this is shit, as long as it works -->
+            <!-- I don't care if my HTML is shit, as long as it works -->
             
             <div id='logged_in' class="loggedin" style="z-index: 100; opacity: 0%; width: 99%; height: 45px; background-color: #7289DA; position: fixed; margin-top: -15px; border-radius: 10px; text-align: center; animation-name: lginhidden; animation-duration: 1s; animation-fill-mode: both; animation-delay: 5s;">
                 <lgintext><br/>Successfully logged in. Welcome back, <%= username %>.</lgintext>
@@ -105,6 +216,49 @@
                 </div>
                 
             </div>
+
+            <div class="logo" id="logo">
+                <img src="/assets/prysm-logo-x200.png">
+                <a>PRYSM</a>
+                <b>THE ALL-IN-ONE DISCORD BOT</b>
+            </div>
+
+            <div class="addbot" id="addbot" onclick="window.location='<%= inviteURL %>'">
+            <img src="/assets/plus.png">
+            <a>Add to Server</a>
+            </div>
+
+            <div class="dashboard" id="dashboard" onclick="alert('The Dashboard is not implemented yet.')">
+                <img src="/assets/dashboard.png">
+                <a>Dashboard</a>
+            </div>
+
+            <div class="content" id="content">
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <a>test text lmao yeet<br/></a>
+                <br/>
+                <button onclick="test()">test button</button>
+            </div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
             <script>
                 function test() {
@@ -130,6 +284,46 @@
                     element.parentNode.removeChild(element);
                 }
 
+                var logo = document.getElementById("logo");
+                var content = document.getElementById("content");
+
+                function resize() {
+                    content.style.top = window.innerHeight + 'px';
+                    content.style.top = (200 - (window.pageYOffset * 2) + window.innerHeight + 200) + 'px';
+                }
+
+                if ('<%= username %>' != '') {
+                    document.title = 'Prysm - <%= username %>'
+                }
+
+                resize();
+                window.onresize = resize();
+
+                window.onscroll = function() {
+
+                    var dashboard = document.getElementById('dashboard');
+                    var addbot = document.getElementById('addbot');
+
+                    if (window.pageYOffset > 175) {
+                        addbot.style.left = "calc(50% - 360px - 300px)";
+                        addbot.style.opacity = "0";
+                        dashboard.style.left = "calc(50% + 60px + 300px)";
+                        dashboard.style.opacity = "0";
+                    } else {
+                        addbot.style.left = "calc(50% - 360px)";
+                        addbot.style.opacity = "100";
+                        dashboard.style.left = "calc(50% + 60px)";
+                        dashboard.style.opacity = "100";
+                    }
+
+                    let m = (1 - (window.pageYOffset * 2) + window.innerHeight);
+                    if (m < 450) return;
+                    logo.style.top = (200 - (window.pageYOffset)) + 'px';
+                    addbot.style.top = (550 - (window.pageYOffset)) + 'px';
+                    dashboard.style.top = (550 - (window.pageYOffset)) + 'px';
+                    content.style.top = m + 'px';
+                }
+
                 var url = new URL(window.location.href);
                 if (url.searchParams.toString().indexOf('logged_in=true') > -1) {
                     document.getElementById('logged_in').style.animationName = 'lginfadeout';
@@ -143,8 +337,7 @@
                     }, 6000);
                 }
             </script>
-            <button onclick="test()">test button</button>
-            <a><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></a>
-        </body>
+            <a><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></a>
+            </body>
     </head>
 </html>

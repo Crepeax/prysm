@@ -33,7 +33,7 @@ module.exports = {
             }
             let dres = JSON.parse(body);
             if (!dres.access_token) {
-                response.setStatus('500').send('Invalid response');
+                response.send('Invalid response');
                 callback(new Error('Inavlid Response'));
             }
             console.log(dres);
