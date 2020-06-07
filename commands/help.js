@@ -81,7 +81,7 @@ module.exports = {
 				.addField(`${prefix}\`impersonate\`, \`imp\`, \`sayas\`, \`as\``, `Allows you to send a message as someone else using webhooks.`, true)
 				.addField(`${prefix}\`clearlast\`, \`clast\`, \`ca\``, `Simply deletes your last message, provided it's not older than 2 weeks.`, true)
 				.addBlankField(true)
-				.addField(`${prefix}\`snipe\``, `Shows you the 6 last deleted messages.`, true)
+				.addField(`${prefix}\`snipe\``, `Shows you the 15 last deleted messages.`, true)
 				.addBlankField(true)
 				.addBlankField(true)
 				.setFooter(footerText, message.author.avatarURL)
