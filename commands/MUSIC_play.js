@@ -54,15 +54,15 @@ module.exports = {
             };
 
             function validate() {
-                console.log(url);
+                if (!ytdl.validateURL(url))return message.channel.send('The video could not be found.');
                 ytdl.getInfo(url).then(info => {
 
-                    if (!info.video_url) {
+                    if (!info.video_url ||info.video_url == 'undefined') {
                         return message.channel.send('The video could not be found.');
                     }
 
                     manager.addQueue(message.guild, {url: info.video_url, guild: message.guild, vc: message.member.voiceChannel, channel: message.channel}, true).then(res => {
-                        console.log(res);
+                        console.log(`Finished with code '${res}'`);
                              if (res == 0)                   return message.react('👍');
                         else if (res == 1)                   return message.channel.send('Connected.');
                         else if (res == -1)                  return;

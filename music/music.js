@@ -197,22 +197,12 @@ module.exports = { // Müll
                 connections[guild.id] = connection;
                 if (connection.speaking) return;
                 const streamOptions = { seek: 0, volume: volume };
-                let stream;
                 if (typeof info.video_url == 'undefined') return;
-                try {stream = ytdl(info.video_url, { filter : 'audioonly' , highWaterMark : 1024 * 1024 * 10 });} catch(e) {console.error(e); channel.send('YTDL has encountered an error.'); return -1;}
+
+                console.log(info.video_url);
+                let stream = ytdl(info.video_url);
+                
                 const dispatcher = connection.playStream(stream, streamOptions);
-                dispatcher.on('end', () => {
-                    // When playback ended...
-                    console.log('[Music] Dispatcher ended: ' + vc.name);
-                    // Play next song
-                    if (queues[guild.id].length > 0) {
-                        manager.play(guild, vc, channel);
-                    } else {
-                        // Or leave the voice channel
-                        connection.channel.leave();
-                        np[guild.id] = undefined;
-                    }
-                });
 
                 // End dispatcher and send a message when bot gets disconnected
                 client.on('voiceStateUpdate', (oldMember, newMember) => {
@@ -225,26 +215,50 @@ module.exports = { // Müll
                     }
                 });
 
-                // Skip song when skip event is emitted
-                events.on(`skip_${guild.id}`, () => {
+                let skipEvent = function() {
                     console.log('[Music] Skipping');
                     if (!dispatcher.destroyed) dispatcher.end();
-                });
+                }
 
-                // Change volume
-                events.on(`vol_${guild.id}`, () => {
+                let volEvent = function() {
                     console.log('[Music] Updating volume');
                     let v = JSON.parse(fs.readFileSync('music/volumes.json'))[guild.id];
                     dispatcher.setVolume(v);
-                });
+                }
 
-                // Disconnect
-                events.on(`dc_${guild.id}`, () => {
+                let dcEvent = function() {
                     console.log('[Music] Disconnecting');
                     manager.clearQueue(guild);
                     vc.leave();
-                });
+                }
 
+                // Skip song when skip event is emitted
+                events.on(`skip_${guild.id}`, skipEvent);
+
+                // Change volume
+                events.on(`vol_${guild.id}`, volEvent);
+
+                // Disconnect
+                events.on(`dc_${guild.id}`, dcEvent);
+
+                dispatcher.on('end', () => {
+                    // Remove listeners
+                    console.log('[Music] Clearing listeners');
+                    events.removeListener(`skip_${guild.id}`, skipEvent);
+                    events.removeListener(`vol_${guild.id}`, volEvent);
+                    events.removeListener(`dc_${guild.id}`, dcEvent);
+                    // When playback ended...
+                    console.log('[Music] Dispatcher ended: ' + vc.name);
+                    // Play next song
+                    if (queues[guild.id].length > 0) {
+                        manager.play(guild, vc, channel);
+                    } else {
+                        // Or leave the voice channel
+                        connection.channel.leave();
+                        np[guild.id] = undefined;
+                    }
+                });
+            
             }).catch(err => console.error(err));
             if (!res) res = 0;
             return res;
