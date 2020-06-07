@@ -60,6 +60,9 @@ module.exports = {
                 desc += char;
             }
             desc += ` **200%**`
+
+            if (volume == 0) desc = '**0%** :white_circle:==================== **200%**'
+
             embed.setDescription(desc);
             message.channel.send(embed);
 
