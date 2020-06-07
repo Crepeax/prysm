@@ -68,7 +68,7 @@ module.exports = {
 
             let userEmbed = new Discord.RichEmbed()
             .setTitle(`${target.user.username} ${b}`)
-            .setFooter(`${tipMessage}`)
+            // .setFooter(`${tipMessage}`)
             .setTimestamp()
             .setColor('2f3136');
 
