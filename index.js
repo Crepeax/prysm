@@ -7,6 +7,12 @@ const exec = require('child_process').exec;
 const fs = require('fs');
 const fse = require('fs-extra');
 const stats = require('./logStats');
+var io = require( '@pm2/io' );
+
+let pm2cmds = io.meter({
+	name: 'Executed commands',
+	id: 'app/commands/meter'
+});
 
 let randomFuncPath = require('./functions/random.js');
 function random(low, high) {
@@ -414,6 +420,7 @@ function messageReceived(message, type) {
 			bot = client;
 			pre = prefix;
 			conf = config;
+			pm2cmds.mark();
 			let re = command.execute(message, args, username, fs, prefix, pre, user, client, commandName);
 			let inDM;
 			if (message.guild) inDM = false; else inDM = true;

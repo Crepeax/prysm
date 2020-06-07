@@ -22,6 +22,7 @@
     "url": "https://github.com/synicalsyntax/discord.js-heroku/issues"
   },
   "dependencies": {
+    "@pm2/io": "^4.3.5",
     "array-move": "^2.2.1",
     "axios": "^0.19.2",
     "base-64": "^0.1.0",
