@@ -200,7 +200,7 @@ module.exports = { // Müll
                 if (typeof info.video_url == 'undefined') return;
 
                 console.log(info.video_url);
-                let stream = ytdl(info.video_url);
+                let stream = ytdl(info.video_url, {quality : 'highestaudio', highWaterMark: 1024 * 1024 * 10});
                 
                 const dispatcher = connection.playStream(stream, streamOptions);
 
