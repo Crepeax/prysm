@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'clear',
+    name: 'purge',
     description: 'Clears a given amount of messages.',
     guildOnly: true,
     syntax: 'clear [Number from 1-100]',
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'READ_MESSAGE_HISTORY'],
-    aliases: ['bulkdelete', 'purge', 'del', 'cl', 'c'],
+    aliases: ['bulkdelete', 'del', 'cl', 'c'],
     execute(message, args) {
 
         if (!(message.member.hasPermission('MANAGE_MESSAGES') || message.member.hasPermission('ADMINISTRATOR'))) {
