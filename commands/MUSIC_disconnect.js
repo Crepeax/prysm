@@ -8,7 +8,7 @@ module.exports = {
     guildOnly: true,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'VIEW_CHANNEL', 'SPEAK'],
     cooldown: 1500,
-    aliases: ['dc', 'dis', 'die', 'bye', 'leave'],
+    aliases: ['dc', 'dis', 'die', 'bye', 'leave', 'reset'],
     dev_only: false,
     disabled: false,
     execute(message, args) {
