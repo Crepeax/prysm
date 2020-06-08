@@ -2,13 +2,13 @@ const Discord = require('discord.js');
 const client = require('../index').client;
 
 module.exports = {
-    name: 'clear',
+    name: 'clearqueue',
     description: '',
     syntax: '',
     guildOnly: true,
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'VIEW_CHANNEL', 'SPEAK'],
     cooldown: 1500,
-    aliases: ['cq', 'clearqueue', 'empty'],
+    aliases: ['cq', 'empty'],
     dev_only: false,
     disabled: false,
     execute(message, args) {
