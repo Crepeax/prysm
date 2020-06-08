@@ -16,6 +16,7 @@ let np = {};
 let repeat = {};
 let connections = {};
 let songinfo = {};
+let loopPushCurrentSong = {};
 let announce = JSON.parse(fs.readFileSync('music/announce.json'));;
 
 module.exports = { // Müll
@@ -47,6 +48,15 @@ module.exports = { // Müll
         return 0;
     },
 
+    async clearFromQueue(guild, index) {
+        if (isNaN(index) || index == undefined) return 'no_index';
+        const manager = require('./music.js');
+        if (!queues[guild.id]) return 'no_queue';
+        else if (!queues[guild.id][index]) return 'not_found';
+        else queues[guild.id].splice(index, 1);
+        return 0;
+    },
+
     async getQueue(guild) {
         console.log('[Music] getQueue requested');
         if (!np[guild.id]) np[guild.id] = 'none';
@@ -64,7 +74,7 @@ module.exports = { // Müll
         console.log('[Music] setLoop requested');
         if (typeof value != 'boolean') return undefined;
         repeat[guild.id] = value;
-        if (np[guild.id]) queues[guild.id].push(np[guild.id]);
+        if (np[guild.id]) loopPushCurrentSong[guild.id] = true;
         return repeat[guild.id];
     },
 
@@ -166,9 +176,16 @@ module.exports = { // Müll
 
             // Remove song from queue or move it to the end
             console.log('[Music] Removing song from queue');
-            np[guild.id] = queues[guild.id][0];
-            if (repeat[guild.id] == true) queues[guild.id].push(queues[guild.id].shift());
-            else queues[guild.id].shift();
+            if (repeat[guild.id] == true) {
+                let a = np[guild.id];
+                np[guild.id] = queues[guild.id][0];
+                queues[guild.id].shift();
+                queues[guild.id].push(a);
+            }
+            else {
+                np[guild.id] = queues[guild.id][0];
+                queues[guild.id].shift();
+            }
 
             // Announce song
             if (announce[guild.id] == undefined) announce[guild.id] = true;
