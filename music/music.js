@@ -16,7 +16,7 @@ let np = {};
 let repeat = {};
 let connections = {};
 let songinfo = {};
-let loopPushCurrentSong = {};
+let rmQueueSong = {};
 let announce = JSON.parse(fs.readFileSync('music/announce.json'));;
 
 module.exports = { // Müll
@@ -74,7 +74,6 @@ module.exports = { // Müll
         console.log('[Music] setLoop requested');
         if (typeof value != 'boolean') return undefined;
         repeat[guild.id] = value;
-        if (np[guild.id]) loopPushCurrentSong[guild.id] = true;
         return repeat[guild.id];
     },
 
@@ -177,12 +176,19 @@ module.exports = { // Müll
             // Remove song from queue or move it to the end
             console.log('[Music] Removing song from queue');
             if (repeat[guild.id] == true) {
-                let a = np[guild.id];
-                np[guild.id] = queues[guild.id][0];
-                queues[guild.id].shift();
-                queues[guild.id].push(a);
+                if (rmQueueSong[guild.id]) {
+                    rmQueueSong[guild.id] = undefined;
+                    np[guild.id] = queues[guild.id][0];
+                    queues[guild.id].shift();
+                } else {
+                    let a = np[guild.id];
+                    np[guild.id] = queues[guild.id][0];
+                    queues[guild.id].shift();
+                    queues[guild.id].push(a);
+                }
             }
             else {
+                rmQueueSong[guild.id] = undefined;
                 np[guild.id] = queues[guild.id][0];
                 queues[guild.id].shift();
             }
@@ -270,9 +276,17 @@ module.exports = { // Müll
                     if (queues[guild.id].length > 0) {
                         manager.play(guild, vc, channel);
                     } else {
+                        // Push current song to queue if looping is enabled
+                        if (this.getLoop(guild)) {
+                            queues[guild.id].push(np[guild.id]);
+                            rmQueueSong[guild.id] = true;
+                            manager.play(guild, vc, channel);
+                        }
                         // Or leave the voice channel
-                        connection.channel.leave();
-                        np[guild.id] = undefined;
+                        else {
+                            connection.channel.leave();
+                            np[guild.id] = undefined;
+                        }
                     }
                 });
             
