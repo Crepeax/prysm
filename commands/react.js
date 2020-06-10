@@ -201,7 +201,7 @@ module.exports = {
             break;
             case undefined:
             case '':
-                message.channel.send(`Type ${config.prefix}help to learn about this command.`)
+                message.channel.send(`Type ${config.prefix}r help to learn about this command.`)
             break;
             default:
                 if (file[args[0]]) {
