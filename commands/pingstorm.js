@@ -40,7 +40,8 @@ module.exports = {
                 o = message.guild.channels.random();
             }
             o.send(`<@${target}>`)
-            .then(m => m.delete());
+            .then(m => m.delete())
+            .catch();
         }
         return true;
     }
