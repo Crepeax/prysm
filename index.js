@@ -7,7 +7,7 @@ const exec = require('child_process').exec;
 const fs = require('fs');
 const fse = require('fs-extra');
 const stats = require('./logStats');
-var io = require( '@pm2/io' );
+var io = require( '@pm2/io');
 
 let pm2cmds = io.meter({
 	name: 'Executed commands',
@@ -96,6 +96,11 @@ console.log(`[Info] Loaded ${commandFiles.length + miscFiles.length} Files.`)
 		isOnSupportServer(id) {
 			if (client.guilds.get(config.voteGuild).members.get(id)) return true; else return false;
 		},
+		isOnServer(userID, guildID) {
+			let guild = client.guilds.get(guildID);
+			if (!guild) return false;
+			if (guild.members.get(userID)) return guild.members.get(userID); else return false;
+		},
 		sendMsg(id) {
 			let member = client.guilds.get(config.voteGuild).members.get(id);
 			if (member) {
@@ -107,6 +112,22 @@ console.log(`[Info] Loaded ${commandFiles.length + miscFiles.length} Files.`)
 				.setTimestamp();
 				member.user.send(embed);
 			} else console.log('Could not find user');
+		},
+		getGuilds() {
+			let guilds = client.guilds;
+			return guilds;
+		},
+		canManageGuild(userID, guildID) {
+			if (!userID || !guildID) return false;
+			if (isNaN(userID))  return false;
+			if (isNaN(guildID)) return false;
+			let guild = client.guilds.get(guildID);
+			let user = client.users.get(userID);
+			if (!user || !guild) return false;
+			let member = guild.members.get(userID);
+			if (!member) return false;
+			if (!member.permissions.has('MANAGE_GUILD') && !member.permissions.has('ADMINISTRATOR')) return false;
+			return member;
 		}
 	}
 
@@ -249,6 +270,7 @@ client.on('channelCreate', c => {
 
 client.on('messageUpdate', (old, message) => {
 	if (!old || !message) return;
+	if (old.content == message.content) return;
 	messageReceived(message, 'edit');
 });
 
@@ -256,7 +278,9 @@ client.on('message', message => {
 	messageReceived(message, 'send');
 });
 
+let checkMessage = require('./functions/checkMessage.js');
 function messageReceived(message, type) {
+	if (!message.author.bot && message.guild) checkMessage.check(message);
 	if (!message.guild && !message.author.bot) console.log(`DM MESSAGE: [${message.author.username}#${message.author.discriminator} (${message.author.id})]: ${message.content}`);
 
 	if (!message.author.bot && message.content.startsWith(`<@!${client.user.id}>`)) {	// Check if message starts with mention
