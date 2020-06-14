@@ -58,10 +58,21 @@ module.exports = { // Müll
     },
 
     async getQueue(guild) {
-        console.log('[Music] getQueue requested');
+        if (typeof guild == 'string' || typeof guild == 'number') guild = client.guilds.get(guild);
+        if (!guild) return -1;
         if (!np[guild.id]) np[guild.id] = 'none';
         if (!repeat[guild.id]) repeat[guild.id] = false;
-        return ({ "queue" : queues[guild.id] , "np" : np[guild.id] , "songinfo" : songinfo , "repeat" : repeat[guild.id] });
+        let npinfo = {};
+        if (connections[guild.id]) if (connections[guild.id].dispatcher && np[guild.id]) {
+            npinfo.playtime = connections[guild.id].dispatcher.streamTime;
+            npinfo.endsin = (songinfo[np[guild.id]].length_seconds * 1000) - connections[guild.id].dispatcher.streamTime;
+            npinfo.songlength = (songinfo[np[guild.id]].length_seconds * 1000);
+            npinfo.channel = connections[guild.id].channel;
+        }
+        
+        npinfo.volume = JSON.parse(fs.readFileSync('music/volumes.json'))[guild.id];
+
+        return ({ "queue" : queues[guild.id] , "np" : np[guild.id] , "songinfo" : songinfo , "repeat" : repeat[guild.id] , guild : guild , np_info : npinfo });
     },
 
     async getLoop(guild) {
@@ -94,6 +105,7 @@ module.exports = { // Müll
     },
 
     async skip(guild) {
+        if (typeof guild == 'string' || typeof guild == 'number') guild = client.guilds.get(guild);
         if (!guild.members.get(client.user.id).voiceChannel) return 'no_connection';
         events.emit(`skip_${guild.id}`);
         return 0;
@@ -109,6 +121,7 @@ module.exports = { // Müll
     },
 
     async setVolume(guild) {
+        if (typeof guild == 'string' || typeof guild == 'number') guild = client.guilds.get(guild);
         events.emit(`vol_${guild.id}`);
         return 0;
     },
@@ -277,7 +290,7 @@ module.exports = { // Müll
                         manager.play(guild, vc, channel);
                     } else {
                         // Push current song to queue if looping is enabled
-                        if (this.getLoop(guild)) {
+                        if (repeat[guild.id] == true) {
                             queues[guild.id].push(np[guild.id]);
                             rmQueueSong[guild.id] = true;
                             manager.play(guild, vc, channel);
@@ -299,4 +312,10 @@ module.exports = { // Müll
             vc.leave();
         }
     }
+
+    /**
+     * --- To do ---
+     * Command to change a song's index in queue
+     * Display queue on dashboard
+     */
 }
