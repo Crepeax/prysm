@@ -317,5 +317,6 @@ module.exports = { // Müll
      * --- To do ---
      * Command to change a song's index in queue
      * Display queue on dashboard
+     * Saving/loading queues
      */
 }
