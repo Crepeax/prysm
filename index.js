@@ -307,7 +307,7 @@ function messageReceived(message, type) {
 			let inDM = true;
 			if (message.guild) inDM = false;
 			require('./logStats.js').addStats(message.author, command, inDM, 'devOnlyError');
-			return message.channel.send('This command is currently disabled.');	// |
+			return message.channel.send('This command is currently broken and can\'t be used.');																	// |
 		} else if (command.dev_only) {																											// Stop command from getting executed if it is a dev-only command
 			let dev = require('./commands/dev.js');																								// |
 			if (dev.devlist.indexOf(message.author.id) > -1) {																					// |
