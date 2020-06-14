@@ -9,6 +9,8 @@ setInterval(function() {
     fs.writeFileSync('webinterface/sessionData.json', JSON.stringify(sessionData));
 }, 10000);
 
+/* TO DO: Save data per user ID instead of session ID */
+
 module.exports = {
     store(sesID, name, data) {
         // Throw error when no data was provided
