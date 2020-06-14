@@ -245,13 +245,19 @@
                 object-fit: cover;
                 border-radius: 50%;
             }
+
+            .cls-2 {
+                fill:#7e7e7e;
+                stroke:#1d1d1b;
+                stroke-miterlimit:10;
+            }
         </style>
         <body>
 
             <!-- discord.gg/obama -->
 
             <div class="controls">
-                <b id="musicinfotext"><marquee behavior="scroll" direction="left">Fetching Song Name...</marquee></b>
+                <b id="musicinfotext">Fetching Song Info...</b>
                 <img class="thumbimg" src="/assets/not_playing.png" id="musicthumbnail">
                 <c id="musicauthortext">Fetching Author...</c>
                 <svg class="icon-1_QxNX" aria-hidden="false" width="24" height="24" viewBox="0 0 24 24" style="position: absolute; top: 55px; left: calc(50% - 5px); color: #999999"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M11.383 3.07904C11.009 2.92504 10.579 3.01004 10.293 3.29604L6 8.00204H3C2.45 8.00204 2 8.45304 2 9.00204V15.002C2 15.552 2.45 16.002 3 16.002H6L10.293 20.71C10.579 20.996 11.009 21.082 11.383 20.927C11.757 20.772 12 20.407 12 20.002V4.00204C12 3.59904 11.757 3.23204 11.383 3.07904ZM14 5.00195V7.00195C16.757 7.00195 19 9.24595 19 12.002C19 14.759 16.757 17.002 14 17.002V19.002C17.86 19.002 21 15.863 21 12.002C21 8.14295 17.86 5.00195 14 5.00195ZM14 9.00195C15.654 9.00195 17 10.349 17 12.002C17 13.657 15.654 15.002 14 15.002V13.002C14.551 13.002 15 12.553 15 12.002C15 11.451 14.551 11.002 14 11.002V9.00195Z"></path></svg>
@@ -273,6 +279,7 @@
                 	    <svg id="Ebene_1" width="26" height="26" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 462.3 501.86" style="color: white; margin-top: 7px; margin-left: 7px; position: absolute; user-select: none;"><defs><style>.cls-1{fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10;}</style></defs><title>skip</title><polygon class="cls-1" points="0.5 0.93 0.5 500.93 378.28 250.93 0.5 0.93"/><rect class="cls-1" x="378.28" y="0.93" width="83.52" height="500"/></svg>
                 	    <a>Skip</a>
                     </div>
+                    <svg id="looping" onclick="repeat()" class="hover loopbtn" data-name="looping" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 501 474.9" style="height: 30px; padding: 5.5px; background-color: #2b2e32; position: absolute; margin-left: 305px; margin-top: 0px; border-radius: 5px;"><title>looping</title><path class="cls-2" d="M413.88,48H67.76A67.26,67.26,0,0,0,.5,115.21v191.1l44-44,42.1,44V154.72a20.65,20.65,0,0,1,20.65-20.65H413.88v34.45L500,88.14,413.88,13.5Z" transform="translate(0.25 -12.41)"/><path class="cls-2" d="M86.62,451.76H432.74A67.26,67.26,0,0,0,500,384.5V193.4l-44,40.19-42.1-40.19V345a20.66,20.66,0,0,1-20.65,20.65H86.62V331.19L.5,411.57l86.12,74.64Z" transform="translate(0.25 -12.41)"/></svg>
                 </div>
             </div>
 
@@ -286,6 +293,17 @@
             </div>
 
             <script>
+            function getSetStyleRule(sheetName, selector, rule) {
+                var stylesheet = document.querySelector('link[href*=' + sheetName + ']')
+                            
+                if( stylesheet ){
+                    stylesheet = stylesheet.sheet
+                    stylesheet.insertRule(selector + '{ ' + rule + '}', stylesheet.cssRules.length)
+                }
+            
+                return stylesheet
+            }
+
                 function disconnect() {
                     fetch(`/post?action=disconnect&gid=<%- guildID %>`, {
                         method: 'POST'
@@ -302,6 +320,10 @@
                     fetch(`/post?action=setvolume&gid=<%- guildID %>&volume=${v}`, {
                         method: 'POST'
                     });
+                }
+
+                function repeat() {
+                    getSetStyleRule('cls-2', 'fill', '#21964a');
                 }
 
                 var slider = document.getElementById("volume");
@@ -361,7 +383,7 @@
                             setTimeout(function() {updateMusic()}, 1500);
                             return;
                         };
-                        document.getElementById("musicinfotext").innerHTML = `<marquee behavior="scroll" direction="left">Fetching Song Name...${res.songinfo[res.np].title}</marquee>`;
+                        document.getElementById("musicinfotext").innerHTML = `${res.songinfo[res.np].title}`;
                         document.getElementById("musicinfotext").title = res.songinfo[res.np].title;
                         document.getElementById("musicauthortext").innerHTML = res.songinfo[res.np].author.name;
                         let thumb = `https://img.youtube.com/vi/${res.songinfo[res.np].video_id}/mqdefault.jpg`;

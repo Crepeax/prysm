@@ -132,6 +132,26 @@ module.exports = { // Müll
         return vc.id;
     },
 
+    setSongIndex(guild, oldIndex, newIndex) {
+        if (typeof guild == 'string' || typeof guild == 'number') guild = client.guilds.get(guild);
+        if (typeof oldIndex != 'number') return -1;
+        if (typeof newIndex != 'number') return -1;
+
+        if (!queues[guild.id]) return 'no_queue';
+        if (!queues[guild.id][0]) return 'no_queue';
+
+        
+        if (oldIndex >= queues[guild.id].length) oldIndex = queues[guild.id].length - 1;
+        if (oldIndex < 0) oldIndex = 0;
+
+        if (!newIndex || newIndex >= queues[guild.id].length || newIndex < 0) newIndex = 0;
+
+        let oldItem = queues[guild.id].splice(oldIndex, 0);
+        queues[guild.id].splice(newIndex, 0, oldItem);
+
+        return [oldItem, songinfo[oldItem]];
+    },
+
     async play(guild, vc, channel) {
         // Play the music in the queue
         try {
