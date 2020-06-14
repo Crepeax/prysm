@@ -209,6 +209,9 @@
                 margin-top: 8px;
                 margin-left: 45px;
                 user-select: none;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
             .controls c {
                 color: #999999;
@@ -350,6 +353,7 @@
                         console.log(res);
                         if (res.np == "none" || !res.np) {
                             document.getElementById("musicinfotext").innerHTML = 'Not playing';
+                            document.getElementById("musicinfotext").title = null;
                             document.getElementById("musicauthortext").innerHTML = '';
                             document.getElementById("channeltext").innerHTML = 'No channel';
                             if (document.getElementById("musicthumbnail").src != '/assets/not_playing.png') document.getElementById("musicthumbnail").src = '/assets/not_playing.png';
@@ -357,6 +361,7 @@
                             return;
                         };
                         document.getElementById("musicinfotext").innerHTML = res.songinfo[res.np].title;
+                        document.getElementById("musicinfotext").title = res.songinfo[res.np].title;
                         document.getElementById("musicauthortext").innerHTML = res.songinfo[res.np].author.name;
                         let thumb = `https://img.youtube.com/vi/${res.songinfo[res.np].video_id}/mqdefault.jpg`;
                         if (document.getElementById("musicthumbnail").src != thumb) document.getElementById("musicthumbnail").src = thumb;
