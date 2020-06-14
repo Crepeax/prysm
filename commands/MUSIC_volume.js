@@ -21,7 +21,7 @@ module.exports = {
 
         let file = JSON.parse(fs.readFileSync('music/volumes.json'));
         if (!file[message.guild.id]) file[message.guild.id] = 0.5;
-        if (isNaN(file[message.guild.id])) file = 0.5;
+        if (isNaN(file[message.guild.id])) file[message.guild.id] = 0.5;
         let volume = file[message.guild.id] * 100;
         fs.writeFileSync('music/volumes.json', JSON.stringify(file));
 
