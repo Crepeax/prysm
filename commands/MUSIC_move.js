@@ -29,8 +29,6 @@ module.exports = {
 
         let res = manager.setSongIndex(message.guild, oldIndex, newIndex);
 
-        console.log(res);
-
         if (res == 'no_queue')              return message.channel.send('I am not currently playing.');
         else if (res == -1)                 return message.channel.send('An error has occurred.');
         else {
