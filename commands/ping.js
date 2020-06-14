@@ -67,7 +67,7 @@ module.exports = {
             pingEmbed.fields.splice(0, 4);
             msgPing = (m.createdTimestamp - message.createdTimestamp);
             apiPing = Math.floor(bot.ping);
-            pingEmbed.addField(`Discord API Ping`, `\`${apiPing}ms\``, true);
+            pingEmbed.addField(`API Heartbeat`, `\`${apiPing}ms\``, true);
             pingEmbed.addField(`Message Delay`, `\`${msgPing}ms\``, true);
             pingEmbed.addField(`Bot Ping`, `\`${botPing}ms\``, true);
             pingEmbed.addField(`Uptime`, `\`Since ${uptimeDate.getDate()}. ${uptimeDate.getMonth() + 1}. ${uptimeDate.getFullYear()} (${uptimeStr})\``)
