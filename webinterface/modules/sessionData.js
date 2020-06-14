@@ -6,7 +6,7 @@ let sessionData = JSON.parse(fs.readFileSync('webinterface/sessionData.json'));
 
 // Store changed data
 setInterval(function() {
-    fs.writeFileSync('webinterface/sessionData.json', JSON.stringify(sessionData));
+    // fs.writeFileSync('webinterface/sessionData.json', JSON.stringify(sessionData));
 }, 10000);
 
 /* TO DO: Save data per user ID instead of session ID */
@@ -26,7 +26,7 @@ module.exports = {
 
         return 0;
     },
-    get(sesID, name) {
+    get(sesID) {
         if (!sessionData[sesID]) {
             sessionData[sesID] = {};
             console.log('[Web] [StoreSession] Created entry for unknown session');

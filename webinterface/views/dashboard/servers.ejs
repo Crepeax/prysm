@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prysm</title>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+            .dropdowncontent {
+                background-color: #1e1e1e;
+                position: absolute;
+                border-radius: 20px;
+                padding-bottom: 10px;
+                padding-right: 65px;
+                display: none;
+            }
+
+            .dropdowncontent a {
+                color: white;
+                position: relative;
+                font-family: 'Roboto';
+                font-size: 18px;
+                margin-top: 10px;
+                font-weight: bold;
+                float: none;
+                padding: 1px 20px;
+                text-decoration: none;
+                text-align: left;
+                display: block;
+            }
+
+            .userbutton {
+                height: 50px;
+                position: fixed;
+                width: fit-content;
+                right: 35px;
+                margin-right: 35px;
+                top: 20px;
+            }
+
+            .userbutton:hover #userdropdown {
+                display: block;
+            }
+
+            body {
+                background-color: #36393f;
+            }
+
+            .content {
+                position: absolute;
+            }
+
+            .serverlist {
+                margin-left: calc(50% - 300px);
+                width: 600px;
+            }
+
+            .serverlist h1 {
+                color: white;
+                text-align: center;
+                font-family: 'Roboto';
+                font-weight: 500;
+                margin-bottom: 15px;
+                margin-top: 25px;
+            }
+
+            .server {
+                background-color: #222;
+                height: 70px;
+                width: 100%;
+                border-radius: 2px;
+                margin-bottom: 10px;
+                transition: transform 0.2s;
+            }
+
+            .server:hover {
+                transform: scale(1.05);
+            }
+
+            .server img {
+                height: 50px;
+                border-radius: 100%;
+                margin-left: 10px;
+                margin-top: 10px;
+            }
+
+            .server a {
+                color: white;
+                font-family: 'Open Sans';
+                font-size: 40px;
+                position: absolute;
+                margin-left: 20px;
+                margin-top: 6px;
+                overflow: hidden;
+                width: 415px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .server .dbButton {
+                position: absolute;
+                background-color: #43b581;
+                height: 40px;
+                width: 80px;
+                border-radius: 5%;
+                margin-left: 505px;
+                margin-top: 15px;
+                z-index: 100;
+                cursor: pointer;
+            }
+
+            .dbButton b {
+                font-size: 20px;
+                color: white;
+                font-family: 'Open Sans';
+                color: #ccc;
+                position: relative;
+                left: 14px;
+                top: 5px;
+                font-weight: 600;
+            }
+        </style>
+        <body>
+
+            <!-- duck -->
+
+            <div id='userbutton' class="userbutton" style="margin-right: 0px;">
+                <img src='<%= avatarURL %>' style="height: 35px; margin-top: 9px; margin-right: 8px; position: relative; border-radius: 100%; ">
+                <a style="color: white; position: relative; top: -10px; font-family: 'Roboto'; font-size: 20px; margin-right: 0px; font-weight: bold;"><%= username %>#<%= discriminator %></a>
+                <div class="dropdowncontent" id='userdropdown'>
+                    <svg href="/oauth2/logout" style="height: 16px; position: absolute; margin-left: 20px; margin-top: 14px;" id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513.2 513"><title>logout</title><path d="M0,5V507a5,5,0,0,0,5,5H287.54a5,5,0,0,0,5-5V443.88a5,5,0,0,0-5-5H78.17a5,5,0,0,1-5-5V78.17a5,5,0,0,1,5-5H287.58a5,5,0,0,0,5-5L293,5.06A5,5,0,0,0,288,0H5A5,5,0,0,0,0,5Z" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M117,216.94v70.12a9.82,9.82,0,0,0,9.69,9.94H380.33v90L512,252,380.33,117v90H126.69A9.82,9.82,0,0,0,117,216.94Z" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M0,512" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M9.14,502.86" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/></svg><a href="/oauth2/logout" style="margin-left: 20px;">Logout</a>
+                    <%- supportEntry %>
+                </div>
+                
+            </div>
+
+               <div class="serverlist" id="serverlist">
+                   <h1>Open Dashboard</h1>
+                   <%- dbServerList %>
+               </div>
+               <div class="serverlist" id="setupserverlist">
+                   <h1>Setup Prysm</h1>
+                   <%- dbUnknownServerList %>
+               </div>
+
+            <script>
+                function test() {
+                    fetch(`/post?action=disconnect&gid=637695357777739797`, {
+                        method: 'POST'
+                    }).then(res => {
+                        document.getElementById("text").innerHTML = res.statusText;
+                    });
+                }
+
+                if ('<%= username %>' == '') {
+                    window.location='/oauth2/signin.ejs';
+                    document.getElementById('userbutton').style.opacity = '0%';
+                    document.getElementById('userbutton').style.marginRight = '2000px';
+                }
+
+                function joinSupport() {
+                    fetch('/joinSupport');
+                    var element = document.getElementById("joinsprt");
+                    element.parentNode.removeChild(element);
+
+                    element = document.getElementById("joinsprtimage");
+                    element.parentNode.removeChild(element);
+                }
+
+                // Yoinks the "Setup Prysm" category if no servers exist
+                if ("<%= dbUnknownServerList %>" == '') document.getElementById('setupserverlist').innerHTML = '';
+
+                if ('<%= username %>' != '') {
+                    document.title = 'Dashboard - <%= username %>'
+                }
+            </script>
+             </body>
+    </head>
+</html>

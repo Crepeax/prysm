@@ -9,7 +9,7 @@ let handledTokens = [];
 module.exports = {
     async exec(req, response, code, callback) {
         console.log('[Web] [OAuth2] OAuth2 code received: \x1b[33m' + code + '\x1b[0m');
-        if (handledTokens.indexOf(code) > -1) return console.log('[Web] [OAuth2] Token was already used');
+        if (handledTokens.indexOf(code) > -1) return response.send('Authentification error: Failed to exchange OAuth2 code for access token.');
         handledTokens.push(code);
 
         let data = {};
@@ -28,12 +28,12 @@ module.exports = {
             form: data
         }, function(err, resp, body) {
             if (err) {
-                response.setStatus('500').send('An error has occurred');
+                response.setStatus('500').send('Internal server error');
                 callback(new Error('An error has occurred'));
             }
             let dres = JSON.parse(body);
             if (!dres.access_token) {
-                response.send('Invalid response');
+                response.send('Authentification error: Failed to exchange OAuth2 code for access token.');
                 callback(new Error('Inavlid Response'));
             }
             console.log(dres);

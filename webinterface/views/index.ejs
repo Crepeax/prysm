@@ -127,7 +127,7 @@
                 height: 50px;
                 left: calc(50% - 360px);
                 top: 550px;
-                position: absolute;
+                position: fixed;
                 background-color: #23272a;
                 border-radius: 20px;
                 padding-bottom: 40px;
@@ -159,7 +159,7 @@
                 height: 50px;
                 left: calc(50% + 60px);
                 top: 550px;
-                position: absolute;
+                position: fixed;
                 background-color: #23272a;
                 border-radius: 20px;
                 padding-bottom: 40px;
@@ -202,7 +202,7 @@
                 <lgintext><br/>Logged out.</lgintext>
             </div>
 
-            <div id='lginbutton' style="cursor: pointer; background-color: #7289DA; border-radius: 10px; height: 50px; width: 150px; position: fixed; right: 20px; top: 20px;" onclick="window.location='https\:\/\/discord.com/api/oauth2/authorize?client_id=656593790177640448&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2%2Fauthorized&response_type=code&prompt=none&scope=identify%20guilds%20guilds.join'">
+            <div id='lginbutton' style="cursor: pointer; background-color: #7289DA; border-radius: 10px; height: 50px; width: 150px; position: fixed; right: 20px; top: 20px;" onclick="window.location='/oauth2/signin.ejs'">
                 <img src='https://discord.com/assets/28174a34e77bb5e5310ced9f95cb480b.png' style="height: 35px; margin-top: 9px; margin-left: 9px; position: fixed;">
                 <a style="color: white; position: absolute; margin-top: 10px; font-family: 'Roboto'; font-size: 25px; margin-left: 55px; font-weight: bold;">Sign in</a>
             </div>
@@ -228,35 +228,34 @@
             <a>Add to Server</a>
             </div>
 
-            <div class="dashboard" id="dashboard" onclick="alert('The Dashboard is not implemented yet.')">
+            <div class="dashboard" id="dashboard" onclick="window.location='/dashboard/servers.ejs'">
                 <img src="/assets/dashboard.png">
                 <a>Dashboard</a>
             </div>
 
             <div class="content" id="content">
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
-                <a>test text lmao yeet<br/></a>
+                <a><br/></a>
+                <a style="color: white;"><br/>Sample text</a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/></a>
+                <a><br/>sample text</a>
                 <br/>
-                <button onclick="test()">test button</button>
             </div>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
@@ -319,8 +318,8 @@
                     let m = (1 - (window.pageYOffset * 2) + window.innerHeight);
                     if (m < 450) return;
                     logo.style.top = (200 - (window.pageYOffset)) + 'px';
-                    addbot.style.top = (550 - (window.pageYOffset)) + 'px';
-                    dashboard.style.top = (550 - (window.pageYOffset)) + 'px';
+                    addbot.style.top = (550 - (window.pageYOffset * 2)) + 'px';
+                    dashboard.style.top = (550 - (window.pageYOffset * 2)) + 'px';
                     content.style.top = m + 'px';
                 }
 

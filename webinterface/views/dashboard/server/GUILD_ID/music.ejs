@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prysm</title>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Muli:wght@500&display=swap');
+
+            .dropdowncontent {
+                background-color: #1e1e1e;
+                position: absolute;
+                border-radius: 20px;
+                padding-bottom: 10px;
+                padding-right: 65px;
+                display: none;
+            }
+
+            .dropdowncontent a {
+                color: white;
+                position: relative;
+                font-family: 'Roboto';
+                font-size: 18px;
+                margin-top: 10px;
+                font-weight: bold;
+                float: none;
+                padding: 1px 20px;
+                text-decoration: none;
+                text-align: left;
+                display: block;
+            }
+
+            .userbutton {
+                height: 50px;
+                position: fixed;
+                width: fit-content;
+                right: 35px;
+                top: 20px;
+                opacity: 0%;
+            }
+
+            .userbutton:hover #userdropdown {
+                display: block;
+            }
+
+            body {
+                background-color: #36393f;
+            }
+
+            .content {
+                position: absolute;
+            }
+
+            .slidecontainer {
+              width: 25px;
+              height: 25px;
+              transform: rotate(270deg);
+              transition: transform 0.3s, width 0.3s, margin-left 0.3s, margin-top 0.3s;
+              position: absolute;
+              margin-top: 8px;
+              margin-left: 0px;
+            }
+
+            /* The slider itself */
+            .slider {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 0px;
+              height: 8px;
+              background: #808080;
+              outline: none;
+              opacity: 0;
+              -webkit-transition: .2s;
+              border-radius: 10px;
+              position: absolute;
+              left: 10px;
+              top: 6px;
+              transition: width 0.3s, transform 0.1s opacity 0.1s;
+            }
+
+            .slidertext {
+                color: white;
+                font-family: 'Muli';
+                font-size: 15px;
+                position: absolute;
+                margin-top: 20px;
+                margin-left: 3px;
+                color: white;
+                transition: margin-top 0.2s;
+            }
+
+            /* Mouse-over effects */
+            .slidecontainer:hover {
+                width: 125px;
+                margin-top: -42px;
+                margin-left: -50px;
+            }
+
+            .slidecontainer:hover .slidertext {
+                margin-top: 400px;
+            }
+
+            .slidecontainer:hover .slider {
+                opacity: 1;
+                width: 100px;
+            }
+
+            .slidecontainer:hover .slider::-webkit-slider-thumb {
+                background: #43b581;
+            }
+
+            .img {
+                top: -5px;
+                left: -5px;
+                transform: rotate(90deg);
+                height: 35px;
+                position: absolute;
+                transition: opacity 0.1s;
+                opacity: 1;
+                border-radius: 100%;
+                user-select: none;
+                pointer-events: none
+            }
+
+            .slidecontainer:hover .img {
+                opacity: 0;
+            }
+
+            /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+            .slider::-webkit-slider-thumb {
+              -webkit-appearance: none; /* Override default look */
+              appearance: none;
+              width: 25px; /* Set a specific slider handle width */
+              height: 25px; /* Slider handle height */
+              cursor: pointer; /* Cursor on hover */
+              border-radius: 100%;
+              background: #2b2e32;
+            }
+
+
+            .dcbutton {
+                height: 40px;
+                width: 150px;
+                background-color: #f04747;
+                border-radius: 5px;
+                cursor: pointer;
+                position: absolute;
+                margin-left: 40px;
+            }
+
+            .dcbutton a {
+                color: white;
+                font-family: 'Muli';
+                position: absolute;
+                font-size: 18px;
+                margin-top: 8px;
+                margin-left: 40px;
+                user-select: none;
+            }
+            .skipbutton {
+                height: 40px;
+                width: 95px;
+                background-color: #7289da;
+                border-radius: 5px;
+                cursor: pointer;
+                position: absolute;
+                margin-left: 200px;
+            }
+
+            .skipbutton a {
+                color: white;
+                font-family: 'Muli';
+                position: absolute;
+                font-size: 18px;
+                margin-top: 8px;
+                margin-left: 45px;
+                user-select: none;
+            }
+
+            .buttons {
+                position: absolute;
+                width: 295px;
+                height: 40px;
+                left: calc(50% - 150px);
+                top: 220px;
+            }
+            
+            .hover {
+                transition: transform 0.2s;
+            }
+            .hover:hover {
+                transform: scale(1.05);
+            }
+
+            .controls {
+                width: 800px;
+                height: 500px;
+                position: absolute;
+                left: calc(50% - 400px);
+            }
+            .controls b {
+                color: white;
+                font-family: 'Roboto';
+                position: absolute;
+                top: 75px;
+                left: calc(50% - 50px);
+                font-size: 30px;
+                margin-top: 8px;
+                margin-left: 45px;
+                user-select: none;
+            }
+            .controls c {
+                color: #999999;
+                font-family: 'Roboto';
+                position: absolute;
+                top: 120px;
+                left: calc(50% - 50px);
+                font-size: 15px;
+                margin-top: 8px;
+                margin-left: 45px;
+                user-select: none;
+            }
+            .controls d {
+                color: #999999;
+                font-family: 'Roboto';
+                position: absolute;
+                top: 120px;
+                left: calc(50% - 50px);
+                font-size: 15px;
+                margin-top: -62.5px;
+                margin-left: 75px;
+                user-select: none;
+            }
+            .controls .thumbimg {
+                position: absolute;
+                left: calc(50% - 150px);
+                top: 40px;
+                height: 128px;
+                width: 128px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        </style>
+        <body>
+
+            <!-- discord.gg/obama -->
+
+            <div class="controls">
+                <b id="musicinfotext">Fetching Song Name...</b>
+                <img class="thumbimg" src="/assets/not_playing.png" id="musicthumbnail">
+                <c id="musicauthortext">Fetching Author...</c>
+                <svg class="icon-1_QxNX" aria-hidden="false" width="24" height="24" viewBox="0 0 24 24" style="position: absolute; top: 55px; left: calc(50% - 5px); color: #999999"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M11.383 3.07904C11.009 2.92504 10.579 3.01004 10.293 3.29604L6 8.00204H3C2.45 8.00204 2 8.45304 2 9.00204V15.002C2 15.552 2.45 16.002 3 16.002H6L10.293 20.71C10.579 20.996 11.009 21.082 11.383 20.927C11.757 20.772 12 20.407 12 20.002V4.00204C12 3.59904 11.757 3.23204 11.383 3.07904ZM14 5.00195V7.00195C16.757 7.00195 19 9.24595 19 12.002C19 14.759 16.757 17.002 14 17.002V19.002C17.86 19.002 21 15.863 21 12.002C21 8.14295 17.86 5.00195 14 5.00195ZM14 9.00195C15.654 9.00195 17 10.349 17 12.002C17 13.657 15.654 15.002 14 15.002V13.002C14.551 13.002 15 12.553 15 12.002C15 11.451 14.551 11.002 14 11.002V9.00195Z"></path></svg>
+                <d id="channeltext">No channel</d>
+
+                <div class="buttons">
+                    <div class="slidertext" id="volumeDisplay">0</div>
+                    <div class="slidecontainer">
+                        <input type="range" min="0" max="200" value="50" class="slider" id="volume">
+                        <img src="/assets/volume.png" class="img" id="volumeimg">
+                    </div>
+
+                	<div class="dcbutton hover" onclick="disconnect()" title="Disconnect Prysm from this voice channel.">
+                	    <svg aria-hidden="false" width="30" height="30" viewBox="0 0 24 24" style="color: white; margin-top: 5px; margin-left: 5px; position: absolute; user-select: none;"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M21.1169 1.11603L22.8839 2.88403L19.7679 6.00003L22.8839 9.11603L21.1169 10.884L17.9999 7.76803L14.8839 10.884L13.1169 9.11603L16.2329 6.00003L13.1169 2.88403L14.8839 1.11603L17.9999 4.23203L21.1169 1.11603ZM18 22H13C6.925 22 2 17.075 2 11V6C2 5.447 2.448 5 3 5H7C7.553 5 8 5.447 8 6V10C8 10.553 7.553 11 7 11H6C6.063 14.938 9 18 13 18V17C13 16.447 13.447 16 14 16H18C18.553 16 19 16.447 19 17V21C19 21.553 18.553 22 18 22Z"></path></svg>
+                	    <a>Disconnect</a>
+                	</div>
+                
+                	<div class="skipbutton hover" onclick="skip()" title="Skip the currently playing song.">
+                	    <svg id="Ebene_1" width="26" height="26" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 462.3 501.86" style="color: white; margin-top: 7px; margin-left: 7px; position: absolute; user-select: none;"><defs><style>.cls-1{fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10;}</style></defs><title>skip</title><polygon class="cls-1" points="0.5 0.93 0.5 500.93 378.28 250.93 0.5 0.93"/><rect class="cls-1" x="378.28" y="0.93" width="83.52" height="500"/></svg>
+                	    <a>Skip</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id='userbutton' class="userbutton" style="margin-right: 1000px;">
+                <img src='<%= avatarURL %>' style="height: 35px; margin-top: 9px; margin-right: 8px; position: relative; border-radius: 100%; ">
+                <a style="color: white; position: relative; top: -10px; font-family: 'Roboto'; font-size: 20px; margin-right: 0px; font-weight: bold; text-overflow: ellipsis; max-width: 250px; white-space: nowrap;"><%= username %>#<%= discriminator %></a>
+                <div class="dropdowncontent" id='userdropdown'>
+                    <svg href="/oauth2/logout" style="height: 16px; position: absolute; margin-left: 20px; margin-top: 14px;" id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513.2 513"><title>logout</title><path d="M0,5V507a5,5,0,0,0,5,5H287.54a5,5,0,0,0,5-5V443.88a5,5,0,0,0-5-5H78.17a5,5,0,0,1-5-5V78.17a5,5,0,0,1,5-5H287.58a5,5,0,0,0,5-5L293,5.06A5,5,0,0,0,288,0H5A5,5,0,0,0,0,5Z" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M117,216.94v70.12a9.82,9.82,0,0,0,9.69,9.94H380.33v90L512,252,380.33,117v90H126.69A9.82,9.82,0,0,0,117,216.94Z" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M0,512" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M9.14,502.86" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/></svg><a href="/oauth2/logout" style="margin-left: 20px;">Logout</a>
+                    <%- supportEntry %>
+                </div>
+            </div>
+
+            <script>
+                function disconnect() {
+                    fetch(`/post?action=disconnect&gid=<%- guildID %>`, {
+                        method: 'POST'
+                    });
+                }
+                
+                function skip() {
+                    fetch(`/post?action=skip&gid=<%- guildID %>`, {
+                        method: 'POST'
+                    });
+                }
+
+                function setvolume(v) {
+                    fetch(`/post?action=setvolume&gid=<%- guildID %>&volume=${v}`, {
+                        method: 'POST'
+                    });
+                }
+
+                var slider = document.getElementById("volume");
+                var vdisp  = document.getElementById("volumeDisplay");
+
+                vdisp.innerHTML = slider.value;
+                let volume = slider.value;
+                let oldVlm = slider.value;
+
+                setInterval(function() {
+                    if (volume == oldVlm) return;
+                    oldVlm = volume;
+                    setvolume(volume);
+                }, 500);
+
+                slider.oninput = function() {
+                    vdisp.innerHTML = this.value;
+                    volume = this.value;
+                }
+
+                document.getElementById('volumeimg').ondragstart = function() { return false; };
+
+                if ('<%= username %>' == '') {
+                    window.location='/oauth2/signin.ejs';
+                } else {
+                    document.getElementById('userbutton').style.opacity = '100%';
+                    document.getElementById('userbutton').style.marginRight = 'unset';
+                }
+
+                function joinSupport() {
+                    fetch('/joinSupport');
+                    var element = document.getElementById("joinsprt");
+                    element.parentNode.removeChild(element);
+
+                    element = document.getElementById("joinsprtimage");
+                    element.parentNode.removeChild(element);
+                }
+
+                if ('<%= username %>' != '') {
+                    document.title = 'Dashboard - <%= username %>'
+                }
+
+                // Update the music card
+                let update = true;
+                function updateMusic() {
+                    if (!update) return;
+                    fetch(`/get?action=getsonginfo&gid=<%- guildID %>`, {
+                        method: 'GET'
+                    }).then(res => res.json()).then(res => {
+                        console.log(res);
+                        if (res.np == "none" || !res.np) {
+                            document.getElementById("musicinfotext").innerHTML = 'Not playing';
+                            document.getElementById("musicauthortext").innerHTML = '';
+                            document.getElementById("channeltext").innerHTML = 'No channel';
+                            if (document.getElementById("musicthumbnail").src != '/assets/not_playing.png') document.getElementById("musicthumbnail").src = '/assets/not_playing.png';
+                            setTimeout(function() {updateMusic()}, 1500);
+                            return;
+                        };
+                        document.getElementById("musicinfotext").innerHTML = res.songinfo[res.np].title;
+                        document.getElementById("musicauthortext").innerHTML = res.songinfo[res.np].author.name;
+                        let thumb = `https://img.youtube.com/vi/${res.songinfo[res.np].video_id}/mqdefault.jpg`;
+                        if (document.getElementById("musicthumbnail").src != thumb) document.getElementById("musicthumbnail").src = thumb;
+                        let timeout = 0;
+                        if (res.np_info) {
+                            if (res.np_info.volume) {
+                                var a = slider.value;
+                                setTimeout(function() {
+                                    if (slider.value == a) {
+                                        slider.value = res.np_info.volume * 100;
+                                        vdisp.innerHTML = Math.round(res.np_info.volume * 100);
+                                    }
+                                }, 900);
+                            }
+                            if (res.np_info.channel) document.getElementById("channeltext").innerHTML = res.np_info.channel.name; else document.getElementById("channeltext").innerHTML = 'No channel';
+
+                        }
+                        setTimeout(function() {updateMusic()}, 1500);
+                    }).catch(e => {
+                        updateMusic = false;
+                        document.getElementById("musicinfotext").innerHTML = e;
+                    });
+                };
+                updateMusic();
+            </script>
+             </body>
+    </head>
+</html>

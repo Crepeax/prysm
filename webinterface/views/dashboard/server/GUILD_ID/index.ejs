@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prysm</title>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+            .dropdowncontent {
+                background-color: #1e1e1e;
+                position: absolute;
+                border-radius: 20px;
+                padding-bottom: 10px;
+                padding-right: 65px;
+                display: none;
+            }
+
+            .dropdowncontent a {
+                color: white;
+                position: relative;
+                font-family: 'Roboto';
+                font-size: 18px;
+                margin-top: 10px;
+                font-weight: bold;
+                float: none;
+                padding: 1px 20px;
+                text-decoration: none;
+                text-align: left;
+                display: block;
+            }
+
+            .userbutton {
+                height: 50px;
+                position: fixed;
+                width: fit-content;
+                right: 35px;
+                top: 20px;
+                opacity: 0%;
+            }
+
+            .userbutton:hover #userdropdown {
+                display: block;
+            }
+
+            body {
+                background-color: #36393f;
+            }
+
+            .content {
+                position: absolute;
+            }
+
+            .servercard {
+                height: 96px;
+                width: 500px;
+                background-color: #222;
+                position: absolute;
+                border-radius: 10px;
+                left: calc(50% - 250px);
+                top: 30px;
+            }
+
+            .servercard h1 {
+                font-family: 'Open Sans';
+                position: absolute;
+                color: #ddd;
+                text-align: center;
+                width: 390px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                margin-left: 100px;
+                top: -11px;
+
+            }
+            .servercard h2 {
+                font-family: 'Open Sans';
+                position: absolute;
+                color: #888;
+                text-align: center;
+                font-size: 18px;
+                width: 390px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                margin-left: 100px;
+                top: 42px;
+            }
+
+            .servercard img {
+                border-radius: 100%;
+                height: 72px;
+                width: 72px;
+                margin-left: 12px;
+                margin-top: 12px;
+            }
+
+
+            .musiccard {
+                height: 96px;
+                width: 500px;
+                background-color: #222;
+                position: absolute;
+                border-radius: 10px;
+                left: calc(50% - 250px);
+                top: 156px;
+            }
+
+            .musiccard h1 {
+                font-family: 'Open Sans';
+                position: absolute;
+                color: #ddd;
+                text-align: center;
+                width: 390px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                margin-left: 100px;
+                top: -11px;
+
+            }
+            .musiccard h2 {
+                font-family: 'Open Sans';
+                position: absolute;
+                color: #888;
+                text-align: center;
+                font-size: 18px;
+                width: 390px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                margin-left: 100px;
+                top: 42px;
+            }
+
+            .musiccard img {
+                height: 72px;
+                width: 72px;
+                margin-left: 12px;
+                margin-top: 12px;
+                object-fit: cover;
+                border-radius:50%;
+            }
+
+            .musiccard .button {
+                position: absolute;
+                background-color: #3c996f;
+                height: 40px;
+                width: 80px;
+                border-radius: 5%;
+                margin-left: 405px;
+                margin-top: 29px;
+                z-index: 100;
+                cursor: pointer;
+                opacity: 0%;
+                transition: opacity 0.2s;
+            }
+
+            .button b {
+                font-size: 20px;
+                color: white;
+                font-family: 'Open Sans';
+                color: #ccc;
+                position: relative;
+                left: 14px;
+                top: 5px;
+                font-weight: 600;
+            }
+
+            .hover {
+                transition: transform 0.2s;
+            }
+            .hover:hover {
+                transform: scale(1.02);
+            }
+            .musiccard:hover .button {
+                opacity: 100%;
+            }
+        </style>
+        <body>
+
+            <!-- yeetus deletus -->
+
+            <div class="servercard hover" id="servercard">
+                <img src='<%- guildImgURL %>'>
+                <h1><%- guildName %></h1>
+                <h2><%- guildMemberCount %> members | ID: <%- guildID %></h2>
+            </div>
+            
+            <div class="musiccard hover" id="musiccard">
+                <div class="button" onclick="window.location='/dashboard/server/<%- guildID %>/music.ejs'">
+                    <b>Open</b>
+                </div>
+                <img src='/assets/playing.png' id="musicthumbnail">
+                <h1>Now playing</h1>
+                <h2 id="musicinfotext">Fetching info...</h2>
+            </div>
+
+            <div id='userbutton' class="userbutton" style="margin-right: 1000px;">
+                <img src='<%= avatarURL %>' style="height: 35px; margin-top: 9px; margin-right: 8px; position: relative; border-radius: 100%; ">
+                <a style="color: white; position: relative; top: -10px; font-family: 'Roboto'; font-size: 20px; margin-right: 0px; font-weight: bold; text-overflow: ellipsis; max-width: 250px; white-space: nowrap;"><%= username %>#<%= discriminator %></a>
+                <div class="dropdowncontent" id='userdropdown'>
+                    <svg href="/oauth2/logout" style="height: 16px; position: absolute; margin-left: 20px; margin-top: 14px;" id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513.2 513"><title>logout</title><path d="M0,5V507a5,5,0,0,0,5,5H287.54a5,5,0,0,0,5-5V443.88a5,5,0,0,0-5-5H78.17a5,5,0,0,1-5-5V78.17a5,5,0,0,1,5-5H287.58a5,5,0,0,0,5-5L293,5.06A5,5,0,0,0,288,0H5A5,5,0,0,0,0,5Z" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M117,216.94v70.12a9.82,9.82,0,0,0,9.69,9.94H380.33v90L512,252,380.33,117v90H126.69A9.82,9.82,0,0,0,117,216.94Z" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M0,512" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/><path d="M9.14,502.86" transform="translate(0.5 0.5)" style="fill:#fff;stroke:#1d1d1b;stroke-miterlimit:10"/></svg><a href="/oauth2/logout" style="margin-left: 20px;">Logout</a>
+                    <%- supportEntry %>
+                </div>
+            </div>
+
+            <script>
+                function test() {
+                    fetch(`/post?action=disconnect&gid=637695357777739797`, {
+                        method: 'POST'
+                    }).then(res => {
+                        document.getElementById("text").innerHTML = res.statusText;
+                    });
+                }
+
+                if ('<%= username %>' == '') {
+                    window.location='/oauth2/signin.ejs';
+                } else {
+                    document.getElementById('userbutton').style.opacity = '100%';
+                    document.getElementById('userbutton').style.marginRight = 'unset';
+                }
+
+                function joinSupport() {
+                    fetch('/joinSupport');
+                    var element = document.getElementById("joinsprt");
+                    element.parentNode.removeChild(element);
+
+                    element = document.getElementById("joinsprtimage");
+                    element.parentNode.removeChild(element);
+                }
+
+                if ('<%= username %>' != '') {
+                    document.title = 'Dashboard - <%= username %>'
+                }
+
+                // Update the music card
+                let update = true;
+                function updateMusic() {
+                    if (!update) return;
+                    fetch(`/get?action=getsonginfo&gid=<%- guildID %>`, {
+                        method: 'GET'
+                    }).then(res => res.json()).then(res => {
+                        console.log(res);
+                        if (res.np == "none" || !res.np) {
+                            document.getElementById("musicinfotext").innerHTML = 'Not playing';
+                            if (document.getElementById("musicthumbnail").src != '/assets/not_playing.png') document.getElementById("musicthumbnail").src = '/assets/not_playing.png';
+                            setTimeout(function() {updateMusic()}, 5000);
+                            return;
+                        };
+                        document.getElementById("musicinfotext").innerHTML = res.songinfo[res.np].title;
+                        let thumb = `https://img.youtube.com/vi/${res.songinfo[res.np].video_id}/mqdefault.jpg`;
+                        if (document.getElementById("musicthumbnail").src != thumb) document.getElementById("musicthumbnail").src = thumb;
+                        let timeout = 0;
+                        if (res.np_info) {
+                            if (res.np_info.endsin) {
+                                timeout = res.np_info.endsIn + 500;
+                            } else timeout = 4500;
+                        }
+                        setTimeout(function() {updateMusic()}, /*timeout + 500*/ 5000);
+                    }).catch(e => {
+                        updateMusic = false;
+                        document.getElementById("musicinfotext").innerHTML = e;
+                    });
+                };
+                updateMusic();
+            </script>
+             </body>
+    </head>
+</html>
