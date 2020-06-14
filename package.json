@@ -46,6 +46,7 @@
     "opusscript": "0.0.7",
     "pug": "^2.0.4",
     "request": "^2.81.0",
+    "safe-browse-url-lookup": "^0.1.0",
     "sanitize-html": "^1.21.1",
     "say": "^0.16.0",
     "url": "^0.11.0",

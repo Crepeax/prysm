@@ -13,6 +13,7 @@
     "BfDAuthToken": "g9JcxmzC9DTU3sknYWjQd6QUitMzyevZtYif52uzQGiH3cn5WkNyBhyRsiHt",
 
     "googleApiKey": "AIzaSyB3wWQoh-H1X9I7g_GjhmGLIwLll5OddQY",
+    "safeBrowsingKey": "AIzaSyC1ihtbf-dZ8OJSczte46D1ThGIEHzhKd0",
 
     "sendStatusToWebhook": true,
     "webhookGuild": "702551414219473056",
@@ -30,5 +31,5 @@
     "oauth_id": "656593790177640448",
     "oauth_secret": "ygDQbxEG6WU7ZoXM3FIBPlhTtynpFPFK",
     "oauth_scope": "identify guilds guilds.join",
-    "oauth_uri": "http://localhost:3000/oauth2/authorized"
+    "oauth_uri": "https://fbe39e29296c.ngrok.io/oauth2/authorized"
 }
