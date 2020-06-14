@@ -13,6 +13,7 @@ module.exports = {
     aliases: ['chatlog'],
     cooldown: 3600000, // 1 Hour
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'READ_MESSAGE_HISTORY'],
+    disabled: true,
     execute(message, args) {
 
         if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send('Only Administrators can use this command.');
