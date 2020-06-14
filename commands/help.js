@@ -143,9 +143,11 @@ module.exports = {
 				.addField(`${prefix}\`queue\`, \`q\``, `Shows the current queue.`, true)
 				.addBlankField(true)
 				.addField(`${prefix}\`remove\`, \`rm\``, `Remove a song from the queue.`, true)
-				.addField(`${prefix}\`clearqueue\`, \`cq\``, `Removes every song from the queue.`, true)
+				.addField(`${prefix}\`clearqueue\`, \`cq\``, `Removes all songs from the queue.`, true)
 				.addBlankField(true)
+				.addField(`${prefix}\`move\`, \`mv\``, `Move a song to a specific position in the queue.`, true)
 				.addField(`${prefix}\`announce\``, `Enable/disable announcing of tracks.`, true)
+				.addBlankField(true)
 				.setFooter(footerText, message.author.avatarURL)
 				.setColor(embedColor);
 

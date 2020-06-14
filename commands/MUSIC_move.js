@@ -21,15 +21,20 @@ module.exports = {
         if (args[0] == undefined || isNaN(args[0])) return message.channel.send('You need to provide the song you want to move. This value should be a number.');
 
         let oldIndex, newIndex;
-        oldIndex = args[0] - 1;
-        if (isNaN(args[1]) || args[1] == undefined) newIndex = 0; else newIndex = args[1] - 1;
+        oldIndex = args[0] - 1; if (oldIndex < 0) oldIndex = 0;
+        if (isNaN(args[1]) || args[1] == undefined) newIndex = 0; else newIndex = args[1] - 1; if (newIndex < 0) newIndex = 0;
+
+        oldIndex = Math.round(oldIndex);
+        newIndex = Math.round(newIndex);
 
         let res = manager.setSongIndex(message.guild, oldIndex, newIndex);
+
+        console.log(res);
 
         if (res == 'no_queue')              return message.channel.send('I am not currently playing.');
         else if (res == -1)                 return message.channel.send('An error has occurred.');
         else {
-            let movedTo = newIndex + 1;
+            let movedTo = res[2] + 1;
 
             let embed = new Discord.RichEmbed()
             .setDescription(`Moved to position ${movedTo}: [${res[1].title}](${res[1].video_url})`)

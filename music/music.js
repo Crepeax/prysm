@@ -144,12 +144,13 @@ module.exports = { // Müll
         if (oldIndex >= queues[guild.id].length) oldIndex = queues[guild.id].length - 1;
         if (oldIndex < 0) oldIndex = 0;
 
-        if (!newIndex || newIndex >= queues[guild.id].length || newIndex < 0) newIndex = 0;
+        if (!newIndex || newIndex < 0) newIndex = 0;
+        if (newIndex >= queues[guild.id].length) newIndex = queues[guild.id].length - 1;
 
-        let oldItem = queues[guild.id].splice(oldIndex, 0);
+        let oldItem = queues[guild.id].splice(oldIndex, 1)[0];
         queues[guild.id].splice(newIndex, 0, oldItem);
 
-        return [oldItem, songinfo[oldItem]];
+        return [oldItem, songinfo[oldItem], newIndex];
     },
 
     async play(guild, vc, channel) {
@@ -335,7 +336,6 @@ module.exports = { // Müll
 
     /**
      * --- To do ---
-     * Command to change a song's index in queue
      * Display queue on dashboard
      * Saving/loading queues
      */
