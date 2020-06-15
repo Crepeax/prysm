@@ -131,6 +131,13 @@ console.log(`[Info] Loaded ${commandFiles.length + miscFiles.length} Files.`)
 		}
 	}
 
+/* Log unhandled promise rejections */
+process.on('unhandledRejection', (reason, p) => {
+	console.log(`\n[Error] Unhandled promise rejection:\nPromise: ${p}\nReason: ${reason}\n---------------------------------------------`);
+	console.dir(reason.stack);
+	console.log('---------------------------------------------\n');
+	return 0;
+});
 
 client.on('guildMemberAdd', member => {
 	let user = member.id;
@@ -270,7 +277,7 @@ client.on('channelCreate', c => {
 
 client.on('messageUpdate', (old, message) => {
 	if (!old || !message) return;
-	if (old.content == message.content) return;
+	if (old.content == message.content || !message.content) return;
 	messageReceived(message, 'edit');
 });
 
