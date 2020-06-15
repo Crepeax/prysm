@@ -18,6 +18,8 @@ module.exports = {
         if (!message.member.voiceChannel) return message.channel.send('You need to be connected to a voice channel.');
         if (message.member.voiceChannel.id != vc) return message.channel.send('You need to be in my voice channel to do this.');
 
+        manager.setLoop(message.guild, false); // Disable looping to prevent the bot from reconnecting after leaving
+
         manager.disconnect(message.guild).then(res => {
             console.log(res);
                  if (res == 0)                   return message.react('👋');
