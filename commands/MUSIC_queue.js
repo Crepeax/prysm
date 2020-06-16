@@ -75,6 +75,7 @@ module.exports = {
                 .setTitle(`${message.guild.name}'s queue`)
                 .setDescription(desc)
                 .setColor('2f3136')
+                .setThumbnail(`https://img.youtube.com/vi/${res.songinfo[res.np].video_id}/hqdefault.jpg`)
                 .setFooter(`Requested by ${message.author.username} | ${res.queue.length} songs remaining | ${loopmsg}`, message.author.avatarURL);
                 message.channel.send(embed);
             });

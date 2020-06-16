@@ -235,7 +235,7 @@ module.exports = { // Müll
                 .setTitle('Now playing')
                 .setDescription(`[${info.title}](${info.video_url})`)
                 .setColor('2f3136')
-                .setThumbnail(`https://img.youtube.com/vi/${info.video_id}/maxresdefault.jpg`)
+                .setThumbnail(`https://img.youtube.com/vi/${info.video_id}/hqdefault.jpg`)
                 .setFooter(`Disable with ${config.prefix}announce`)
                 .setTimestamp();
                 channel.send(embed);
