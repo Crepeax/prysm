@@ -264,13 +264,32 @@ module.exports = { // Müll
                 // End dispatcher and send a message when bot gets disconnected
                 client.on('voiceStateUpdate', (oldMember, newMember) => {
                     if (oldMember.user.id != client.user.id) return;
-                    if (oldMember.voiceChannel != null && newMember.voiceChannel == null) {
-                        connections[guild.id] = undefined;
-                        repeat[guild.id] = false;
-                        if (!dispatcher.destroyed) dispatcher.end(); else return;
-                        if (channel) channel.send('Disconnected.');
+                    if (oldMember.voiceChannel != null && newMember.voiceChannel == null && oldMember.voiceChannel == dispatcher.voiceChannel) {
+                        connections[newMember.guild.id] = undefined;
+                        repeat[newMember.guild.id] = false;
+                        if (!dispatcher.destroyed) {
+                            dispatcher.end();
+                            if (channel) channel.send('Disconnected.');
+                        }
                     }
                 });
+
+                dispatcher.on('error', error => {
+                    channel.send(`The audio dispatcher encountered an error.\nDebug information: \`\`\`${error}\`\`\`\nIf this keeps occurring, please report it using ${config.prefix}support.`);
+                    connection.channel.leave();
+                    return -1;
+                });
+
+                dispatcher.on('failed', error => {
+                    channel.send(`The dispatcher failed to connect to your voice channel.\nDebug information: \`\`\`${error}\`\`\`\nIf this keeps occurring, please report it using ${config.prefix}support.`);
+                });
+
+                if (require('../index').testingMode) {
+                    console.log(`\x1b[36m[Music] [Debug] Logging dispatcher debug messages for '${channel.name}'.\x1b[0m`);
+                    dispatcher.on('debug', message => {
+                        console.log(`\x1b[36m[Music] [Debug] ${message} [${channel.name}]\x1b[0m`);
+                    });
+                } else console.log(`\x1b[36m[Music] [Debug] Not logging debug messages.\x1b[0m`);
 
                 let skipEvent = function() {
                     console.log('[Music] Skipping');
