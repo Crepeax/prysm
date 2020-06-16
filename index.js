@@ -27,6 +27,8 @@ if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '
 if (testingMode) prefix = '-';
 if (testingMode) console.log('[Info] Testing mode enabled!');
 
+module.exports.testingMode = testingMode;
+
 // var http = require('http');
 // setInterval(() => {
 //     http.get('http://botbot-bot.herokuapp.com/');
