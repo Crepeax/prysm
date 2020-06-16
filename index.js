@@ -24,7 +24,7 @@ let testingMode = false; // When set to true, the bot will use the testing accou
 
 if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') testingMode = true; // Automatically use the test account when running locally.
 
-if (testingMode) prefix = '-';
+if (testingMode) prefix = config.testingPrefix;
 if (testingMode) console.log('[Info] Testing mode enabled!');
 
 module.exports.testingMode = testingMode;
