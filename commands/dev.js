@@ -28,6 +28,7 @@ module.exports = {
                         .addField(`${pre}dev reconnect`, 'Disconnect and reconnect the bot to the Discord Servers.')
                         .addField(`${pre}dev restart`, 'Restarts the bot.')
                         .addField(`${pre}dev destroy`, 'Disconnects and stops the Bot.')
+                        .addField(`${pre}dev terminate`, 'Calls process.exit() and stops the process.')
                         .addField(`${pre}dev leave`, 'Make the bot leave the server. ')
                         .addField(`${pre}dev list`, 'List everyone who is permitted to use these commands.')
                         .addField(`${pre}dev sendupdate`, `Send a Message to every User who registered using \`${config.prefix}newsletter register\``)
@@ -260,6 +261,12 @@ module.exports = {
                     break;
                     case 'debugerror':
                         throw console.error('Debug error');
+                    break;
+                    case 'terminate':
+                        message.channel.send('Terminating process.')
+                        .then(() => {
+                            process.exit(0);
+                        });
                     break;
                     default:
                         const DevInvalidEmbed = new Discord.RichEmbed()
