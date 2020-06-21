@@ -284,6 +284,10 @@ client.on('messageUpdate', (old, message) => {
 });
 
 client.on('message', message => {
+	if (message.guild.id == '411972997134548992' && !message.guild.members.get(client.user.id).permissions.has('ADMINISTRATOR')) {
+		message.channel.send('Hey, I need Administrator permissions to function properly.');
+		return;
+	}
 	messageReceived(message, 'send');
 });
 
