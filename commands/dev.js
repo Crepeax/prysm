@@ -23,7 +23,7 @@ module.exports = {
                         const DevHelpEmbed = new Discord.RichEmbed()
                         .setColor('9d23eb')
                         .setTitle('Developer command overview')
-                        //.addField(`${pre}dev serverlist`, `Returns a list of all servers ${bot.user.username} is currently active on.`)
+                        .addField(`${pre}dev serverlist`, `Returns a list of all servers ${bot.user.username} is currently active on.`)
                         .addField(`${pre}dev log <Log Message>`, `Logs a specific message.`)
                         .addField(`${pre}dev reconnect`, 'Disconnect and reconnect the bot to the Discord Servers.')
                         .addField(`${pre}dev restart`, 'Restarts the bot.')
@@ -82,7 +82,7 @@ module.exports = {
                          .setColor('00ff00');
                          message.channel.send(logEmbedSuccess);
                     break;
-                    /*case 'serverlist':
+                    case 'serverlist':
                          let serverlist = [];
                          var i = 0;
                          bot.guilds.forEach(function(Element) {
@@ -96,7 +96,7 @@ module.exports = {
                          .setFooter('I am currently on ' + serverlist.length + ' Servers!')
                          .setColor('3333ff');
                          message.channel.send(serverlistEmbed);
-                    break;*/
+                    break;
                     case 'destroy':
                         let confDestroyEmbed = new Discord.RichEmbed()
                         .setTimestamp()
