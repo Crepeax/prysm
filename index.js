@@ -7,12 +7,52 @@ const exec = require('child_process').exec;
 const fs = require('fs');
 const fse = require('fs-extra');
 const stats = require('./logStats');
+const axios = require('axios').default;
 var io = require( '@pm2/io');
 
 let pm2cmds = io.meter({
 	name: 'Executed commands',
 	id: 'app/commands/meter'
 });
+
+
+/* Handle errors and promise rejections */
+
+function logPromiseRejection(error, promise) {
+	try {
+		console.log(`Unahndled Promise Rejection : ${JSON.stringify(promise)}\n${error.stack}`)
+		axios.post('https://discordapp.com/api/webhooks/725430501967396986/D4KvkO7Fny3A4-L8msV1QMZV0XwAUrptF9JDvemtVhR6nIynXmyUuM2LBl3_hZItmZFh', {embeds: [
+			new Discord.RichEmbed()
+			.setTitle('Unhandled Promise Rejection')
+			.setDescription(`\`\`\`js\n---- Promise ----\n${JSON.stringify(promise)}\n\`\`\`\n\`\`\`js\n---- Error ----\n${JSON.stringify(error)}\n\`\`\``)
+			.setColor('ff0000')
+		]}, {"headers": {"Content-Type": 'application/json'}}).catch(e => console.log('Webhook message failed.'));
+	} catch(e) {
+		console.log('Failed to post error.');
+		console.error(e);
+	}
+}
+
+function logUncaughtException(error) {
+	try {
+		console.log(`Unahndled Promise Rejection : ${JSON.stringify(promise)}\n${error.stack}`)
+		axios.post('https://discordapp.com/api/webhooks/725430501967396986/D4KvkO7Fny3A4-L8msV1QMZV0XwAUrptF9JDvemtVhR6nIynXmyUuM2LBl3_hZItmZFh', {embeds: [
+			new Discord.RichEmbed()
+			.setTitle('Uncaught Exception')
+			.setDescription(`\`\`\`js\n---- Error ----\n${JSON.stringify(error)}\n\`\`\``)
+			.setColor('ff0000')
+		]}, {"headers": {"Content-Type": 'application/json'}}).catch(e => console.log('Webhook message failed.'));
+	} catch(e) {
+		console.log('Failed to post error.');
+		console.error(e);
+	}
+}
+
+process.on('unhandledRejection', (error, promise) => logPromiseRejection(error, promise));
+process.on('uncaughtException', error => logUncaughtException(error))
+
+/* ------------------------------------ */
+
 
 let randomFuncPath = require('./functions/random.js');
 function random(low, high) {
@@ -132,14 +172,6 @@ console.log(`[Info] Loaded ${commandFiles.length + miscFiles.length} Files.`)
 			return member;
 		}
 	}
-
-/* Log unhandled promise rejections */
-process.on('unhandledRejection', (reason, p) => {
-	console.log(`\n[Error] Unhandled promise rejection:\nPromise: ${p}\nReason: ${reason}\n---------------------------------------------`);
-	console.dir(reason.stack);
-	console.log('---------------------------------------------\n');
-	return 0;
-});
 
 client.on('guildMemberAdd', member => {
 	let user = member.id;
@@ -288,6 +320,7 @@ client.on('message', message => {
 });
 
 let checkMessage = require('./functions/checkMessage.js');
+const { applyTransformDependencies } = require('mathjs');
 function messageReceived(message, type) {
 	if (!message.author.bot && message.guild) checkMessage.check(message);
 	if (!message.guild && !message.author.bot) console.log(`DM MESSAGE: [${message.author.username}#${message.author.discriminator} (${message.author.id})]: ${message.content}`);
