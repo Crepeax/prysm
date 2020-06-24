@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('../config.json');
+const { exception } = require('console');
 const client = require('../index').client;
 
 var Developers = [        // People who have access to the #dev Commands.
@@ -35,7 +36,8 @@ module.exports = {
                         .addField(`${pre}dev sendupdate`, `Send a Message to every User who registered using \`${config.prefix}newsletter register\``)
                         .addField(`${pre}dev resetvoice`, `Disconnect the bot from every voice channel and reset the queues.`)
                         .addField(`${pre}dev setnick`, `Set the Bot's nickname in this guild.`)
-                        .addField(`${pre}dev debugerror`, `Trigger an error. Debug command.`);
+                        .addField(`${pre}dev debugerror`, `Trigger an error. Debug command.`)
+                        .addField(`${pre}dev throwException`, `Throw a Exception. Debug command.`);
                         if (!(Developers.indexOf(message.author.id) > -1)) DevHelpEmbed.setDescription(`Note: You are not a developer, so you can't use any of these commands.`);
                         message.channel.send(DevHelpEmbed);
                     break;
@@ -262,6 +264,9 @@ module.exports = {
                     break;
                     case 'debugerror':
                         throw console.error('Debug error');
+                    break;
+                    case 'throwException':
+                        new exception('Debug error');
                     break;
                     case 'terminate':
                         message.channel.send('Terminating process.')
