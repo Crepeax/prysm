@@ -69,7 +69,7 @@ module.exports = {
 				.addField(`${prefix}\`unmute\``, `Unmute a user.`, true)
 				.addBlankField(true)
 				.addField(`${prefix}\`mute\``, `Prevent an user from sending messages and connecting to voice channels.`, true)
-				.addField(`${prefix}\`analyze\`, \`chatlog\``, `Get some data about a specific channel like active members, and create a complete chatlog. **The finished file will be sent in the channel you sent the command from!**`, false)
+				//.addField(`${prefix}\`analyze\`, \`chatlog\``, `Get some data about a specific channel like active members, and create a complete chatlog. **The finished file will be sent in the channel you sent the command from!**`, false)
 				.setFooter(footerText, message.author.avatarURL)
 				.setColor(embedColor);
 
