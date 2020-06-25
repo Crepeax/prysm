@@ -61,10 +61,8 @@ module.exports = {
         if (hooks.first() == undefined) {
             message.channel.createWebhook(`${bot.user.username}`, bot.user.avatarURL)
             .then(hook => {
-                console.log(hook);
                 sendHook(hook);
-            })
-            .catch(console.error);
+            });
         } else sendHook(hooks.first());
     })
     }
