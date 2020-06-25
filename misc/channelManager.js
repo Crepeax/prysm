@@ -19,11 +19,11 @@ module.exports = {
             exec.execute(oldMember, newMember);
         }}
 
-        if (newUserChannel != undefined) {
-            if (newUserChannel.name.toLowerCase().indexOf('🔹') > -1) {
-                let exec = c.misc.get('friendChannels');
-                exec.execute(oldMember, newMember);
-            }
-        }
+        //if (newUserChannel != undefined) {
+        //    if (newUserChannel.name.toLowerCase().indexOf('🔹') > -1) {
+        //        let exec = c.misc.get('friendChannels');
+        //        exec.execute(oldMember, newMember);
+        //    }
+        //}
     }
 }
