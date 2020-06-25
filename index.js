@@ -470,7 +470,7 @@ function messageReceived(message, type) {
 						.setTitle('Missing permissions')
 						.setDescription('I require the following permissions to execute this command:\n' + missingPerms + sendInDMstr)
 						.setColor('ff0000')
-						.setFooter('Please contact an Administrator.');
+						.setFooter('You need to give these permissions to Prysm if you want to use this command.');
 						return message.channel.send(embed);
 					} else if (client.guilds.get(message.guild.id).members.get(client.user.id).permissions.hasPermission('SEND_MESSAGES')) {
 						return message.channel.send('I am mising the \'Embed links\' permission to function porperly.');
