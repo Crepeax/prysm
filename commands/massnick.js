@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
+const client = require('../index').client;
 
 module.exports = {
     name: 'massnick',
@@ -10,6 +11,15 @@ module.exports = {
 	perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'MANAGE_NICKNAMES', 'EMBED_LINKS'],
 	cooldown: 30000,
     execute(message, args, prefix) {
+
+		if (message.guild.members.size > 50) {
+			let embed = new Discord.RichEmbed()
+			.setTitle('Your server is too large.')
+			.setDescription('Due to performance reasons, this command is not available on guilds that have more than 50 members.')
+			.setColor('9421ee');
+			message.channel.send(embed);
+			return;
+		}
 
         let errDeniedEmbed = new Discord.RichEmbed()
 					.setTitle('Insufficient permission')
