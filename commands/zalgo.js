@@ -157,7 +157,7 @@ module.exports = {
 			})
 		} else { 
 			
-			message.delete();
+			//message.delete();
 			message.channel.send(reply.slice(0, 1999))
 			.then(msg => {
 				msg.delete(3600000);
