@@ -6,6 +6,7 @@ const config = require('../config.json');
 var url = require("url");
 var p = require("path");
 const fs = require('fs');
+const ffmpeg = require('fluent-ffmpeg');
 
 String.prototype.splice = function(start, delCount, newSubStr) {
     return this.slice(0, start) + newSubStr + this.slice(start + Math.abs(delCount));
@@ -53,7 +54,10 @@ module.exports = {
             targetName = message.attachments.first().filename;
         }
         fs.mkdirSync('conversions/' + message.id);
-        
+
+        let isWebm = p.extname(targetName) == '.webm';
+        if (!isWebm) targetName += '.webm';
+
         let writeStream = fs.createWriteStream('conversions/' + message.id + '/' + targetName);
 
         axios({
@@ -62,7 +66,34 @@ module.exports = {
             responseType: 'stream'
         })
         .then(function(res) {
-            res.data.pipe(writeStream);
+            if (isWebm) {
+                res.data.pipe(writeStream);
+            } else {
+                // Convert to .webm file
+                console.log('Conversion to WEBM started.');
+                message.channel.send('Processing...').then(m => {
+                    let lastUpdate = Date.now();
+                    try {
+                        new ffmpeg(res.data).toFormat('webm').on('error', e => {
+                            console.log('FFMPEG error');
+                            console.error(e);
+                            return message.channel.send(e); 
+                        }).on('progress', info => {
+                            if (Date.now() > lastUpdate + 2500) {
+                                m.edit('Processing... Frame ' + info.frames);
+                                lastUpdate = Date.now();
+                            }
+                        }).on('end', () => {
+                            m.delete();
+                        }).pipe(writeStream);
+                    } catch (e) {
+                        /* Send an error when FFMPEG fails */
+                        console.log('FFMPEG error');
+                        console.log(e);
+                        return message.channel.send('Error: FFMPEG failed to convert the video: ' + e + ' \n Please use a video with the .webm format instead.');
+                    }
+                });
+            }
         });
 
         let repwith;
@@ -89,7 +120,8 @@ module.exports = {
         }
 
         writeStream.on('close', s => {
-            if (p.extname(`conversions/${message.id}/${targetName}`) != '.webm') return message.channel.send('Invalid file format: Only .webm files are supported.');
+            if (!isWebm) console.log('Write Stream closed.');
+            if (p.extname(`conversions/${message.id}/${targetName}`) != '.webm') return message.channel.send('Invalid file format: Only video files are supported.');
 
             const size = fs.statSync('conversions/' + message.id + '/' + targetName).size / 1000000.0;
             if (size > 8) return message.channel.send('This video is too large.');
