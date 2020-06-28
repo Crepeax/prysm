@@ -10,8 +10,8 @@ let replies = {}
     .setDescription(`These channels will automatically display the current time and date. \nUsage: \`${config.prefix}tc [time/date] [create/delete]\`\nWarning: these channels will flood your audit log.\nOnly Administrators will be able to use this command.`)
     .setColor('2f3136')
     .setFooter('You can always remove these channels, using a command or just by deleting the channel itself.')
-    .attachFile(replies.clockSymbol)
-    .setThumbnail('attachment://clock.png');
+    //.attachFile(replies.clockSymbol)
+    //.setThumbnail('attachment://clock.png');
 
     replies.alreadyExists = new Discord.RichEmbed()
     .setTitle('Hmm...')
