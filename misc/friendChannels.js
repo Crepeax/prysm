@@ -7,6 +7,7 @@ function random(low, high) {
 }
 
 module.exports = {
+    /* No idea why I made this */
     name: 'friendChannels',
     execute(oldMember, newMember) {
 

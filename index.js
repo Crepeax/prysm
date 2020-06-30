@@ -1,3 +1,23 @@
+/* Prysm - A Discord Bot
+ * Copyright (C) 2019-2020 Jan Dickmann
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * Contact: prysmbot@gmail.com or via Discord: https://discord.gg/aTRHKUY
+ */
+
+
 console.log('[Info] Initializing');
 const Discord = require('discord.js');
 const config = require('./config.json');
@@ -62,6 +82,7 @@ function random(low, high) {
 
 let testingMode = false; // When set to true, the bot will use the testing account instead.
 
+// This line will put the bot into "Testing" mode automatically when it is running on my PC
 if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') testingMode = true; // Automatically use the test account when running locally.
 
 if (testingMode) prefix = config.testingPrefix;
