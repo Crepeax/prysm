@@ -133,3 +133,5 @@ music/announce.json
 webinterface/sessionData.json
 
 config.json
+
+.vscode/*
