@@ -5,16 +5,16 @@
 
     "prefix": "+",
     "testingPrefix": "_",
-    "token": "NjU2NTkzNzkwMTc3NjQwNDQ4.Xn3sSw.ydaOlLWFEOj-YXU11co59JxbGEk",
-    "testtoken": "NzAyODM4MTM0NzY4OTI2Nzkw.XqSIpQ.bxnlv88c-lzIHDMV1mZsBeN-tD8",
-    "giphyToken": "cQYqRvbGsQexf4D6I6vWWQVzLtHCXeGo",
+    "token": "BOT TOKEN HERE",
+    "testtoken": "TOKEN FOR TEST ACCOUNT HERE",
+    "giphyToken": "GIPHY ACCESS TOKEN HERE",
     "meaning_of_life": 42,
     "defaultCooldown": 1500,
 
-    "BfDAuthToken": "g9JcxmzC9DTU3sknYWjQd6QUitMzyevZtYif52uzQGiH3cn5WkNyBhyRsiHt",
+    "BfDAuthToken": "BOTS FOR DISCORD TOKEN HERE",
 
-    "googleApiKey": "AIzaSyB3wWQoh-H1X9I7g_GjhmGLIwLll5OddQY",
-    "safeBrowsingKey": "AIzaSyC1ihtbf-dZ8OJSczte46D1ThGIEHzhKd0",
+    "googleApiKey": "GOOGLE API KEY HERE (with access to the YouTube API)",
+    "safeBrowsingKey": "GOOGLE SAFE BROWSING API KEY HERE",
 
     "sendStatusToWebhook": true,
     "webhookGuild": "702551414219473056",
@@ -30,9 +30,7 @@
     "errorServer": "702551414219473056",
 
     "oauth_id": "656593790177640448",
-    "oauth_secret": "ygDQbxEG6WU7ZoXM3FIBPlhTtynpFPFK",
+    "oauth_secret": "OAuth2 secret here, used for the Webinterface. (coming soon-ish)",
     "oauth_scope": "identify guilds guilds.join",
-    "oauth_uri": "https://21cc7087daa4.ngrok.io/oauth2/authorized",
-
-    "lmao": "yeet"
+    "oauth_uri": "https://localhost:3000/oauth2/authorized"
 }
