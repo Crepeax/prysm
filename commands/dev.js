@@ -4,10 +4,11 @@ const config = require('../config.json');
 const { exception } = require('console');
 const client = require('../index').client;
 
+/* Yes I know that there are better ways to do this */
 var Developers = [        // People who have access to the #dev Commands.
     '284323826165350400', // Im_Verum
     '345809592422367232', // Crepeax
-    '286195078324813826'  // Toophy
+    // '286195078324813826'  // Toophy
 ];
 
 module.exports = {
