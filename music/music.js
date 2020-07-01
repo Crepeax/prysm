@@ -268,6 +268,8 @@ module.exports = { // Müll
                         connections[newMember.guild.id] = undefined;
                         repeat[newMember.guild.id] = false;
                         this.clearQueue(guild);
+                        this.setLoop(guild, false);
+                        np[guild.id] = undefined;
                         if (!dispatcher.destroyed) {
                             dispatcher.end();
                             if (channel) channel.send('Disconnected.');
