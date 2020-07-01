@@ -13,6 +13,8 @@
 
     "BfDAuthToken": "BOTS FOR DISCORD TOKEN HERE",
 
+    "errorWebhookURL": "WEBHOOK URL FOR ERROR LOGGING HERE",
+
     "googleApiKey": "GOOGLE API KEY HERE (with access to the YouTube API)",
     "safeBrowsingKey": "GOOGLE SAFE BROWSING API KEY HERE",
 

@@ -41,7 +41,7 @@ let pm2cmds = io.meter({
 function logPromiseRejection(error, promise) {
 	try {
 		console.log(`Unahndled Promise Rejection : ${JSON.stringify(promise)}\n${error.stack}`)
-		axios.post('https://discordapp.com/api/webhooks/725430501967396986/D4KvkO7Fny3A4-L8msV1QMZV0XwAUrptF9JDvemtVhR6nIynXmyUuM2LBl3_hZItmZFh', {embeds: [
+		axios.post(config.errorWebhookURL, {embeds: [
 			new Discord.RichEmbed()
 			.setTitle('Unhandled Promise Rejection')
 			.setDescription(`\`\`\`js\n---- Promise ----\n${JSON.stringify(promise)}\n\`\`\`\n\`\`\`js\n---- Error ----\n${JSON.stringify(error)}\n\`\`\``)
@@ -56,7 +56,7 @@ function logPromiseRejection(error, promise) {
 function logUncaughtException(error) {
 	try {
 		console.log(`Unahndled Promise Rejection : ${JSON.stringify(promise)}\n${error.stack}`)
-		axios.post('https://discordapp.com/api/webhooks/725430501967396986/D4KvkO7Fny3A4-L8msV1QMZV0XwAUrptF9JDvemtVhR6nIynXmyUuM2LBl3_hZItmZFh', {embeds: [
+		axios.post(config.errorWebhookURL, {embeds: [
 			new Discord.RichEmbed()
 			.setTitle('Uncaught Exception')
 			.setDescription(`\`\`\`js\n---- Error ----\n${JSON.stringify(error)}\n\`\`\``)
