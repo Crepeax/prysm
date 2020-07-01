@@ -267,6 +267,7 @@ module.exports = { // Müll
                     if (oldMember.voiceChannel != null && newMember.voiceChannel == null && oldMember.voiceChannel == dispatcher.voiceChannel) {
                         connections[newMember.guild.id] = undefined;
                         repeat[newMember.guild.id] = false;
+                        this.clearQueue(guild);
                         if (!dispatcher.destroyed) {
                             dispatcher.end();
                             if (channel) channel.send('Disconnected.');
