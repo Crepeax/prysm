@@ -233,7 +233,6 @@ client.once('ready', () => {
 
 	try {
 		if (!testingMode) require('./clock-module.js');
-		require('./wit/index'); // Start chatbot
 	} catch(e) {
 		client.guilds.get(config.errorServer).channels.get(config.errorChannel).send(`**Time channel script just crashed**\nError: ${e}\nWhen: ${new Date()}\n@everyone`)
 	}
