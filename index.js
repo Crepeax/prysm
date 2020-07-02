@@ -95,7 +95,7 @@ module.exports.testingMode = testingMode;
 //     http.get('http://botbot-bot.herokuapp.com/');
 // }, 1000*60*15);
 
-// Creating missing files
+// Creating missing files and folders
 if (!fs.existsSync("./stats.json")) fs.writeFileSync("./stats.json", '{"messages_total": 0, "userstats": {}}');
 if (!fs.existsSync("./reminders.json")) fs.writeFileSync("./reminders.json", '{}');
 if (!fs.existsSync("./newsletter.json")) fs.writeFileSync("./newsletter.json", '{}');
@@ -106,6 +106,7 @@ if (!fs.existsSync('music/announce.json')) fs.writeFileSync('music/announce.json
 if (fs.existsSync('conversions/')) {fse.emptyDirSync('conversions/'); fs.rmdirSync('conversions/')}
 let statsFile = JSON.parse(fs.readFileSync("./stats.json", "utf8"));
 
+/* -- Save total command count to file every 10 seconds -- */
 let preCount = statsFile.messages_total;
 let msgCount = statsFile.messages_total;
 
@@ -117,6 +118,7 @@ setInterval(function() {
 		preCount = msgCount;
 	}
 }, 10000);
+/* ------------------------------------------------------ */
 
 module.exports.client = client;
 
@@ -155,6 +157,7 @@ console.log(`[Info] Loaded ${commandFiles.length + miscFiles.length} Files.`)
 	module.exports.commands_loaded = commandFiles.length - dis
 	module.exports.commands = client.commands;
 
+	/* Functions for the webinterface to function. Also no idea why it's named 'Support' */
 	module.exports.support = {
 		isOnSupportServer(id) {
 			if (client.guilds.get(config.voteGuild).members.get(id)) return true; else return false;
@@ -193,6 +196,7 @@ console.log(`[Info] Loaded ${commandFiles.length + miscFiles.length} Files.`)
 			return member;
 		}
 	}
+	/* --------------------------------------------------------------------------------- */
 
 client.on('guildMemberAdd', member => {
 	let user = member.id;
@@ -348,7 +352,7 @@ function messageReceived(message, type) {
 
 	if (!message.author.bot && message.content.startsWith(`<@!${client.user.id}>`)) {	// Check if message starts with mention
 		const exec = client.misc.get('mention');										// Check if message starts with mention
-		//exec.execute(message);															// Check if message starts with mention
+		//exec.execute(message);														// Check if message starts with mention
 		return;																			// Check if message starts with mention
 	}
 
