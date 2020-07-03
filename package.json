@@ -26,6 +26,8 @@
     "array-move": "^2.2.1",
     "axios": "^0.19.2",
     "base-64": "^0.1.0",
+    "better-sqlite-pool": "^0.3.0",
+    "better-sqlite3": "^7.1.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "cryptiles": "^4.1.3",
