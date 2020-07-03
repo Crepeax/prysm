@@ -65,7 +65,7 @@ module.exports = {
                         message.channel.send('Cancelled.');
                         return;
                     }
-                    if (message.content.startsWith(index.prefix)) return collector.stop();
+                    if (message.content.startsWith(index.prefix && index.prefix.length > 0)) return collector.stop();
                     if (target == 'channel') {
                         let channel = m.mentions.channels.first();
                         if (!channel) return message.channel.send('I can\'t find that channel. Make sure you put a # in front of the channel name.').then(m => m.delete(10000));
