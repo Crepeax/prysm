@@ -1,5 +1,5 @@
 /* Prysm - A Discord Bot
- * Copyright (C) 2019-2020 Jan Dickmann
+ * Copyright (C) 2019-2020 Im_Verum
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -22,7 +22,7 @@ console.log('[Info] Initializing');
 const Discord = require('discord.js');
 const config = require('./config.json');
 let   prefix = config.prefix;
-const client = new Discord.Client();
+const client = new Discord.Client({partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 const exec = require('child_process').exec;
 const fs = require('fs');
 const fse = require('fs-extra');
@@ -89,6 +89,7 @@ if (testingMode) prefix = config.testingPrefix;
 if (testingMode) console.log('[Info] Testing mode enabled!');
 
 module.exports.testingMode = testingMode;
+module.exports.prefix = prefix;
 
 // var http = require('http');
 // setInterval(() => {
@@ -366,10 +367,8 @@ function messageReceived(message, type) {
 	const commandName = args.shift().toLowerCase();
 	const command = client.commands.get(commandName)
 			|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-		if (!command) {												// React to mentions
-			message.react(client.emojis.get('671363201706885120'));	// |			
-			return;													// |
-		} else if (command.disabled) {											// Stop disabled commands from getting executed
+		if (!command) return; 
+		else if (command.disabled) {											// Stop disabled commands from getting executed
 			let inDM = true;
 			if (message.guild) inDM = false;
 			require('./logStats.js').addStats(message.author, command, inDM, 'devOnlyError');
