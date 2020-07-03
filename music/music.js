@@ -227,6 +227,12 @@ module.exports = { // Müll
                 queues[guild.id].shift();
             }
 
+            if (!guild.voiceConnection && connections[guild.id]) {
+                this.clearQueue(guild.id);
+                np[guild.id] = undefined;
+                return;
+            }
+
             // Announce song
             if (announce[guild.id] == undefined) announce[guild.id] = true;
             fs.writeFileSync('music/announce.json', JSON.stringify(announce));
@@ -264,6 +270,7 @@ module.exports = { // Müll
                 // End dispatcher and send a message when bot gets disconnected
                 client.on('voiceStateUpdate', (oldMember, newMember) => {
                     if (oldMember.user.id != client.user.id) return;
+                    if (channel) channel.send('Disconnected.');
                     if (oldMember.voiceChannel != null && newMember.voiceChannel == null && oldMember.voiceChannel == dispatcher.voiceChannel) {
                         connections[newMember.guild.id] = undefined;
                         repeat[newMember.guild.id] = false;
@@ -272,7 +279,6 @@ module.exports = { // Müll
                         np[guild.id] = undefined;
                         if (!dispatcher.destroyed) {
                             dispatcher.end();
-                            if (channel) channel.send('Disconnected.');
                         }
                     }
                 });
