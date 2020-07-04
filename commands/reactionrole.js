@@ -46,6 +46,7 @@ module.exports = {
     perms: ['SEND_MESSAGES', 'READ_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS', 'MANAGE_MESSAGES'],
     aliases: ['rr', 'reactionroles', 'reactrole', 'rrole'],
     cooldown: 5000,
+    dev_only: true,
     execute(message, args) {
         if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.channel.send('You don\'t have permission to use this command on this server.');
         switch(args[0]) {
