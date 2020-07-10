@@ -25,6 +25,7 @@ module.exports.run = () => {
     createDir('./data-storage');
     createDir('./error-logs');
     createDir('./data-storage/conversions');
+    createDir('./data-storage/export-files');
     createFile('./data-storage/defaultroles.json', '{}');
 
     // Delete junk files

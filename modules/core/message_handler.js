@@ -30,7 +30,7 @@ module.exports.run = () => {
             message.ogContent = message.content;
             message.content = message.content.replace(/\s+/g, ' ');
 
-            const prefix = getPrefix(message.guild.id);
+            const prefix = getPrefix(message.guild ? message.guild.id : undefined);
             if (!message.content.startsWith(prefix) && !message.content.startsWith(`<@${client.user.id}>`) && !message.content.startsWith(`<@!${client.user.id}>`)) return;
             
             let command, commandName, args;
@@ -51,23 +51,31 @@ module.exports.run = () => {
             command = commands.get(commandName) || commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
             if (!command) return;
+            
+            // Increase total command counter
+            data.db.stats.inc('total_commands');
+
+            // Check if the command is dev-only or disabled
+            if (command.disabled) return message.channel.send('Sorry, this command is currently unfinished, and can\'t be used.');
+            if (command.dev_only) {
+                return message.channel.send('Sorry, this command is currently in development, and can only be used by developers.');
+            }
 
             // Check if the bot has the required permissions to execute the command
             if (!checkPermissions.check(command, message.guild, message)) return;
-
-            data.db.stats.inc('total_commands');
             
             // Finally, let's execute the command.
             try {
                 command.execute(message, args);
             } catch(e) {
                 console.log('Failed to execute command');
-                console.log(e);
+                console.error(e);
                 message.channel.send(`Uh-oh. I failed to execute that command.\n\`\`\`js\n${e}\`\`\`If this keeps happening, please contact \`${data.db.botOwner.username}#${data.db.botOwner.discriminator}\``).catch(e => message.channel.send('Uh-oh. Something went wrong.'));
             }
         } catch(e) {
             // Send a message when something bad happens
-            console.log('Failed to execute command: ' + e);
+            console.log('Failed to execute command');
+            console.error(e);
             message.channel.send(`Uh-oh. An error has occurred. This is not good.\n\`\`\`js\n${e}\`\`\`If this keeps happening, please contact \`${data.db.botOwner.username}#${data.db.botOwner.discriminator}\``).catch(e => message.channel.send('Uh-oh. Something went wrong.'));
             return;
         }

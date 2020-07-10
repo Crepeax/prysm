@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 const data = require('../../bot');
 const client = data.client;
+const { log } = require('../../functions/logging');
 
 module.exports.run = () => {
     let token = config.token;
@@ -18,6 +19,7 @@ module.exports.run = () => {
     client.once('ready', () => {
         console.log(`[Shard ${client.shard.id}] Successfully logged in as ${client.user.username}`);
         client.shard.broadcastEval(`this.users.get("${config.botOwner}")`).then(owner => data.db.botOwner = owner[0]);
+        log(`Shard ${client.shard.id} Ready`, `Successfully logged in as ${client.user.username}#${client.user.discriminator}.`);
     });
 }
 

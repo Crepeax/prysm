@@ -8,7 +8,10 @@ const client = require('../bot').client;
  */
 module.exports.check = function(command, guild, message) {
     // Old, re-used code, not fancy but it does the job
-    // To-do: Take channel permission overwrites into consideration
+	// To-do: Take channel permission overwrites into consideration
+	
+	// Always return true if message was sent in DMs
+	if (!guild) return true;
 
     let reqPerms = new Discord.Permissions(0);
 		let reqPermsStr = '';
