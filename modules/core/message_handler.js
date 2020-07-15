@@ -3,6 +3,7 @@ const data = require('../../bot');
 const client = data.client;
 const getPrefix = require('../../functions/getPrefix').getPrefix;
 const checkPermissions = require('../../functions/check_permissions');
+const { getFlags } = require('../../functions/permission_flags');
 const config = require('../../config.json');
 
 module.exports.run = () => {
@@ -52,13 +53,18 @@ module.exports.run = () => {
 
             if (!command) return;
             
+            const flags = getFlags(message.author);
+
+            if (flags["BLACKLIST"]) return message.channel.send(`${message.author}, you are currently blacklisted from using this bot.`);
+            if (flags["SILENT_BLACKLIST"]) return;
+            
             // Increase total command counter
             data.db.stats.inc('total_commands');
 
             // Check if the command is dev-only or disabled
             if (command.disabled) return message.channel.send('Sorry, this command is currently unfinished, and can\'t be used.');
             if (command.dev_only) {
-                return message.channel.send('Sorry, this command is currently in development, and can only be used by developers.');
+                if (!flags['EXECUTE_DEV_COMMANDS']) return message.channel.send('Sorry, this command is currently in development, and can only be used by developers.');
             }
 
             // Check if the bot has the required permissions to execute the command

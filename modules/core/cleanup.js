@@ -30,6 +30,7 @@ module.exports.run = () => {
 
     // Delete junk files
     fsextra.emptyDirSync('./data-storage/conversions');
+    fsextra.emptyDirSync('./data-storage/export-files');
 
     if (typeof data.db.stats.get('total_commands') != 'number') data.db.stats.set('total_commands', 0);    
 }

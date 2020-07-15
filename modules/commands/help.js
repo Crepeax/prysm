@@ -292,6 +292,7 @@ module.exports = {
 				.setColor('1e1ea7');
 				commands.forEach(c => {
 					if (!c.name) return;
+					if (c.hidden == true) return; // Don't show "hidden" commands, such as developer-only commands
 					let disabled = '';
 					if (c.disabled) disabled = '`';
 					else if (c.dev_only) disabled = '`';
@@ -304,11 +305,14 @@ module.exports = {
 					if (o == '\n') o = seperator; else o = '\n';
 				});
 
-				while (cmdText.charAt(-1) == '­' // Zero-width character
-				||     cmdText.charAt(-1) == '­ '
-				||     cmdText.charAt(-1) == '⇼­') {
-					cmdText.slice(0, -1); // Remove seperator at the end of the string
-				}
+				// This should remove the seperator at the end, but it doesn't. help i dont know how to fix aaaaaaaaaaaaaaaa
+				if (cmdText.endsWith(seperator)) cmdText.slice(0, -(seperator.length));
+
+				// while (cmdText.charAt(-1) == '­' // Zero-width character
+				// ||     cmdText.charAt(-1) == '­ '
+				// ||     cmdText.charAt(-1) == '⇼­') {
+				// 	   cmdText.slice(0, -1); // Remove seperator at the end of the string
+				// }
 
 				embed.setDescription(cmdText + `\n\nTo see the details of a specific command, type \`${config.prefix}help [Command name]\`.\n\`Highlighted\` commands are temporarily disabled.`);
 				embed.setFooter(`Total: ${cmdCount}, Usable: ${usableCmds}, Disabled: ${disCmds}`);

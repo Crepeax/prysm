@@ -2,10 +2,14 @@ const Discord = require('discord.js');
 const client = require('../../bot').client;
 const Enmap = require('enmap');
 const mainfile = require('../../bot');
-const { compileClientWithDependenciesTracked } = require('pug');
 const { arg } = require('mathjs');
 
 let reactionroles = new Enmap({name: 'reactionroles'});
+
+/* To-Do
+ * Roles can't be removed after bot restarts
+ * Bot doesn't ignore other emojis
+ */
 
 client.on('messageReactionAdd', (reaction, user) => {
     if (user.bot) return;

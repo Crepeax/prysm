@@ -20,9 +20,11 @@ module.exports.run = (verbose = true) => {
         if (verbose) process.stdout.cursorTo(0);
         if (verbose) process.stdout.write(`[Shard ${client.shard.id}] Loading commands ${'\x1b[34m'}modules/commands/${file}${'\x1b[0m'}`);
         
-    	const command = require(`../commands/${file}`);
-        this.commands.set(command.name, command);
-        if (command.disabled || command.dev_only) this.disabled += 1; else this.available += 1;
+        const command = require(`../commands/${file}`);
+        if (!command.devCommand) {
+            this.commands.set(command.name, command);
+            if (command.disabled || command.dev_only) this.disabled += 1; else this.available += 1;
+        }
     }
     if (verbose) process.stdout.clearLine();
     if (verbose) process.stdout.cursorTo(0);
@@ -36,7 +38,9 @@ module.exports.reloadAll = () => {
         delete require.cache[name];
 
         const command = require(`../commands/${file}`);
-        this.commands.set(command.name, command);
+        if (!command.devCommand) {
+            this.commands.set(command.name, command);
+        }
 
         console.log(`[Shard ${client.shard.id}] Reloaded ${file}`);
     }
