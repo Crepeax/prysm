@@ -200,7 +200,7 @@ module.exports = { // Müll
             if (!info.video_id) {
                 queues[guild.id].shift();
                 console.log('[Music] Skipped undefined URL');
-                if (queues[guild.id].length == 0) return;
+                //if (queues[guild.id].length == 0) return;
                 manager.play(guild, vc, channel);
                 return;
             }
@@ -230,7 +230,7 @@ module.exports = { // Müll
             if (!guild.voiceConnection && connections[guild.id]) {
                 this.clearQueue(guild.id);
                 np[guild.id] = undefined;
-                return;
+                connections[guild.id] = undefined;
             }
 
             // Announce song
@@ -270,7 +270,6 @@ module.exports = { // Müll
                 // End dispatcher and send a message when bot gets disconnected
                 client.on('voiceStateUpdate', (oldMember, newMember) => {
                     if (oldMember.user.id != client.user.id) return;
-                    if (channel) channel.send('Disconnected.');
                     if (oldMember.voiceChannel != null && newMember.voiceChannel == null && oldMember.voiceChannel == dispatcher.voiceChannel) {
                         connections[newMember.guild.id] = undefined;
                         repeat[newMember.guild.id] = false;
