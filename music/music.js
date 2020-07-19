@@ -63,6 +63,8 @@ module.exports = { // Müll
         if (!np[guild.id]) np[guild.id] = 'none';
         if (!repeat[guild.id]) repeat[guild.id] = false;
         let npinfo = {};
+        if (!np[guild.id]) np[guild.id] = queues[guild.id][0];
+        if (!np[guild.id]) return;
         if (connections[guild.id]) if (connections[guild.id].dispatcher && np[guild.id]) {
             npinfo.playtime = connections[guild.id].dispatcher.streamTime;
             npinfo.endsin = (songinfo[np[guild.id]].length_seconds * 1000) - connections[guild.id].dispatcher.streamTime;
