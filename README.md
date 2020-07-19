@@ -1,7 +1,7 @@
 # Prysm - The all-in-one Discord Bot
 ## This is the source code for the Discord Bot Prysm#8578
 
-This program is currently missing documentation and the code is an absolute clusterfuck. (I know it's trash leave me alone)
+This program is currently missing documentation and the code is an absolute clusterfuck. I am currently rewriting this, so expect fancier code soon(-ish).
 
 Invite Prysm: [Recommended](https://discord.com/oauth2/authorize?client_id=656593790177640448&scope=bot&permissions=1073216886) - [Administrator](https://discord.com/oauth2/authorize?client_id=656593790177640448&scope=bot&permissions=8) - [Minimal](https://discord.com/oauth2/authorize?client_id=656593790177640448&scope=bot&permissions=641002824) Permissions
 
