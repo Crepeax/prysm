@@ -153,6 +153,11 @@ module.exports = { // Müll
         return [oldItem, songinfo[oldItem], newIndex];
     },
 
+    /**
+     * @param {Discord.Guild} guild 
+     * @param {Discord.VoiceChannel} vc 
+     * @param {Discord.TextChannel} channel 
+     */
     async play(guild, vc, channel) {
         // Play the music in the queue
         try {
@@ -163,6 +168,7 @@ module.exports = { // Müll
             if (!queues[guild.id]) queues[guild.id] = [];
             if (!queues[guild.id][0]) {
                 channel.send('You need to provide a URL or the name of the song you want to play.');
+                try {vc.leave();} catch {}
                 return -1;
             }
 
@@ -227,7 +233,8 @@ module.exports = { // Müll
                 queues[guild.id].shift();
             }
 
-            if (!guild.voiceConnection && connections[guild.id]) {
+            if (!guild.voiceConnection && connections[guild.id] || !vc.members.get(client.user.id)) {
+                console.log('[Music] Not connected anymore; exiting.')
                 this.clearQueue(guild.id);
                 np[guild.id] = undefined;
                 connections[guild.id] = undefined;
@@ -237,14 +244,16 @@ module.exports = { // Müll
             if (announce[guild.id] == undefined) announce[guild.id] = true;
             fs.writeFileSync('music/announce.json', JSON.stringify(announce));
             if (announce[guild.id] == true && channel) {
-                let embed = new Discord.RichEmbed()
-                .setTitle('Now playing')
-                .setDescription(`[${info.title}](${info.video_url})`)
-                .setColor('2f3136')
-                .setThumbnail(`https://img.youtube.com/vi/${info.video_id}/hqdefault.jpg`)
-                .setFooter(`Disable with ${config.prefix}announce`)
-                .setTimestamp();
-                channel.send(embed);
+                if (vc.members.size > 1) {
+                    let embed = new Discord.RichEmbed()
+                    .setTitle('Now playing')
+                    .setDescription(`[${info.title}](${info.video_url})`)
+                    .setColor('2f3136')
+                    .setThumbnail(`https://img.youtube.com/vi/${info.video_id}/hqdefault.jpg`)
+                    .setFooter(`Disable with ${config.prefix}announce`)
+                    .setTimestamp();
+                    channel.send(embed);
+                }
             }
 
             // Getting volume
