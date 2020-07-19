@@ -167,7 +167,7 @@ module.exports = { // Müll
 
             if (!queues[guild.id]) queues[guild.id] = [];
             if (!queues[guild.id][0]) {
-                channel.send('You need to provide a URL or the name of the song you want to play.');
+                channel.send('Woops, something went wrong.');
                 try {vc.leave();} catch {}
                 return -1;
             }
@@ -212,6 +212,7 @@ module.exports = { // Müll
             }
 
             songinfo[queues[guild.id][0]] = info;
+            np[guild.id] = queues[guild.id][0];
 
             // Remove song from queue or move it to the end
             console.log('[Music] Removing song from queue');
