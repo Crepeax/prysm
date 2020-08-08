@@ -6,7 +6,7 @@ const client = require('../bot').client;
 /** @param {string | Guild | undefined} guild The guild to get the prefix from. Needs to be on the same shard. 
  */
 module.exports.getPrefix = function(guild) {
-    if (typeof guild == 'string') guild = client.guilds.get(guild);
+    if (typeof guild == 'string') guild = client.guilds.cache.get(guild);
     if (!guild) return require('../modules/core/login').testingMode ? config.testPrefix : config.prefix;
     let guildData = db.guild.get(guild.id);
 

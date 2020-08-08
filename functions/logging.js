@@ -10,10 +10,10 @@ const whClient = new Discord.WebhookClient(config.loggingWebhook.id, config.logg
  */
 module.exports.log = function(title, description, important) {
     const { testingMode } = require('../modules/core/login');
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
     .setTitle(title)
     .setDescription(description)
-    .setAuthor(`Shard ${client.shard.id}${testingMode == true ? ' [Testing mode]' : ''}`, client.user.avatarURL);
+    .setAuthor(`Shard ${JSON.stringify(client.shard.ids)}${testingMode == true ? ' [Testing mode]' : ''}`, client.user.avatarURL);
     if (important) embed.setColor('ff0000');
     console.log(`${important == true ? '[!] ' : ''}${title}: ${description}`);
     whClient.send(embed)

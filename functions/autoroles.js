@@ -18,9 +18,9 @@ module.exports = {
 
             if (user.bot) return;
             
-            if (!guild.members.get(client.user.id).permissions.has('MANAGE_ROLES')) return console.log('Missing permissions.');
+            if (!guild.members.cache.get(client.user.id).permissions.has('MANAGE_ROLES')) return console.log('Missing permissions.');
 
-            let u = guild.members.get(user.id);
+            let u = guild.members.cache.get(user.id);
 
             let roles = dRoles;
             if (roles[guild.id] == undefined) return;

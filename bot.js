@@ -31,7 +31,6 @@ let db = {
     user: new Enmap({ name: 'userdata', polling: true, fetchAll: true }),
     stats: new Enmap({ name: 'botStats', polling: true, fetchAll: true }),
     permissionFlags: new Enmap({ name: 'permission_flags', polling: true, fetchAll: true }),
-    botOwner: new Discord.User(),
     clientCache: {
         guildSize: client.guilds.size,
         userSize: client.users.size

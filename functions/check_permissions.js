@@ -18,7 +18,7 @@ module.exports.check = function(command, guild, message) {
 		if (command.perms == undefined) {reqPerms.add('ADMINISTRATOR'); command.perms = ['ADMINISTRATOR']}
         else if (command.perms.length == 0) {reqPerms.add('ADMINISTRATOR'); command.perms = ['ADMINISTRATOR']}
         
-        let bot_member = guild.members.get(client.user.id);
+        let bot_member = guild.members.cache.get(client.user.id);
 
 		command.perms.forEach(p => {
 			function check() {if (bot_member.permissions.hasPermission(p)) return '✅ '; else return '❌ '}
@@ -32,7 +32,7 @@ module.exports.check = function(command, guild, message) {
 		} else {
 			if (bot_member.permissions.hasPermission('SEND_MESSAGES') && bot_member.permissions.hasPermission('EMBED_LINKS')) {
                 // Bot does not have the required permissions, but can send embeds
-				let embed = new Discord.RichEmbed()
+				let embed = new Discord.MessageEmbed()
 				.setTitle('Missing permissions')
 				.setDescription(`I require the following permissions to execute this command:\n${reqPermsStr}${!command.guildOnly ? '\n**You can try to run this command in DMs instead.**' : ''}`)
 				.setColor('ff0000')
