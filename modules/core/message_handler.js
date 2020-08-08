@@ -55,8 +55,10 @@ module.exports.run = () => {
             
             const flags = getFlags(message.author);
 
-            if (flags["BLACKLIST"]) return message.channel.send(`${message.author}, you are currently blacklisted from using this bot.`);
-            if (flags["SILENT_BLACKLIST"]) return;
+            if (flags) {
+                if (flags["BLACKLIST"]) return message.channel.send(`${message.author}, you are currently blacklisted from using this bot.`);
+                if (flags["SILENT_BLACKLIST"]) return;
+            }
             
             // Increase total command counter
             data.db.stats.inc('total_commands');

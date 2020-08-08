@@ -31,7 +31,7 @@ console.log(`[Sharding Manager] Spawning ${manager.totalShards == 'auto' ? 'the 
 // Spawn the shards
 manager.spawn()
 .then(shards => {
-    console.log(`[Sharding Manager] ${'\x1b[34m'}Successfully spawned ${'\x1b[33m'}${shards.size}${'\x1b[34m'} shards.${'\x1b[0m'}`)
+    console.log(`[Sharding Manager] ${'\x1b[34m'}Successfully spawned ${'\x1b[33m'}${shards.size}${'\x1b[34m'} shards.${'\x1b[0m'}`);
 })
 .catch(reason => {
     console.log('[Sharding Manager] Failed to spawn shards.');
