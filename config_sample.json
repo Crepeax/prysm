@@ -10,6 +10,7 @@
     "giphyToken": "GIPHY ACCESS TOKEN HERE",
     "meaning_of_life": 42,
     "defaultCooldown": 1500,
+    "debugLogs": false,
 
     "BfDAuthToken": "BOTS FOR DISCORD TOKEN HERE",
 

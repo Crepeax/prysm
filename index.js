@@ -80,12 +80,14 @@ function random(low, high) {
     return output;
 }
 
+let showDebugMessages = false;
 let testingMode = false; // When set to true, the bot will use the testing account instead.
 
 // This line will put the bot into "Testing" mode automatically when it is running on my PC
 if (process.env.LOGONSERVER == '\\\\DESKTOP-JAN' || process.env.LOGONSERVER == '\\\\DESKTOP-0R10B5F') testingMode = true; // Automatically use the test account when running locally.
 
 if (testingMode) prefix = config.testingPrefix;
+if (testingMode || process.env.SHOW_DEBUG || config.debugLogs) showDebugMessages = true;
 if (testingMode) console.log('[Info] Testing mode enabled!');
 
 module.exports.testingMode = testingMode;
@@ -221,7 +223,49 @@ client.on('guildDelete', guild => {
 	console.log('[Info] Server Owner: ' + guild.owner.user.username);
 	} catch {}
 })
- 
+
+
+// ------------------------------- Debug logging -------------------------------
+
+client.on('debug', (info) => {
+	if (showDebugMessages) console.debug('\x1b[34m' + `[Debug] ${info}` + '\x1b[0m');
+});
+
+
+
+client.on('disconnect', (e) => {
+	console.log('\x1b[31m' + `[Error] Client has disconnected: ${e}` + '\x1b[0m');
+	console.log('\x1b[31m' + `[Error] Exiting process with code 1.` + '\x1b[0m');
+	process.exit(1);
+});
+
+
+
+client.on('reconnecting', () => {
+	console.log('\x1b[33m' + `[Info] Reconnecting` + '\x1b[0m');
+});
+
+
+
+client.on('guildUnavailable', (guild) => {
+	console.log('\x1b[33m' + `[Info] Guild is unavailable: ${guild.name} (${guild.id})` + '\x1b[0m')
+});
+
+
+client.on('rateLimit', (rateLimitInfo) => {
+	console.log('\x1b[31m');
+	console.log(`[Warn] Client is being rate limited`);
+	console.log(`     | Limit: ${rateLimitInfo.limit}`);
+	console.log(`     | Time difference: ${rateLimitInfo.timeDifference}`);
+	console.log(`     | Path: ${rateLimitInfo.path}`);
+	console.log(`     | Method: ${rateLimitInfo.method}`);
+	console.log('\x1b[0m');
+});
+
+
+// ------------------------------ /Debug logging -------------------------------
+
+
 client.once('ready', () => {
 	console.log('\n[Setup] Ready');
 	console.log('[Setup] Running as ' + client.user.username + ' on ' + client.guilds.size + ' servers.');
