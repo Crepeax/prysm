@@ -44,3 +44,40 @@ manager.broadcast('ALL_SHARDS_READY'); // idk how to receive broadcasts help pls
 manager.on('launch', (shard) => {
     console.log(`[Sharding Manager] ${'\x1b[34m'}Shard ${'\x1b[33m'}${shard.id}${'\x1b[34m'} launched.${'\x1b[0m'}`);
 });
+
+
+let forceExit = false;
+
+process.stdin.resume(); // So the program will not close instantly
+
+function exitHandler(options, exitCode) {
+    if (exitCode || exitCode === 0) console.log('Received exit code ' + exitCode);
+    if (!options.cleanup) process.exit();
+
+    if (forceExit) process.exit();
+    forceExit = true;
+    
+    console.log(`[Sharding Manager] Logging out shards.`);
+    manager.broadcastEval('client.destroy()')
+    .then(() => {
+        console.log(`[Sharding Manager] All shards logged out successfully`);
+        process.exit();
+    })
+    .catch(e => {
+        console.log(`[Sharding Manager] Failed to log out shards: ${e}`);
+        process.exit();
+    });
+}
+
+//do something when app is closing
+process.on('exit', exitHandler.bind(null,{cleanup:true}));
+
+//catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, {cleanup:true}));
+
+// catches "kill pid" (for example: nodemon restart)
+process.on('SIGUSR1', exitHandler.bind(null, {exit:true}));
+process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
+
+//catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, {exit:true}));

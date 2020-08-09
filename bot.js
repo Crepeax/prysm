@@ -74,4 +74,4 @@ require('./functions/walk.js').walk(`${__dirname}/modules`, function(err, result
         console.log(`[Shard ${client.shard.ids[0]}] Running module ${module.meta.name} \x1b[33m${module.meta.priority}\x1b[0m`);
         module.run();
     });
-  });
+});

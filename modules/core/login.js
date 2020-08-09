@@ -17,9 +17,8 @@ module.exports.run = () => {
     });
 
     client.once('ready', () => {
-        console.log(`[Shard ${client.shard.ids[0]}] Successfully logged in as ${client.user.username}`);
-        client.shard.broadcastEval(`this.users.cache.get("${config.botOwner}")`).then(owner => data.db.botOwner = owner[0]);
         log(`Shard ${JSON.stringify(client.shard.ids)} Ready`, `Successfully logged in as ${client.user.username}#${client.user.discriminator}.`);
+        client.shard.broadcastEval(`this.users.cache.get("${config.botOwner}")`).then(owner => data.db.botOwner = owner[0]); // "Cache" the bot owner to a variable for easy access
     });
 }
 
