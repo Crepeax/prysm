@@ -29,7 +29,7 @@ module.exports = {
             });
 
         } catch(e) {
-            console.log(`[Shard ${client.shard.id}] Failed to give autorole: ${e}`);
+            console.log(`[Shard ${client.shard.ids[0]}] Failed to give autorole: ${e}`);
         }
     }
 }

@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 const data = require('../../bot');
 const client = data.client;
+const config = require('../../config.json');
 
 const autoroles = require('../../functions/autoroles');
-const { config } = require('mathjs');
 
 let logDebug = (process.env.LOG_DEBUG || config.logDebug);
 
@@ -35,7 +35,7 @@ module.exports.run = function() {
 
 module.exports.meta = {
     name: 'event_handler',
-    priority: -1
+    priority: -1 // Priority is so high because some debug messages wouldn't get logged otherwise
 }
 
 

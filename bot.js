@@ -56,7 +56,7 @@ require('./functions/walk.js').walk(`${__dirname}/modules`, function(err, result
     // Load modules in modules/*
     let loadedModules = 0;
     results.forEach(dir => {
-        if (path.extname(dir) != '.js') return console.log(`[Shard ${client.shard.id}] Can't load file: ${dir}`);
+        if (path.extname(dir) != '.js') return console.log(`[Shard ${client.shard.ids[0]}] Can't load file: ${dir}`);
         if (path.dirname(dir).endsWith('commands')) return;
         let module = require(dir);
         if (!module.meta)                            return console.log(`Module ${dir} is missing metadata.`);
@@ -66,9 +66,12 @@ require('./functions/walk.js').walk(`${__dirname}/modules`, function(err, result
         modules.set(module.meta.name, module);
         loadedModules += 1;
     });
-    console.log(`[Shard ${client.shard.id}] Loaded ${loadedModules} modules.`);
+    console.log(`[Shard ${client.shard.ids[0]}] Loaded ${loadedModules} modules.`);
 
     // Sort modules and execute them in order
     modules.sort((a, b) => a.meta.priority - b.meta.priority)
-    .forEach(module => module.run());
+    .forEach(module => {
+        console.log(`[Shard ${client.shard.ids[0]}] Running module ${module.meta.name} \x1b[33m${module.meta.priority}\x1b[0m`);
+        module.run();
+    });
   });

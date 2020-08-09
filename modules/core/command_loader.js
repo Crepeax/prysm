@@ -18,7 +18,7 @@ module.exports.run = (verbose = true) => {
     for (const file of commandFiles) {
         if (verbose) process.stdout.clearLine();
         if (verbose) process.stdout.cursorTo(0);
-        if (verbose) process.stdout.write(`[Shard ${client.shard.id}] Loading commands ${'\x1b[34m'}modules/commands/${file}${'\x1b[0m'}`);
+        if (verbose) process.stdout.write(`[Shard ${client.shard.ids[0]}] Loading commands ${'\x1b[34m'}modules/commands/${file}${'\x1b[0m'}`);
         
         const command = require(`../commands/${file}`);
         if (!command.devCommand) {
@@ -28,7 +28,7 @@ module.exports.run = (verbose = true) => {
     }
     if (verbose) process.stdout.clearLine();
     if (verbose) process.stdout.cursorTo(0);
-    if (verbose) process.stdout.write(`[Shard ${client.shard.id}] Loaded ${this.commands.size} commands.\n`);
+    if (verbose) process.stdout.write(`[Shard ${client.shard.ids[0]}] Loaded ${this.commands.size} commands.\n`);
 }
 module.exports.reloadAll = () => {
     const commandFiles = fs.readdirSync('modules/commands').filter(file => file.endsWith('.js'));
@@ -42,9 +42,9 @@ module.exports.reloadAll = () => {
             this.commands.set(command.name, command);
         }
 
-        console.log(`[Shard ${client.shard.id}] Reloaded ${file}`);
+        console.log(`[Shard ${client.shard.ids[0]}] Reloaded ${file}`);
     }
-    console.log(`[Shard ${client.shard.id}] Reloaded all commands.`);
+    console.log(`[Shard ${client.shard.ids[0]}] Reloaded all commands.`);
 }
 
 module.exports.meta = {

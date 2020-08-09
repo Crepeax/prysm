@@ -21,7 +21,6 @@ console.log('[Sharding Manager] Starting.');
 
 const config = require('./config.json');
 const Discord = require('discord.js');
-const { mod } = require('mathjs');
 const manager = new Discord.ShardingManager('./bot.js', {
     totalShards: 'auto',
     respawn: false,
