@@ -64,7 +64,7 @@ module.exports.run = () => {
             data.db.stats.inc('total_commands');
 
             // Check if the command is dev-only or disabled
-            if (command.disabled) return message.channel.send('Sorry, this command is currently unfinished, and can\'t be used.');
+            if (command.disabled) return;
             if (command.dev_only) {
                 if (!flags['EXECUTE_DEV_COMMANDS']) return message.channel.send('Sorry, this command is currently in development, and can only be used by developers.');
             }
