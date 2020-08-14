@@ -46,6 +46,8 @@ manager.on('launch', (shard) => {
 });
 
 
+// Below code *should* log out all shards when the process stops. (it doesnt)
+/*
 let forceExit = false;
 
 process.stdin.resume(); // So the program will not close instantly
@@ -56,6 +58,7 @@ function exitHandler(options, exitCode) {
 
     if (forceExit) process.exit();
     forceExit = true;
+    
     
     console.log(`[Sharding Manager] Logging out shards.`);
     manager.broadcastEval('client.destroy()')
@@ -81,3 +84,4 @@ process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
 
 //catches uncaught exceptions
 process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
+*/
