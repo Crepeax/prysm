@@ -29,7 +29,7 @@ module.exports.run = () => {
                     {name: `${userSize} ${Math.floor(Math.random()) == 0 ? 'people' : 'users'} on ${guildSize} ${Math.floor(Math.random()) == 0 ? 'servers' : 'guilds'}`, type: Math.floor(Math.random()) == 0 ? "LISTENING" : "WATCHING"},
                 ]
 
-                client.user.setActivity(activityList[index].name, {type: activityList[index].type});
+                client.user.setActivity(activityList[index]);
 
                 index += 1;
                 if (index == activityList.length) index = 0;
