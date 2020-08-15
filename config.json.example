@@ -2,8 +2,8 @@
     "token": "Insert bot token here",
     "test_token": "Add another bot token here that will be used for the test account",
 
-    "prefix": "~",
-    "testPrefix": "~",
+    "prefix": "+",
+    "testPrefix": "-",
 
     "logDebug": false,
 
