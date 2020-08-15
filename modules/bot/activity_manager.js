@@ -26,7 +26,6 @@ module.exports.run = () => {
                     {name: `${userSize} ${Math.floor(Math.random()) == 0 ? 'users' : 'people'}`, type: "WATCHING"},
                     {name: `+help`, type: "LISTENING"},
                     {name: `${userSize} children`, type: "LISTENING"},
-                    {name: `${userSize} ${Math.floor(Math.random()) == 0 ? 'people' : 'users'} on ${guildSize} ${Math.floor(Math.random()) == 0 ? 'servers' : 'guilds'}`, type: Math.floor(Math.random()) == 0 ? "LISTENING" : "WATCHING"},
                 ]
 
                 client.user.setActivity(activityList[index]);
