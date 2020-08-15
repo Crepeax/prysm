@@ -1,0 +1,19 @@
+{
+    "token": "Insert bot token here",
+    "test_token": "Add another bot token here that will be used for the test account",
+
+    "prefix": "~",
+    "testPrefix": "~",
+
+    "logDebug": false,
+
+    "botOwner": "Owner ID here",
+    "testingComputers": [
+        "\\\\PC-NAME HERE"
+    ],
+
+    "loggingWebhook": {
+        "id": "Webhook ID",
+        "token": "Webhook access token for debug logging"
+    }
+}
