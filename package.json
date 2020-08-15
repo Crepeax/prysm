@@ -47,7 +47,7 @@
     "node-ejs": "^1.2.3",
     "node-red-contrib-google-tts": "^1.1.1",
     "node-wit": "^5.0.0",
-    "oauth2-server": "^3.0.2",
+    "oauth2-server": "^3.1.1",
     "opusscript": "0.0.7",
     "pug": "^2.0.4",
     "request": "^2.81.0",
