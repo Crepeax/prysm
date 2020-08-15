@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const data = require('../../bot');
 const client = data.client;
+var readline = require('readline');
 
 const fs = require('fs');
 
@@ -16,8 +17,8 @@ module.exports.run = (verbose = true) => {
     // Load all files in the commands folder
     const commandFiles = fs.readdirSync('modules/commands').filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
-        if (verbose) process.stdout.clearLine();
-        if (verbose) process.stdout.cursorTo(0);
+        if (verbose) readline.clearLine(process.stdout);
+        if (verbose) readline.cursorTo(process.stdout, 0);
         if (verbose) process.stdout.write(`[Shard ${client.shard.ids[0]}] Loading commands ${'\x1b[34m'}modules/commands/${file}${'\x1b[0m'}`);
         
         const command = require(`../commands/${file}`);
@@ -26,8 +27,8 @@ module.exports.run = (verbose = true) => {
             if (command.disabled || command.dev_only) this.disabled += 1; else this.available += 1;
         }
     }
-    if (verbose) process.stdout.clearLine();
-    if (verbose) process.stdout.cursorTo(0);
+    if (verbose) readline.clearLine(process.stdout);
+    if (verbose) readline.cursorTo(process.stdout, 0);
     if (verbose) process.stdout.write(`[Shard ${client.shard.ids[0]}] Loaded ${this.commands.size} commands.\n`);
 }
 module.exports.reloadAll = () => {
