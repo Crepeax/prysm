@@ -4,7 +4,6 @@ const client = data.client;
 const config = require('../../config.json');
 const { log } = require('../../functions/logging');
 
-const autoroles = require('../../functions/autoroles');
 const { messaging } = require('firebase');
 
 async function getGuildCount() {
