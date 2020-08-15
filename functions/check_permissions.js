@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = require('../bot').client;
+const { log } = require('./logging.js');
 
 /**
  * @param {object} command 
@@ -10,14 +11,16 @@ module.exports.check = function(command, guild, message) {
     // Old, re-used code, not fancy but it does the job
 	// To-do: Take channel permission overwrites into consideration
 	
+	// Logs an error when a command uses "old" variable names
 	if (command.perms && !command.reqPerms) {
-		console.log(`Command ${command.name} is using 'perms' instead of 'botPerms'.`);
-		return true;
+		log('Command update required', `Command ${command.name} is using 'perms' instead of 'botPerms'.`);
+		return false;
 	}
 
 	// Always return true if message was sent in DMs
 	if (!guild) return true;
 
+	// Permission check happens here - Bot only
     let reqPerms = new Discord.Permissions(0);
 	let reqPermsStr = '';
 	if (command.botPerms == undefined) {reqPerms.add('ADMINISTRATOR'); command.botPerms = ['ADMINISTRATOR']}
@@ -36,6 +39,7 @@ module.exports.check = function(command, guild, message) {
         return true;
 	} else {
 		if (bot_member.permissions.has('SEND_MESSAGES') && bot_member.permissions.has('EMBED_LINKS')) {
+
             // Bot does not have the required permissions, but can send embeds
 			let embed = new Discord.MessageEmbed()
 			.setTitle('Missing permissions')
@@ -43,15 +47,14 @@ module.exports.check = function(command, guild, message) {
 			.setColor('ff0000')
 			.setFooter('You need to give these permissions to Prysm if you want to use this command.');
             message.channel.send(embed);
-            return false;
+			return false;
+			
 		} else if (bot_member.permissions.has('SEND_MESSAGES')) {
+
             // Bot does not have the required permissions and can't send embeds
             message.channel.send('I am mising the \'Embed links\' permission to function porperly.');
-            return false;
-		} else {
-            // Bot is not allowed to send messages
-            message.author.send(`I don\'t have permission to reply to your command. Please contact ${guild.name}'s administrators.`);
-            return false;
-		}
+			return false;
+
+		} else return false;
 	}
 }

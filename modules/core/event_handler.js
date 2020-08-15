@@ -2,8 +2,16 @@ const Discord = require('discord.js');
 const data = require('../../bot');
 const client = data.client;
 const config = require('../../config.json');
+const { log } = require('../../functions/logging');
 
 const autoroles = require('../../functions/autoroles');
+const { messaging } = require('firebase');
+
+async function getGuildCount() {
+    let serverCount = await client.shard.fetchClientValues('guilds.cache.size');
+    serverCount = serverCount.reduce((p, n) => p + n, 0);
+    return serverCount;
+}
 
 let logDebug = (process.env.LOG_DEBUG || config.logDebug);
 
@@ -13,6 +21,23 @@ module.exports.run = function() {
         autoroles.giveRoles(member.guild, member.user);
     });
 
+    client.on('guildCreate', async function(guild) {
+        const count = await getGuildCount();
+        log('Added to server', `The bot was added to a new server.\nNew guild size: ${count}${
+            // Only log guild details in testing mode
+            require('./login').testingMode ? `\nGuild name: ${guild.name}\nMember count: ${guild.memberCount}\nGuild owner: ${guild.owner.user.tag}` : ''
+        }`);
+    });
+    
+
+    client.on('guildDelete', async function(guild) {
+        const count = await getGuildCount();
+        log('Removed from server', `The bot was removed from a server.\nNew guild size: ${count}${
+            // Only log guild details in testing mode
+            require('./login').testingMode ? `\nGuild name: ${guild.name}\nMember count: ${guild.memberCount}\nGuild owner: ${guild.owner.user.tag}` : ''
+        }`);
+    });
+
 
     // Debug logging
     client.on('debug', info => {
@@ -20,16 +45,22 @@ module.exports.run = function() {
     });
 
     client.on('reconnecting', () => {
-        console.log(`${colors.fg.yellow}[Info] Reconnecting client${colors.reset}`)
+        console.log(`${colors.fg.yellow}[Info] Reconnecting client${colors.reset}`);
+        log('Client reconnecting', 'The client is reconnecting.');
     });
 
     client.on('disconnect', (event) => {
         console.log(`${colors.fg.red}[Error] Client disconnected.${colors.reset}`);
+        log('Client disconnected', `The client has disconnected and will no longer try to reconnect.\nEvent: ${event}`, true);
         client.destroy().catch();
     });
 
     client.on('error', (error) => {
         console.dir(colors.fg.red + error + colors.reset);
+    });
+
+    client.on('rateLimit', (data) => {
+        console.log(colors.fg.yellow + '[Warning] Rate limited\n'+ colors.fg.cyan + `Limit: ${data.limit}\nMethod: ${data.method}\nPath: ${data.path}\nRoute: ${data.route}\nTime Difference: ${data.timeDifference}\nTimeout: ${data.timeout}` + colors.reset)
     });
 }
 

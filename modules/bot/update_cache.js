@@ -32,5 +32,5 @@ module.exports.run = function() {
 
 module.exports.meta = {
     name: 'update_cache',
-    priority: 6
+    priority: 7
 }

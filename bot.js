@@ -71,7 +71,7 @@ require('./functions/walk.js').walk(`${__dirname}/modules`, function(err, result
     // Sort modules and execute them in order
     modules.sort((a, b) => a.meta.priority - b.meta.priority)
     .forEach(module => {
-        console.log(`[Shard ${client.shard.ids[0]}] Running module ${module.meta.name} \x1b[33m${module.meta.priority}\x1b[0m`);
+        console.log(`[Shard ${client.shard.ids[0]}] Running module \x1b[33m${module.meta.priority}\x1b[0m ${module.meta.name}`);
         module.run();
     });
 });

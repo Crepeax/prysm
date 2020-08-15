@@ -31,7 +31,7 @@ module.exports = {
     syntax: 'dev [Subcommand]',
     guildOnly: false,
     hidden: true,
-    perms: ['SEND_MESSAGES', 'EMBED_LINKS'],
+    botPerms: ['SEND_MESSAGES', 'EMBED_LINKS'],
     execute(message, args) {
         if (!args[0]) return message.channel.send('Error: No subcommand provided.\nAvailable commands: `' + commands.keyArray().join('`, `') + '`');
         const commandName = args[0];

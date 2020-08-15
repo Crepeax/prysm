@@ -1,11 +1,7 @@
 const Discord = require('discord.js');
 
 /*
-let randomFuncPath = require('../functions/random.js');
-function random(low, high) {
-    var output = randomFuncPath.execute(low, high);
-    return output;
-}
+let random = require('../../functions/random.js').execute;
 */
 
 module.exports = {
