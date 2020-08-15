@@ -117,5 +117,7 @@ data
 data-storage
 error-logs
 
+guilddata.json
+
 # Remove this before release!!!!!!!!!!
 old_commands/
