@@ -31,19 +31,20 @@ module.exports.execute = (message, args) => {
         require('../bot/remindmeManager.js').delAllReminders(message.author);
         return message.channel.send('Deleted all reminders.');
     }
+    
+    let helpEmbed = new Discord.MessageEmbed()
+    .setTitle('Remind me')
+    .setDescription(`Sends you a message after a specific amount of time.`)
+    .addField(`Setting a reminder`, `To set a reminder, simply type \`${config.prefix}remindme [Time] [Text]\`. \nExample: \`${config.prefix}remindme 10m Call Bob\``, false)
+    .addField(`Deleting all reminders`, `To delete all reminders, simply type \`${config.prefix}remindme deleteall\`.`, false)
+    .setColor('4f545c');
 
     if (args[0].toLowerCase() == 'help') {
-        let embed = new Discord.MessageEmbed()
-        .setTitle('Remind me')
-        .setDescription(`Sends you a message after a specific amount of time.`)
-        .addField(`Setting a reminder`, `To set a reminder, simply type \`${config.prefix}remindme [Time] [Text]\`. \nExample: \`${config.prefix}remindme 10m Call Bob\``, false)
-        .addField(`Deleting all reminders`, `To delete all reminders, simply type \`${config.prefix}remindme deleteall\`.`, false)
-        .setColor('4f545c');
-        return message.channel.send(embed);
+        return message.channel.send(helpEmbed);
     }
 
     let helpStr = `Usage: ${config.prefix}remindme [Time] [Reminder]\nExample: ${config.prefix}remindme 30m Call Bob\nFor more info, use ${config.prefix}remindme help.`;
-    if (!args[0]) return message.channel.send(helpStr);
+    if (!args[0]) return message.channel.send(helpEmbed);
 
     // Limit the maximum amount of reminders the user can have
     let flags = getFlags(message.author);
