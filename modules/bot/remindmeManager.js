@@ -59,7 +59,7 @@ module.exports = {
                     )
                     .setFooter(`You received this message because you used the ${getPrefix()}remindme command.`)
                     .setTimestamp(details.createdAt)
-                    .setColor('2f3136')
+                    .setColor('4f545c')
                     if (client.users.cache.get(u)) client.users.cache.get(u).send(mesg);
                     let l = reminders.get(u);
                     delete l[o];

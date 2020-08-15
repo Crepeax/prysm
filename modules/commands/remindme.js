@@ -38,7 +38,7 @@ module.exports.execute = (message, args) => {
         .setDescription(`Sends you a message after a specific amount of time.`)
         .addField(`Setting a reminder`, `To set a reminder, simply type \`${config.prefix}remindme [Time] [Text]\`. \nExample: \`${config.prefix}remindme 10m Call Bob\``, false)
         .addField(`Deleting all reminders`, `To delete all reminders, simply type \`${config.prefix}remindme deleteall\`.`, false)
-        .setColor('2f3136');
+        .setColor('4f545c');
         return message.channel.send(embed);
     }
 
