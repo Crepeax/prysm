@@ -13,7 +13,8 @@ module.exports.log = function(title, description, important) {
     let embed = new Discord.MessageEmbed()
     .setTitle(title)
     .setDescription(description)
-    .setAuthor(`Shard ${JSON.stringify(client.shard.ids)}${testingMode == true ? ' [Testing mode]' : ''}`, client.user.avatarURL);
+    .setAuthor(`Shard ${JSON.stringify(client.shard.ids)}${testingMode == true ? ' [Testing mode]' : ''}`, client.user.avatarURL)
+    .setFooter(client.user.username, client.user.avatarURL());
     if (important) embed.setColor('ff0000');
     console.log(`${important == true ? '[!] ' : ''}${title}: ${description}`);
     whClient.send(embed)
