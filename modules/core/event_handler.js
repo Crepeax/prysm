@@ -66,7 +66,7 @@ module.exports.run = function() {
 
 module.exports.meta = {
     name: 'event_handler',
-    priority: -1 // Priority is so high because some debug messages wouldn't get logged otherwise
+    priority: 0
 }
 
 

@@ -37,5 +37,5 @@ module.exports.run = () => {
 
 module.exports.meta = {
     name: 'cleanup',
-    priority: 0
+    priority: -1
 }
