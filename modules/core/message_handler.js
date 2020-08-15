@@ -5,6 +5,7 @@ const getPrefix = require('../../functions/getPrefix').getPrefix;
 const checkPermissions = require('../../functions/check_permissions');
 const { getFlags } = require('../../functions/permission_flags');
 const config = require('../../config.json');
+const { concatTransformDependencies } = require('mathjs');
 
 module.exports.run = () => {
     
@@ -52,9 +53,9 @@ module.exports.run = () => {
             command = commands.get(commandName) || commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
             if (!command) return;
+            if (command.guildOnly && !message.guild) return message.channel.send('Sorry, this command can not be used in DMs.')
             
             const flags = getFlags(message.author);
-
             if (flags) {
                 if (flags["BLACKLIST"]) return message.channel.send(`${message.author}, you are currently blacklisted from using this bot.`);
                 if (flags["SILENT_BLACKLIST"]) return;
